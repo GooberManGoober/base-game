@@ -408,7 +408,7 @@ function onStartCountdown()
 				camGame.visible = false;
 				camHUD.alpha = 0;
 
-				var cutscene = new FunkinVideoSprite(0, 0, false, true);
+				var cutscene = new FunkinVideoSprite(false);
 				cutscene.load(Paths.video("darnellCutscene"));
 				cutscene.cameras = [camOther];
 				cutscene.play();
@@ -420,7 +420,7 @@ function onStartCountdown()
 					Paths.getSparrowAtlas('backgrounds/phillyStreets/spraypaintExplosionEZ');
 					Paths.getSparrowAtlas('backgrounds/phillyStreets/SpraypaintExplosion');
 					
-					FunkinSound.playMusic(Paths.music('darnellCanCutscene/darnellCanCutscene'));
+					FunkinSound.playMusic(Paths.music('darnellCanCutscene/darnellCanCutscene'), 1, false);
 					snapCamToPos(getCharacterCameraPos(boyfriend).x + 250, getCharacterCameraPos(boyfriend).y + 80, true);
 					
 					playHUD.visible = false;
