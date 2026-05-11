@@ -1,215 +1,216 @@
 {
 	"animations": [
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "idle",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "idle"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "right",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "right"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "down",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "down"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "up",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "up"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "left",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "left"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"fps": 24,
-			"name": "right miss",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "right miss"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWNmiss",
-			"fps": 24,
-			"name": "down miss",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "down miss"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singUPmiss",
-			"fps": 24,
-			"name": "up miss",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "up miss"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFTmiss",
-			"fps": 24,
-			"name": "left miss",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "left miss"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "knifeToss",
-			"fps": 24,
-			"name": "nene knife",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "nene knife"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "laughEnd",
-			"fps": 24,
-			"name": "laugh start",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "laugh start"
 		},
 		{
-			"loop": true,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": true,
+			"fps": 24,
 			"anim": "laughEnd-loop",
-			"fps": 24,
-			"name": "laugh loop",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "laugh loop"
 		},
 		{
-			"loop": false,
-			"flipY": false,
 			"offsets": [
 				543,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
 			"anim": "firstDeath",
-			"fps": 24,
-			"name": "intro",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "intro"
 		},
 		{
-			"loop": true,
-			"flipY": false,
 			"offsets": [
 				543,
 				0
 			],
+			"flipY": false,
+			"loop": true,
+			"fps": 24,
 			"anim": "deathLoop",
-			"fps": 24,
-			"name": "loop",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "loop"
 		},
 		{
+			"offsets": [
+				543,
+				0
+			],
+			"flipY": false,
 			"loop": false,
-			"flipY": false,
-			"offsets": [
-				543,
-				0
-			],
-			"anim": "deathConfirm",
 			"fps": 24,
-			"name": "confirm",
+			"anim": "deathConfirm",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "confirm"
 		},
 		{
-			"loop": true,
-			"flipY": false,
 			"offsets": [
 				543,
 				0
 			],
-			"anim": "deathConfirm-loop",
+			"flipY": false,
+			"loop": true,
 			"fps": 24,
-			"name": "confirm loop",
+			"anim": "deathConfirm-loop",
+			"flipX": false,
 			"indices": [],
-			"flipX": false
+			"name": "confirm loop"
 		}
 	],
 	"no_antialiasing": false,
+	"ghosts_enabled": false,
 	"image": "characters/pico-holding-nene,characters/pico-holding-nene/picoAndNene-DEAD",
 	"position": [
 		52,
@@ -223,12 +224,13 @@
 	"gameover_character": null,
 	"vslice_sustains": false,
 	"flip_x": true,
-	"healthbar_colour": -8355712,
+	"healthbar_colour": -4728747,
 	"camera_position": [
 		-32,
 		24
 	],
 	"gameover_loop_sound": null,
+	"icon_count": 2,
 	"sing_duration": 4,
 	"scale": 1,
 	"_editor_isPlayer": true

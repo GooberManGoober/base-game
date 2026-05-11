@@ -1,0 +1,7 @@
+Changes the camera target
+
+Value 1: Target (Player, Opponent, Girlfriend, Position)
+Value 2: X, Y, Time, Ease, Tweening Toggle
+
+X, and Y Values will act an offset if the target isn't 'Position'
+Time & Ease will be ignored if the Tweening Bool is false.

@@ -1,57 +1,57 @@
 {
+	"storyName": "Due Debts",
+	"hideFreeplay": false,
+	"weekBackground": "phillystreets",
+	"weekBefore": "week7",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"darnell",
+		"pico-player",
+		"nene"
+	],
 	"songs": [
 		[
 			"Darnell",
 			"darnell",
 			[
-				200,
-				100,
-				200
+				65,
+				60,
+				174
 			]
 		],
 		[
 			"lit up",
 			"darnell",
 			[
-				200,
-				100,
-				200
+				65,
+				60,
+				174
 			]
 		],
 		[
 			"2hot",
 			"darnell",
 			[
-				200,
-				100,
-				200
+				65,
+				60,
+				174
 			]
 		],
 		[
 			"blazin",
 			"darnell",
 			[
-				200,
-				100,
-				200
+				65,
+				60,
+				174
 			]
 		]
 	],
-	"hideFreeplay": false,
-	"weekBackground": "tank",
-	"weekCharacters": [
-		"tankman",
-		"bf",
-		"gf"
-	],
-	"storyName": "Tankman",
-	"weekName": "Week 7",
-	"freeplayColor": [
-		146,
-		113,
-		253
-	],
 	"hideStoryMode": false,
-	"weekBefore": "week6",
-	"startUnlocked": true
+	"weekName": "Weekend 1"
 }

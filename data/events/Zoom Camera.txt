@@ -1,0 +1,4 @@
+Changes the camera zoom
+
+Value 1: New Zoom Value
+Value 2: Time, Ease.

@@ -1,82 +1,198 @@
 {
-  "version": "1.0.0",
-  "name": "Tankman (Bloody)",
-  "renderType": "multianimateatlas",
-  "assetPath": "characters/tankman/basic",
-  "offsets": [3, -44],
-  "cameraOffsets": [-3, 32],
-  "healthIcon": {
-    "id": "tankman"
-  },
-  "animations": [
-    {
-      "name": "idle",
-      "prefix": "idle"
-    },
-    {
-      "name": "singLEFT",
-      "prefix": "left"
-    },
-    {
-      "name": "singDOWN",
-      "prefix": "down"
-    },
-    {
-      "name": "singUP",
-      "prefix": "up"
-    },
-    {
-      "name": "singRIGHT",
-      "prefix": "right"
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "idle-bloody",
-      "prefix": "idle knife",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "singLEFT-bloody",
-      "prefix": "left knife",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "singDOWN-bloody",
-      "prefix": "down knife",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "singUP-bloody",
-      "prefix": "up knife",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "singRIGHT-bloody",
-      "prefix": "right knife",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "hehPrettyGood-bloody",
-      "prefix": "pretty good bloody",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "characters/tankman/bloody",
-      "name": "redheadsAnim",
-      "prefix": "redheads",
-      "offsets": [67, 110]
-    },
-    {
-      "assetPath": "week7:erect/cutscene/tankmanEnding",
-      "name": "stressPicoEnding",
-      "prefix": "tankman stress ending",
-      "animType": "symbol",
-      "offsets": [-87, 18]
-    }
-  ]
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "left"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "down"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "singUP",
+			"loop": false,
+			"name": "up"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "right"
+		},
+		{
+			"offsets": [
+				-87,
+				18
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "stressPicoEnding",
+			"loop": false,
+			"name": "tankman stress ending"
+		},
+		{
+			"offsets": [
+				60,
+				65
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "redheadsAnim",
+			"loop": false,
+			"name": "tankman redheads plus knife"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "idle",
+			"loop": false,
+			"name": "idle"
+		},
+		{
+			"offsets": [
+				-86,
+				-10
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": true,
+			"flipY": false,
+			"anim": "idle-bloody",
+			"loop": false,
+			"name": "Tankman Idle bloody"
+		},
+		{
+			"offsets": [
+				-83,
+				26
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "hehPrettyGood-bloody",
+			"loop": false,
+			"name": "PRETTY GOOD tankman bloody"
+		},
+		{
+			"offsets": [
+				-22,
+				-175
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": true,
+			"flipY": false,
+			"anim": "singDOWN-bloody",
+			"loop": false,
+			"name": "Tankman DOWN note bloody"
+		},
+		{
+			"offsets": [
+				1,
+				-8
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": true,
+			"flipY": false,
+			"anim": "singLEFT-bloody",
+			"loop": false,
+			"name": "Tankman Right Note bloody"
+		},
+		{
+			"offsets": [
+				-123,
+				-43
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": true,
+			"flipY": false,
+			"anim": "singRIGHT-bloody",
+			"loop": false,
+			"name": "Tankman Note Left bloody"
+		},
+		{
+			"offsets": [
+				-45,
+				110
+			],
+			"indices": [],
+			"fps": 24,
+			"flipX": true,
+			"flipY": false,
+			"anim": "singUP-bloody",
+			"loop": false,
+			"name": "Tankman UP note bloody"
+		}
+	],
+	"no_antialiasing": false,
+	"ghosts_enabled": false,
+	"image": "characters/tankman/basic, characters/tankman/bloody, backgrounds/tank/erect/cutscene/tankmanEnding",
+	"position": [
+		3,
+		-44
+	],
+	"dance_every": 2,
+	"gameover_intial_sound": null,
+	"scalableOffsets": false,
+	"gameover_confirm_sound": null,
+	"healthicon": "tankman",
+	"gameover_character": null,
+	"vslice_sustains": false,
+	"flip_x": false,
+	"healthbar_colour": -1973791,
+	"camera_position": [
+		-3,
+		32
+	],
+	"gameover_loop_sound": null,
+	"icon_count": 2,
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
 }

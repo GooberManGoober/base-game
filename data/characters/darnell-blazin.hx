@@ -1,155 +1,342 @@
-import haxe.ds.StringMap;
+var cantUppercut:Bool = false;
+function goodNoteHit(note:Note)
+{
+    // SPECIAL CASE: If Pico hits a poor note at low health (at 30% chance),
+    // Darnell may duck below Pico's punch to attempt an uppercut.
+    // TODO: Maybe add a cooldown to this?
+    if (wasNoteHitPoorly(note.rating) && isPlayerLowHealth() && FlxG.random.bool(30))
+    {
+        playUppercutPrepAnim();
+        return;
+    }
 
-var noteHitActions = new StringMap();
-var noteMissActions = new StringMap();
+    if (cantUppercut)
+    {
+        playPunchHighAnim();
+        return;
+    }
 
-var intendedChar = dad;
-var intendedGrp = dadGroup;
+    // Override the hit note animation.
+    switch (note.noteType)
+    {
+        case "punchlow":
+            playHitLowAnim();
+        case "punchlowblocked":
+            playBlockAnim();
+        case "punchlowdodged":
+            playDodgeAnim();
+        case "punchlowspin":
+            playSpinAnim();
 
-function onCreatePost(){
-    intendedChar.canDance = false;
+        case "punchhigh":
+            playHitHighAnim();
+        case "punchhighblocked":
+            playBlockAnim();
+        case "punchhighdodged":
+            playDodgeAnim();
+        case "punchhighspin":
+            playSpinAnim();
 
-    for(i in ['blockhigh', 'blockspin', 'dodgehigh', 'dodgespin', 'hithigh', 'hitspin'])
-        noteHitActions.set(i, playPunchHighAnim);
-    for(i in ['blocklow', 'dodgelow', 'hitlow'])
-        noteHitActions.set(i, playPunchLowAnim);
-    for(i in ['punchlowblocked', 'punchhighblocked'])
-        noteHitActions.set(i, playBlockAnim);
-    for(i in ['punchlowdodged', 'punchhighdodged'])
-        noteHitActions.set(i, playDodgeAnim);
-    for(i in ['punchlowspin', 'punchhighspin'])
-        noteHitActions.set(i, playHitSpinAnim);
-    noteHitActions.set('punchhigh', playHitHighAnim);
-    noteHitActions.set('punchlow', playHitLowAnim);
-    noteHitActions.set('darnelluppercutprep', playUppercutPrepAnim);
-    noteHitActions.set('darnelluppercut', playUppercutAnim);
-    noteHitActions.set('picouppercut', playUppercutHitAnim);
-    noteHitActions.set('idle', playIdleAnim);
-    noteHitActions.set('fakeout', playCringeAnim);
-    noteHitActions.set('taunt', playPissedConditionalAnim);
-    noteHitActions.set('tauntforce', playPissedAnim);
-    noteHitActions.set('reversefakeout', playFakeoutAnim);
+        // Attempt to punch, Pico dodges or gets hit.
+        case "blockhigh":
+            playPunchHighAnim();
+        case "blocklow":
+            playPunchLowAnim();
+        case "blockspin":
+            playPunchHighAnim();
 
-    for(i in ['punchlow', 'punchlowblocked', 'punchlowdodged', 'blocklow', 'dodgelow', 'hitlow'])
-        noteMissActions.set(i, playPunchLowAnim);
-    for(i in ['punchhigh', 'punchhighblocked', 'punchhighdodged', 'blockhigh', 'dodgehigh', 'hithigh', 'fakeout', 'punchlowspin', 'punchhighspin', 'blockspin', 'hitspin'])
-        noteMissActions.set(i, playPunchHighAnim);
-    noteMissActions.set('taunt', playPissedConditionalAnim);
-    noteMissActions.set('tauntforce', playPissedAnim);
+        // Attempt to punch, Pico dodges or gets hit.
+        case "dodgehigh":
+            playPunchHighAnim();
+        case "dodgelow":
+            playPunchLowAnim();
+        case "dodgespin":
+            playPunchHighAnim();
 
+        // Attempt to punch, Pico ALWAYS gets hit.
+        case "hithigh":
+            playPunchHighAnim();
+        case "hitlow":
+            playPunchLowAnim();
+        case "hitspin":
+            playPunchHighAnim();
+
+        // Fail to dodge the uppercut.
+        case "picouppercutprep":
+            // Continue whatever animation was playing before
+            // playIdleAnim();
+        case "picouppercut":
+            playUppercutHitAnim();
+
+        // Attempt to punch, Pico dodges or gets hit.
+        case "darnelluppercutprep":
+            playUppercutPrepAnim();
+        case "darnelluppercut":
+            playUppercutAnim();
+
+        case "idle":
+            playIdleAnim();
+        case "fakeout":
+            playCringeAnim();
+        case "taunt":
+            playPissedConditionalAnim();
+        case "tauntforce":
+            playPissedAnim();
+        case "reversefakeout":
+            playFakeoutAnim();
+    }
+
+    cantUppercut = false;
+}
+
+function missFunc(note:Note)
+{
+    // SPECIAL CASE: Darnell prepared to uppercut last time and Pico missed! FINISH HIM!
+    if (dad.getAnimName() == 'uppercutPrep')
+    {
+        playUppercutAnim();
+        return;
+    }
+
+    if (willMissBeLethal())
+    {
+        playPunchLowAnim();
+        return;
+    }
+
+    if (cantUppercut)
+    {
+        playPunchHighAnim();
+        return;
+    }
+
+    // Override the hit note animation.
+    switch (note.noteType)
+    {
+        // Pico tried and failed to punch, punch back!
+        case "punchlow":
+            playPunchLowAnim();
+        case "punchlowblocked":
+            playPunchLowAnim();
+        case "punchlowdodged":
+            playPunchLowAnim();
+        case "punchlowspin":
+            playPunchLowAnim();
+
+        // Pico tried and failed to punch, punch back!
+        case "punchhigh":
+            playPunchHighAnim();
+        case "punchhighblocked":
+            playPunchHighAnim();
+        case "punchhighdodged":
+            playPunchHighAnim();
+        case "punchhighspin":
+            playPunchHighAnim();
+
+        // Attempt to punch, Pico dodges or gets hit.
+        case "blockhigh":
+            playPunchHighAnim();
+        case "blocklow":
+            playPunchLowAnim();
+        case "blockspin":
+            playPunchHighAnim();
+
+        // Attempt to punch, Pico dodges or gets hit.
+        case "dodgehigh":
+            playPunchHighAnim();
+        case "dodgelow":
+            playPunchLowAnim();
+        case "dodgespin":
+            playPunchHighAnim();
+
+        // Attempt to punch, Pico ALWAYS gets hit.
+        case "hithigh":
+            playPunchHighAnim();
+        case "hitlow":
+            playPunchLowAnim();
+        case "hitspin":
+            playPunchHighAnim();
+
+        // Successfully dodge the uppercut.
+        case "picouppercutprep":
+            playHitHighAnim();
+            cantUppercut = true;
+        case "picouppercut":
+            playDodgeAnim();
+
+        // Attempt to punch, Pico dodges or gets hit.
+        case "darnelluppercutprep":
+            playUppercutPrepAnim();
+        case "darnelluppercut":
+            playUppercutAnim();
+
+        case "idle":
+            playIdleAnim();
+        case "fakeout":
+            playCringeAnim(); // TODO: Which anim?
+        case "taunt":
+            playPissedConditionalAnim();
+        case "tauntforce":
+            playPissedAnim();
+        case "reversefakeout":
+            playFakeoutAnim(); // TODO: Which anim?
+    }
+    cantUppercut = false;
+}
+
+function noteMissPress(direction:Int)
+{
+    if (willMissBeLethal())
+        playPunchLowAnim(); // Darnell alternates a punch so that Pico dies.
+    else
+    {
+        // Pico wildly throws punches but Darnell alternates between dodges and blocks.
+        var shouldDodge = FlxG.random.bool(50); // 50/50.
+        if (shouldDodge)
+            playDodgeAnim();
+        else
+            playBlockAnim();
+    }
 }
 
 var alternate:Bool = false;
-function doAlternate(){
+function doAlternate():String
+{
     alternate = !alternate;
     return alternate ? '1' : '2';
 }
 
-function moveToFront(){
-    intendedGrp.zIndex = 3000;
-    refreshZ(stage);
-}
-
-function moveToBack(){
-    intendedGrp.zIndex = 2000;
-    refreshZ(stage);
-}
-
-function playIdleAnim(){
-    intendedChar.playAnim('idle', true);
+function playBlockAnim()
+{
+    dad.playAnim('block', true);
+    PlayState.instance.camGame.shake(0.002, 0.1);
     moveToBack();
 }
-function playPunchHighAnim(){
-    intendedChar.playAnim('punchHigh' + doAlternate(), true);
+
+function playCringeAnim()
+{
+    dad.playAnim('cringe', true);
+    moveToBack();
+}
+
+function playDodgeAnim()
+{
+    dad.playAnim('dodge', true, false);
+    moveToBack();
+}
+
+function playIdleAnim()
+{
+    dad.playAnim('idle', false);
+    moveToBack();
+}
+
+function playFakeoutAnim()
+{
+    dad.playAnim('fakeout', true);
+    moveToBack();
+}
+
+function playPissedConditionalAnim()
+{
+    if (dad.getAnimName() == "cringe")
+        playPissedAnim();
+    else
+        playIdleAnim();
+}
+
+function playPissedAnim()
+{
+    dad.playAnim('pissed', true);
+    moveToBack();
+}
+
+function playUppercutPrepAnim()
+{
+    dad.playAnim('uppercutPrep', true);
     moveToFront();
 }
 
-function playPunchLowAnim(){
-    intendedChar.playAnim('punchLow' + doAlternate(), true);
+function playUppercutAnim()
+{
+    dad.playAnim('uppercut', true);
     moveToFront();
 }
 
-function playHitHighAnim(){
-    intendedChar.playAnim('hitHigh', true);
+function playUppercutHitAnim()
+{
+    dad.playAnim('uppercutHit', true);
+    moveToBack();
+}
+
+function playHitHighAnim()
+{
+    dad.playAnim('hitHigh', true);
     camGame.shake(0.0025, 0.15);
     moveToBack();
 }
 
-function playHitLowAnim(){
-    intendedChar.playAnim('hitLow', true);
+function playHitLowAnim()
+{
+    dad.playAnim('hitLow', true);
     camGame.shake(0.0025, 0.15);
     moveToBack();
 }
 
-function playHitSpinAnim(){
-    intendedChar.playAnim('hitSpin', true);
+function playPunchHighAnim()
+{
+    dad.playAnim('punchHigh' + doAlternate(), true);
+    moveToFront();
+}
+
+function playPunchLowAnim()
+{
+    dad.playAnim('punchLow' + doAlternate(), true);
+    moveToFront();
+}
+
+function playSpinAnim()
+{
+    dad.playAnim('hitSpin', true);
     camGame.shake(0.0025, 0.15);
     moveToBack();
 }
 
-function playBlockAnim(){
-    intendedChar.playAnim('block', true);
-    camGame.shake(0.002, 0.1);
-    moveToBack();
+function willMissBeLethal()
+{
+    return health <= 0.0 && !practiceMode;
 }
 
-function playDodgeAnim(){
-    intendedChar.playAnim('dodge', true);
-    moveToBack();
+function wasNoteHitPoorly(rating:String)
+{
+    return (rating == "bad" || rating == "shit");
 }
 
-function playUppercutPrepAnim(){
-    intendedChar.playAnim('uppercutPrep', true);
-    moveToFront();
+function isPlayerLowHealth()
+{
+    return health <= 0.3 * 2;
 }
 
-function playUppercutAnim(){
-    intendedChar.playAnim('uppercut', true);
-    camGame.shake(0.005, 0.25);
-    moveToFront();
+function moveToBack()
+{
+    boyfriendGroup.zIndex = 3000;
+	dadGroup.zIndex = 2000;
+    refreshZ();
 }
 
-function playUppercutHitAnim(){
-    intendedChar.playAnim('uppercutHit', true);
-    camGame.shake(0.005, 0.25);
-    moveToBack();
+function moveToFront()
+{
+    boyfriendGroup.zIndex = 2000;
+	dadGroup.zIndex = 3000;
+    refreshZ();
 }
 
-
-function playCringeAnim(){
-    intendedChar.playAnim('cringe', true);
-    moveToBack();
+function opponentNoteHit(note:Note)
+{
+    missFunc(note);
 }
 
-function playFakeoutAnim(){
-    intendedChar.playAnim('fakeout', true);
-    moveToBack();
-}
-
-function playPissedAnim(){
-    intendedChar.playAnim('pissed', true);
-    moveToBack();
-}
-
-function playPissedConditionalAnim(){
-    if(intendedChar.getAnimName() == 'cringe') playPissedAnim();
-    else playIdleAnim();
-}
-
-// note stuff
-function goodNoteHit(note){
-    if(note.noteType == 'picouppercutprep') return;
-    
-    var action = noteHitActions.get(note.noteType);
-    action();
-}
-
-function opponentNoteHit(note){
-    var action = noteHitActions.get(note.noteType);
-    action();
-}
-
-function noteMiss(note){
-    var action = noteMissActions.get(note.noteType);
-    action();
+function noteMiss(note:Note)
+{
+    missFunc(note);
 }

@@ -1,224 +1,143 @@
 {
 	"animations": [
 		{
-			"loop": true,
-			"flipY": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
-			"fps": 24,
-			"name": "Idle",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				-72,
-				-36
-			],
-			"anim": "pissed",
-			"fps": 24,
-			"name": "Pissed",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				7,
-				-11
-			],
-			"anim": "cringe",
-			"fps": 24,
-			"name": "Cringe",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				28,
-				-63
-			],
-			"anim": "fakeout",
-			"fps": 24,
-			"name": "Fake Hit",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				73,
-				11
-			],
-			"anim": "block",
-			"fps": 24,
-			"name": "Block",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				-23,
-				-46
-			],
-			"anim": "dodge",
-			"fps": 24,
-			"name": "Dodge",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				41,
-				-261
-			],
-			"anim": "uppercutPrep",
-			"fps": 24,
-			"name": "Uppercut Prep",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				-34,
-				87
-			],
-			"anim": "uppercut",
-			"fps": 24,
-			"name": "Uppercut Punch",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				45,
-				185
-			],
-			"anim": "uppercutHit",
-			"fps": 24,
-			"name": "Uppercut Hit",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "punchHigh1",
-			"fps": 24,
-			"name": "Punch High 1",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				-3,
-				7
-			],
-			"anim": "punchHigh2",
-			"fps": 24,
-			"name": "Punch High 2",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				-16,
-				-75
-			],
-			"anim": "punchLow1",
-			"fps": 24,
-			"name": "Punch Low 1",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				2,
-				-36
-			],
-			"anim": "punchLow2",
-			"fps": 24,
-			"name": "Punch Low 2",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				86,
-				108
-			],
-			"anim": "hitHigh",
-			"fps": 24,
-			"name": "Hit High",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": false,
-			"flipY": false,
-			"offsets": [
-				184,
-				-32
-			],
-			"anim": "hitLow",
-			"fps": 24,
-			"name": "Hit Low",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"loop": true,
-			"flipY": false,
-			"offsets": [
-				77,
-				91
-			],
-			"anim": "hitSpin",
-			"fps": 24,
-			"name": "Hit Spin",
-			"indices": [],
-			"flipX": false
-		},
-		{
-			"offsets": [
-				-34,
-				87
-			],
-			"flipY": false,
-			"loop": true,
-			"fps": 24,
-			"anim": "uppercut-loop",
-			"flipX": false,
 			"indices": [
+				29,
+				30,
+				31,
+				32
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "block",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				67,
+				68,
+				69,
+				70
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "cringe",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				24,
+				25,
+				26,
+				27,
+				28
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "fakeout",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				53,
+				54,
+				55,
+				56,
+				57
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "dodge",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				58,
+				59,
+				60,
+				61,
+				62
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "hitHigh",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				63,
+				64,
+				65,
+				66
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "hitLow",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				71,
+				72,
+				73
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "hitSpin",
+			"loop": true,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				0,
+				1,
+				2,
+				3,
 				4,
 				5,
 				6,
@@ -228,17 +147,196 @@
 				10,
 				11,
 				12,
-				13,
-				14
+				13
 			],
-			"name": "Uppercut Punch"
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "idle",
+			"loop": true,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				74,
+				75,
+				76,
+				77,
+				78
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "pissed",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				33,
+				34,
+				35,
+				36,
+				37
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "punchHigh1",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				38,
+				39,
+				40,
+				41,
+				42
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "punchHigh2",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				48,
+				49,
+				50,
+				51,
+				52
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "punchLow1",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				43,
+				44,
+				45,
+				46,
+				47
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "punchLow2",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "uppercutHit",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				14,
+				15,
+				16,
+				17,
+				18
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "uppercutPrep",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				21,
+				22,
+				23
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "uppercut-loop",
+			"loop": true,
+			"name": "Darnell Fighting ALL ANIMS"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				19,
+				20,
+				21,
+				22,
+				23
+			],
+			"fps": 24,
+			"flipX": false,
+			"flipY": false,
+			"anim": "uppercut",
+			"loop": false,
+			"name": "Darnell Fighting ALL ANIMS"
 		}
 	],
 	"no_antialiasing": false,
+	"ghosts_enabled": false,
 	"image": "characters/darnellBlazin",
 	"position": [
-		0,
-		0
+		400,
+		650
 	],
 	"dance_every": 2,
 	"gameover_intial_sound": null,
@@ -246,14 +344,16 @@
 	"gameover_confirm_sound": null,
 	"healthicon": "darnell",
 	"gameover_character": null,
+	"vslice_sustains": false,
 	"flip_x": false,
-	"healthbar_colour": -8355712,
+	"healthbar_colour": -9216336,
 	"camera_position": [
-		0,
-		0
+		-150,
+		100
 	],
 	"gameover_loop_sound": null,
-	"sing_duration": 999,
-	"scale": 1.5,
+	"icon_count": 2,
+	"sing_duration": 6.1,
+	"scale": 1.75,
 	"_editor_isPlayer": false
 }
