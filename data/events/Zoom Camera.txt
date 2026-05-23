@@ -1,4 +1,11 @@
 Changes the camera zoom
 
-Value 1: New Zoom Value
-Value 2: Time, Ease.
+Value 1: Zoom Type
+Value 2: New Zoom Value, Time, Ease.
+
+Zoom Types:
+
+Absolute: Set zoom directly.
+Stage: Set zoom as a multiplier of the current stage's default zoom.
+
+Time & Ease will be ignored if the Ease type is 'Instant'
