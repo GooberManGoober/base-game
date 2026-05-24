@@ -1,2 +1,0 @@
-Value 1: Rate of bops per beat
-Value 2: Intensity of each bop
