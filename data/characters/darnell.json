@@ -5,12 +5,12 @@
 				2,
 				1
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "idle",
 			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"flipX": false,
+			"indices": [],
 			"name": "Idle0"
 		},
 		{
@@ -18,12 +18,12 @@
 				1,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singLEFT",
 			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"flipX": false,
+			"indices": [],
 			"name": "Pose Left0"
 		},
 		{
@@ -31,12 +31,12 @@
 				1,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singLEFT-loop",
 			"loop": true,
+			"fps": 24,
+			"anim": "singLEFT-loop",
+			"flipX": false,
+			"indices": [],
 			"name": "Left Flame Loop0"
 		},
 		{
@@ -44,12 +44,12 @@
 				0,
 				-3
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singDOWN",
 			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"flipX": false,
+			"indices": [],
 			"name": "Pose Down0"
 		},
 		{
@@ -57,12 +57,12 @@
 				0,
 				-3
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singDOWN-loop",
 			"loop": true,
+			"fps": 24,
+			"anim": "singDOWN-loop",
+			"flipX": false,
+			"indices": [],
 			"name": "Down Flame Loop0"
 		},
 		{
@@ -70,12 +70,12 @@
 				8,
 				5
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singUP",
 			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"flipX": false,
+			"indices": [],
 			"name": "Pose Up0"
 		},
 		{
@@ -83,12 +83,12 @@
 				8,
 				5
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singUP-loop",
 			"loop": true,
+			"fps": 24,
+			"anim": "singUP-loop",
+			"flipX": false,
+			"indices": [],
 			"name": "Up Flame Loop0"
 		},
 		{
@@ -96,12 +96,12 @@
 				4,
 				3
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singRIGHT",
 			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"flipX": false,
+			"indices": [],
 			"name": "Pose Right0"
 		},
 		{
@@ -109,12 +109,12 @@
 				4,
 				3
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "singRIGHT-loop",
 			"loop": true,
+			"fps": 24,
+			"anim": "singRIGHT-loop",
+			"flipX": false,
+			"indices": [],
 			"name": "Right Flame Loop0"
 		},
 		{
@@ -122,12 +122,12 @@
 				0,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "laugh",
 			"loop": false,
+			"fps": 24,
+			"anim": "laugh",
+			"flipX": false,
+			"indices": [],
 			"name": "Laugh0"
 		},
 		{
@@ -135,6 +135,11 @@
 				0,
 				0
 			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
+			"anim": "laughCutscene",
+			"flipX": false,
 			"indices": [
 				1,
 				2,
@@ -167,11 +172,6 @@
 				5,
 				6
 			],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
-			"anim": "laughCutscene",
-			"loop": false,
 			"name": "Laugh0"
 		},
 		{
@@ -179,12 +179,12 @@
 				8,
 				1
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "lightCan",
 			"loop": false,
+			"fps": 24,
+			"anim": "lightCan",
+			"flipX": false,
+			"indices": [],
 			"name": "Light Can0"
 		},
 		{
@@ -192,12 +192,12 @@
 				15,
 				9
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "kickCan",
 			"loop": false,
+			"fps": 24,
+			"anim": "kickCan",
+			"flipX": false,
+			"indices": [],
 			"name": "Kick Up0"
 		},
 		{
@@ -205,12 +205,12 @@
 				7,
 				-1
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "kneeCan",
 			"loop": false,
+			"fps": 24,
+			"anim": "kneeCan",
+			"flipX": false,
+			"indices": [],
 			"name": "Knee Forward0"
 		},
 		{
@@ -218,16 +218,17 @@
 				0,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
 			"flipY": false,
-			"anim": "pissed",
 			"loop": false,
+			"fps": 24,
+			"anim": "pissed",
+			"flipX": false,
+			"indices": [],
 			"name": "Gets Pissed0"
 		}
 	],
 	"no_antialiasing": false,
+	"ghosts_enabled": false,
 	"image": "characters/darnell",
 	"position": [
 		0,
@@ -239,13 +240,15 @@
 	"gameover_confirm_sound": null,
 	"healthicon": "darnell",
 	"gameover_character": null,
+	"vslice_sustains": false,
 	"flip_x": false,
-	"healthbar_colour": -6987599,
+	"healthbar_colour": -9216336,
 	"camera_position": [
-		0,
+		150,
 		0
 	],
 	"gameover_loop_sound": null,
+	"icon_count": 2,
 	"sing_duration": 8,
 	"scale": 1,
 	"_editor_isPlayer": false

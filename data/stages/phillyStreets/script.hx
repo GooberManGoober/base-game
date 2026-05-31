@@ -32,7 +32,7 @@ var kneeCanSnd:FlxSound;
 
 function onLoad()
 {
-	if (!ClientPrefs.lowQuality)
+	if(!ClientPrefs.lowQuality)
 	{
 		var skyImage = Paths.image('backgrounds/phillyStreets/phillySkybox');
 		scrollingSky = new FlxTiledSprite(skyImage, skyImage.width + 400, skyImage.height, true, false);
@@ -42,74 +42,67 @@ function onLoad()
 		scrollingSky.scale.set(0.65, 0.65);
 		add(scrollingSky);
 		darkenable.push(scrollingSky);
-		
+	
 		var phillySkyline:BGSprite = new BGSprite('backgrounds/phillyStreets/phillySkyline', -545, -273, 0.2, 0.2);
 		add(phillySkyline);
 		darkenable.push(phillySkyline);
-		
-		var phillyForegroundCity:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyForegroundCity', 600, 69, 0.3, 0.3);
+
+		var phillyForegroundCity:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyForegroundCity', 625, 94, 0.3, 0.3);
 		add(phillyForegroundCity);
 		darkenable.push(phillyForegroundCity);
-		
-		var phillyForegroundCity2:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyForegroundCity', 1860, 185, 0.3, 0.3);
-		phillyForegroundCity2.angle = 5;
-		add(phillyForegroundCity2);
-		darkenable.push(phillyForegroundCity2);
 	}
-	
-	var phillyConstruction:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyConstruction', 1795, 360, 0.7, 1);
+
+	var phillyConstruction:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyConstruction', 1800, 364, 0.7, 1);
 	add(phillyConstruction);
 	darkenable.push(phillyConstruction);
-	
-	var phillyHighwayLights:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyHighwayLights', 122, 201, 1, 1);
+
+	var phillyHighwayLights:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyHighwayLights', 284, 305, 1, 1);
 	add(phillyHighwayLights);
 	darkenable.push(phillyHighwayLights);
-	
-	if (!ClientPrefs.lowQuality)
+
+	if(!ClientPrefs.lowQuality)
 	{
-		var phillyHighwayLightsLightmap:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyHighwayLights_lightmap', 122, 201, 1, 1);
+		var phillyHighwayLightsLightmap:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyHighwayLights_lightmap', 284, 305, 1, 1);
 		phillyHighwayLightsLightmap.blend = BlendMode.ADD;
 		phillyHighwayLightsLightmap.alpha = 0.6;
 		add(phillyHighwayLightsLightmap);
 		darkenable.push(phillyHighwayLightsLightmap);
 	}
-	
+
 	var phillyHighway:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyHighway', 139, 209, 1, 1);
 	add(phillyHighway);
 	darkenable.push(phillyHighway);
-	
-	if (!ClientPrefs.lowQuality)
+
+	if(!ClientPrefs.lowQuality)
 	{
 		var phillySmog:BGSprite = new BGSprite('backgrounds/phillyStreets/phillySmog', -6, 245, 0.8, 1);
 		add(phillySmog);
 		darkenable.push(phillySmog);
-		
+
 		for (i in 0...2)
 		{
 			var car:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyCars', 1200, 818, 0.9, 1, ['car1', 'car2', 'car3', 'car4'], false);
 			add(car);
-			switch (i)
+			switch(i)
 			{
-				case 0:
-					phillyCars = car;
-				case 1:
-					phillyCars2 = car;
+				case 0: phillyCars = car;
+				case 1: phillyCars2 = car;
 			}
 			darkenable.push(car);
 		}
 		phillyCars2.flipX = true;
-		
+
 		phillyTraffic = new BGSprite('backgrounds/phillyStreets/phillyTraffic', 1840, 608, 0.9, 1, ['redtogreen', 'greentored'], false);
 		add(phillyTraffic);
 		darkenable.push(phillyTraffic);
-		
+
 		var phillyTrafficLightmap:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyTraffic_lightmap', 1840, 608, 0.9, 1);
 		phillyTrafficLightmap.blend = BlendMode.ADD;
 		phillyTrafficLightmap.alpha = 0.6;
 		add(phillyTrafficLightmap);
 		darkenable.push(phillyTrafficLightmap);
 	}
-	
+
 	var phillyForeground:BGSprite = new BGSprite('backgrounds/phillyStreets/phillyForeground', 88, 317, 1, 1);
 	add(phillyForeground);
 	darkenable.push(phillyForeground);
@@ -149,7 +142,7 @@ function onCreatePost()
 {
 	precache();
 	
-	var unspawnNotes:Array<Note> = game.unspawnNotes;
+	var unspawnNotes:Array<Note> = game.queueNotes;
 	for (note in unspawnNotes)
 	{
 		if(note == null) continue;
@@ -360,7 +353,7 @@ function driveCar(sprite:BGSprite):Void
 	FlxTween.quadPath(sprite, path, duration, true, {onComplete: function(_) carInterruptable = true});
 }
 
-function driveCarBack(sprite:FlxSprite):Void
+function driveCarBack(sprite:BGSprite):Void
 {
 	car2Interruptable = false;
 	FlxTween.cancelTweensOf(sprite);
@@ -831,7 +824,7 @@ function noteMiss(note)
 
 function showPicoFade()
 {
-	if(ClientPrefs.lowQuality) return;
+	if (ClientPrefs.lowQuality) return;
 
 	picoFade.setPosition(boyfriend.x, boyfriend.y);
 	picoFade.frames = boyfriend.frames;
