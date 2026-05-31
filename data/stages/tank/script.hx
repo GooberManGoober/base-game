@@ -29,43 +29,52 @@ typedef CrowdAnim =
 function onLoad()
 {
 	var sky:BGSprite = new BGSprite('backgrounds/tank/tankSky', -400, -400, 0, 0);
+	sky.zoomFactor = 0;
 	add(sky);
 	
 	if (!ClientPrefs.lowQuality)
 	{
 		var clouds:BGSprite = new BGSprite('backgrounds/tank/tankClouds', FlxG.random.int(-700, -100), FlxG.random.int(-20, 20), 0.1, 0.1);
 		clouds.active = true;
+		clouds.zoomFactor = 0;
 		clouds.velocity.x = FlxG.random.float(5, 15);
 		add(clouds);
 		
 		var mountains:BGSprite = new BGSprite('backgrounds/tank/tankMountains', -300, -20, 0.2, 0.2);
 		mountains.setGraphicSize(Std.int(1.2 * mountains.width));
 		mountains.updateHitbox();
+		mountains.zoomFactor = 0.10;
 		add(mountains);
 		
 		var buildings:BGSprite = new BGSprite('backgrounds/tank/tankBuildings', -200, 0, 0.3, 0.3);
 		buildings.setGraphicSize(Std.int(1.1 * buildings.width));
 		buildings.updateHitbox();
+		mountains.zoomFactor = 0.25;
 		add(buildings);
 	}
 	
 	var ruins:BGSprite = new BGSprite('backgrounds/tank/tankRuins', -200, 0, .35, .35);
 	ruins.setGraphicSize(Std.int(1.1 * ruins.width));
 	ruins.updateHitbox();
+	ruins.zoomFactor = 0.35;
 	add(ruins);
 	
 	if (!ClientPrefs.lowQuality)
 	{
 		var smokeLeft:BGSprite = new BGSprite('backgrounds/tank/smokeLeft', -200, -100, 0.4, 0.4, ['SmokeBlurLeft instance 1'], true);
+		smokeLeft.zoomFactor = 0.6;
 		add(smokeLeft);
 		var smokeRight:BGSprite = new BGSprite('backgrounds/tank/smokeRight', 1100, -100, 0.4, 0.4, ['SmokeRight instance 1'], true);
+		smokeRight.zoomFactor = 0.6;
 		add(smokeRight);
 		
 		tankWatchtower = new BGSprite('backgrounds/tank/tankWatchtower', 100, 50, 0.5, 0.5, ['watchtower gradient color instance 1']);
+		tankWatchtower.zoomFactor = 0.7;
 		add(tankWatchtower);
 	}
 	
 	tankGround = new BGSprite('backgrounds/tank/tankRolling', 300, 300, 0.5, 0.5, ['BG tank w lighting instance 1'], true);
+	tankGround.zoomFactor = 0.8;
 	add(tankGround);
 	
 	tankmanRun = new FlxTypedGroup();
@@ -79,14 +88,17 @@ function onLoad()
 	
 	var tank0 = new BGSprite('backgrounds/tank/tank0', -500, 650, 1.7, 1.5, ['fg tankhead far right instance 1']);
 	tank0.zIndex = 999;
+	tank0.zoomFactor = 1.25;
 	add(tank0);
 	
 	var tank2 = new BGSprite('backgrounds/tank/tank2', 450, 940, 1.5, 1.5, ['foreground man 3 instance 1']);
 	tank2.zIndex = 999;
+	tank2.zoomFactor = 1.25;
 	add(tank2);
 	
 	var tank4 = new BGSprite('backgrounds/tank/tank5', 1620, 700, 1.5, 1.5, ['fg tankhead far right instance 1']);
 	tank4.zIndex = 999;
+	tank4.zoomFactor = 1.25;
 	add(tank4);
 	
 	boppers = [tank0, tank2, tank4];
@@ -95,26 +107,23 @@ function onLoad()
 	{
 		var tank1 = new BGSprite('backgrounds/tank/tank1', -300, 750, 2, 0.2, ['fg tankhead 5 instance 1']);
 		tank1.zIndex = 999;
+		tank1.zoomFactor = 1.25;
 		add(tank1);
 		boppers.push(tank1);
 		
 		var tank3 = new BGSprite('backgrounds/tank/tank4', 1300, 900, 1.5, 1.5, ['fg tankman bobbin 3 instance 1']);
 		tank3.zIndex = 999;
+		tank3.zoomFactor = 1.25;
 		add(tank3);
 		boppers.push(tank3);
 		
 		var tank5 = new BGSprite('backgrounds/tank/tank3', 1300, 1200, 3.5, 2.5, ['fg tankhead 4 instance 1']);
 		tank5.zIndex = 999;
+		tank5.zoomFactor = 1.25;
 		add(tank5);
 		boppers.push(tank5);
 	}
 	
-	// foreground.add(new BGSprite('backgrounds/tank/tank0', -500, 650, 1.7, 1.5, ['fg']));
-	// if(!ClientPrefs.lowQuality) foreground.add(new BGSprite('backgrounds/tank/tank1', -300, 750, 2, 0.2, ['fg']));
-	// foreground.add(new BGSprite('backgrounds/tank/tank2', 450, 940, 1.5, 1.5, ['foreground']));
-	// if(!ClientPrefs.lowQuality) foreground.add(new BGSprite('backgrounds/tank/tank4', 1300, 900, 1.5, 1.5, ['fg']));
-	// foreground.add(new BGSprite('backgrounds/tank/tank5', 1620, 700, 1.5, 1.5, ['fg']));
-	// if(!ClientPrefs.lowQuality) foreground.add(new BGSprite('backgrounds/tank/tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 	GameOverSubstate.resetVariables();
 }
 
@@ -228,7 +237,7 @@ function deathAnimStartPost(volume)
 	var exclude:Array<Int> = [];
 	// if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
 	
-	FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
+	FlxG.sound.play(Paths.sound('week7/jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
 		if (!GameOverSubstate.instance.isEnding)
 		{
 			FlxG.sound.music.fadeIn(0.2, 1, 6);
@@ -267,8 +276,8 @@ function tankIntro()
 			// tankman.anim.pause();
 			
 			// FlxG.sound.play(Paths.music('DISTORTO'));
-			FunkinSound.playMusic(Paths.music('DISTORTO'));
-			FlxG.sound.play(Paths.sound('wellWellWell'));
+			FunkinSound.playMusic(Paths.music('week7/DISTORTO'));
+			FlxG.sound.play(Paths.sound('week7/wellWellWell'));
 			
 			FlxG.camera.zoom *= 1.2;
 			
@@ -281,7 +290,7 @@ function tankIntro()
 			FlxTimer.wait(4.5, () -> {
 				boyfriend.playAnim('singUP', true);
 				boyfriend.specialAnim = true;
-				FlxG.sound.play(Paths.sound('bfBeep'));
+				FlxG.sound.play(Paths.sound('week7/bfBeep'));
 			});
 			
 			FlxTimer.wait(6, () -> {
@@ -289,7 +298,7 @@ function tankIntro()
 				camFollow.y -= 50;
 				
 				tankman.playAnim('ugh2');
-				FlxG.sound.play(Paths.sound('killYou'));
+				FlxG.sound.play(Paths.sound('week7/killYou'));
 			});
 			
 			FlxTimer.wait(12, () -> {
@@ -299,8 +308,8 @@ function tankIntro()
 			});
 		case 'guns':
 			tankman.playAnim('guns');
-			FlxG.sound.play(Paths.sound('tankSong2'));
-			FunkinSound.playMusic(Paths.music('DISTORTO'));
+			FlxG.sound.play(Paths.sound('week7/tankSong2'));
+			FunkinSound.playMusic(Paths.music('week7/DISTORTO'));
 			
 			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 4, {ease: FlxEase.quadInOut});
 			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2 * 1.2}, 0.5, {ease: FlxEase.quadInOut, startDelay: 4});
@@ -364,10 +373,10 @@ function tankIntro()
 			boyfriendGroup.zIndex = 9;
 			refreshZ();
 			
-			var stressScene = new FlxSound().loadEmbedded(Paths.sound('stressCutscene'));
+			var stressScene = new FlxSound().loadEmbedded(Paths.sound('week7/stressCutscene'));
 			FlxG.sound.list.add(stressScene);
 			
-			FunkinSound.playMusic(Paths.music('klaskii-romper'), 0.2);
+			FunkinSound.playMusic(Paths.music('week7/klaskii-romper'), 0.2);
 			FlxG.sound.music.fadeIn(2, 0.0125, 0.1);
 			
 			FlxTimer.wait(0.1, () -> {

@@ -56,7 +56,7 @@ function doHorrorlandTransition() {
 		for (cam in FlxG.cameras.list)
 			cam.visible = false;
 
-		FlxG.sound.play(Paths.sound('Lights_Shut_off')).persist = true;
+		FlxG.sound.play(Paths.sound('week5/Lights_Shut_off')).persist = true;
 
 		new FlxTimer().start(1.5, () -> endSong());
 

@@ -27,7 +27,7 @@ function onStartCountdown() {
 				remove(blackScreen);
 			}
 		});
-		FlxG.sound.play(Paths.sound('Lights_Turn_On'));
+		FlxG.sound.play(Paths.sound('week5/Lights_Turn_On'));
 		snapCamToPos(400, -2050);
 		FlxG.camera.zoom = 1.5;
 

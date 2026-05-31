@@ -68,7 +68,7 @@ function onLoad()
 
 	for (i in 1...4)
 	{
-		Paths.sound('lightning/Lightning$i');
+		Paths.sound('weekend1/lightning/Lightning$i');
 	}
 }
 
@@ -193,7 +193,7 @@ function applyLightning():Void
 	FlxTween.color(gf, LIGHTNING_FADE_DURATION, 0xFF606060, 0xFF888888);
 
 	// Sound
-	FlxG.sound.play(Paths.soundRandom('lightning/Lightning', 1, 3));
+	FlxG.sound.play(Paths.soundRandom('weekend1/lightning/Lightning', 1, 3));
 }
 
 function blazin_end(){

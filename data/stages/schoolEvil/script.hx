@@ -56,7 +56,7 @@ function onStartCountdown()
 	if (!a && PlayState.isStoryMode)
 	{
 		a = true;
-		if (Paths.sanitize(PlayState.SONG.song) == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
+		if (Paths.sanitize(PlayState.SONG.song) == 'roses') FlxG.sound.play(Paths.sound('week6/ANGRY'));
 		
 		camHUD.alpha = 0;
 		
@@ -137,7 +137,7 @@ function schoolIntro(dialogueBox)
 						else
 						{
 							senpaiEvil.animation.play('idle');
-							FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function() {
+							FlxG.sound.play(Paths.sound('week6/Senpai_Dies'), 1, false, null, true, function() {
 								// Just incase...
 								senpaiEvil.alpha = 0.001;
 								red.alpha = 0.001;

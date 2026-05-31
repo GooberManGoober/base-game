@@ -249,7 +249,7 @@ function onStartCountdown()
 			}
 		});
 		
-		FlxG.sound.play(Paths.sound('stressPicoCutscene'));
+		FlxG.sound.play(Paths.sound('week7/stressPicoCutscene'));
 		
 		return ScriptConstants.STOP_FUNC;
 	}

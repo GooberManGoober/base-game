@@ -15,6 +15,7 @@ var limoKillingState:Int = 0;
 
 function onLoad() {
 	var skyBG:BGSprite = new BGSprite('backgrounds/limo/limoSunset', -120, -50, 0.1, 0.1);
+	skyBG.zoomFactor = 0;
 	add(skyBG);
 
 	skyBG.zIndex = 0;
@@ -25,18 +26,14 @@ function onLoad() {
 		limoMetalPole.zIndex = 1;
 
 		bgLimo = new BGSprite('backgrounds/limo/bgLimo', -150, 480, 0.4, 0.4, ['background limo pink'], true);
+		bgLimo.zoomFactor = 0.55;
 		add(bgLimo);
 		bgLimo.zIndex = 2;
-
-		// limoCorpse = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
-		// add(limoCorpse);
-
-		// limoCorpseTwo = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
-		// add(limoCorpseTwo);
 
 		for (i in 0...5) {
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
+			dancer.zoomFactor = 0.55;
 			add(dancer);
 			dancer.zIndex = 3;
 			grpLimoDancers.push(dancer);
@@ -52,13 +49,13 @@ function onLoad() {
 		add(particle);
 		particle.zIndex = 5;
 		grpLimoParticles.push(particle);
-		// resetLimoKill();
 	}
 
 	limo = new BGSprite('backgrounds/limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
 	limo.zIndex = 7;
 
 	fastCar = new BGSprite('backgrounds/limo/fastCarLol', -300, 160);
+	fastCar.zoomFactor = 0.75;
 	fastCar.active = true;
 	fastCar.zIndex = 5;
 
@@ -110,8 +107,7 @@ function resetFastCar():Void {
 var carTimer:FlxTimer;
 
 function fastCarDrive() {
-	// trace('Car drive');
-	FlxG.sound.play(Paths.soundRandom('carPass', 0, 1), 0.7);
+	FlxG.sound.play(Paths.soundRandom('week4/carPass', 0, 1), 0.7);
 
 	fastCar.velocity.x = (FlxG.random.int(170, 220) / FlxG.elapsed) * 3;
 	fastCarCanDrive = false;
@@ -143,7 +139,7 @@ function onUpdate(elapsed) {
 						switch (i) {
 							case 0 | 3:
 								if (i == 0)
-									FlxG.sound.play(Paths.sound('dancerdeath'), 0.5);
+									FlxG.sound.play(Paths.sound('week4/dancerdeath'), 0.5);
 
 								var diffStr:String = i == 3 ? ' 2 ' : ' ';
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4,

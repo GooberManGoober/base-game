@@ -10,7 +10,7 @@ function onBeatHit()
 
 function lightningStrikeShit()
 {
-	FlxG.sound.play(Paths.sound("thunder_" + FlxG.random.int(1, 2)));
+	FlxG.sound.play(Paths.sound("week2/thunder_" + FlxG.random.int(1, 2)));
 	if (!ClientPrefs.lowQuality) bg.playAnim('lightning');
 	
 	lightningStrikeBeat = curBeat;
@@ -62,7 +62,7 @@ function onStartCountdown()
 					startCountdown();
 				}
 			});
-		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
+		FlxG.sound.play(Paths.soundRandom('week2/thunder_', 1, 2));
 		if (gf != null) gf.playAnim('scared', true);
 		boyfriend.playAnim('scared', true);
 		

@@ -413,7 +413,7 @@ function onStartCountdown()
 					Paths.getSparrowAtlas('backgrounds/phillyStreets/spraypaintExplosionEZ');
 					Paths.getSparrowAtlas('backgrounds/phillyStreets/SpraypaintExplosion');
 					
-					FunkinSound.playMusic(Paths.music('darnellCanCutscene/darnellCanCutscene'), 1, false);
+					FunkinSound.playMusic(Paths.music('weekend1/darnellCanCutscene/darnellCanCutscene'), 1, false);
 					snapCamToPos(getCharacterCameraPos(boyfriend).x + 250, getCharacterCameraPos(boyfriend).y + 80, true);
 					
 					playHUD.visible = false;
@@ -435,20 +435,20 @@ function onStartCountdown()
 					
 					FlxTimer.wait(5, () -> {
 						dad.playAnim('lightCan', true);
-						FlxG.sound.play(Paths.sound('Darnell_Lighter'));
+						FlxG.sound.play(Paths.sound('weekend1/Darnell_Lighter'));
 						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 150}, 0.5, {ease: FlxEase.quadInOut});
 						FlxTween.tween(camGame, {zoom: 0.9}, 0.625, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(6, () -> {
 						boyfriend.playAnim('cock', true);
-						FlxG.sound.play(Paths.sound('Gun_Prep'));
+						FlxG.sound.play(Paths.sound('weekend1/Gun_Prep'));
 						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 500, y: getCharacterCameraPos(dad).y}, 0.4, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(6.4, () -> {
 						dad.playAnim('kickCan', true);
-						FlxG.sound.play(Paths.sound('Kick_Can_UP'));
+						FlxG.sound.play(Paths.sound('weekend1/Kick_Can_UP'));
 						cutsceneCan.animation.play('up');
 						cutsceneCan.visible = true;
 						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 350, y: getCharacterCameraPos(dad).y}, 0.5, {ease: FlxEase.quadInOut});
@@ -456,14 +456,14 @@ function onStartCountdown()
 					
 					FlxTimer.wait(6.9, () -> {
 						dad.playAnim('kneeCan', true);
-						FlxG.sound.play(Paths.sound('Kick_Can_FORWARD'));
+						FlxG.sound.play(Paths.sound('weekend1/Kick_Can_FORWARD'));
 						cutsceneCan.animation.play('forward');
 						FlxTween.tween(camGame, {zoom: 0.7}, 0.325, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(7.1, () -> {
 						boyfriend.playAnim('intro2', true);
-						FlxG.sound.play(Paths.sound('shot' + FlxG.random.int(1, 4)));
+						FlxG.sound.play(Paths.soundRandom('weekend1/shots/shot', 1, 4));
 						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 100, y: getCharacterCameraPos(dad).y - 25}, 2.5, {ease: FlxEase.quadInOut});
 						cutsceneCan.visible = false;
 						cutsceneSpraycan();
@@ -474,7 +474,7 @@ function onStartCountdown()
 					
 					FlxTimer.wait(7.9, () -> {
 						dad.playAnim('laughCutscene', true);
-						FlxG.sound.play(Paths.sound('cutscene/darnell_laugh'), 0.6);
+						FlxG.sound.play(Paths.sound('weekend1/cutscene/darnell_laugh'), 0.6);
 					});
 					
 					FlxTimer.wait(8.2, () -> {
@@ -482,7 +482,7 @@ function onStartCountdown()
 						
 						gf.canDance = false;
 						gf.playAnim('laughCutscene', true);
-						FlxG.sound.play(Paths.sound('cutscene/nene_laugh'), 0.6);
+						FlxG.sound.play(Paths.sound('weekend1/cutscene/nene_laugh'), 0.6);
 					});
 					
 					FlxTimer.wait(10, () -> {
@@ -598,15 +598,15 @@ function precache()
 
 		lightCanSnd = new FlxSound();
 		FlxG.sound.list.add(lightCanSnd);
-		lightCanSnd.loadEmbedded(Paths.sound('Darnell_Lighter'));
+		lightCanSnd.loadEmbedded(Paths.sound('weekend1/Darnell_Lighter'));
 		
 		kickCanSnd = new FlxSound();
 		FlxG.sound.list.add(kickCanSnd);
-		kickCanSnd.loadEmbedded(Paths.sound('Kick_Can_UP'));
+		kickCanSnd.loadEmbedded(Paths.sound('weekend1/Kick_Can_UP'));
 
 		kneeCanSnd = new FlxSound();
 		FlxG.sound.list.add(kneeCanSnd);
-		kneeCanSnd.loadEmbedded(Paths.sound('Kick_Can_FORWARD'));
+		kneeCanSnd.loadEmbedded(Paths.sound('weekend1/Kick_Can_FORWARD'));
 		didCreateCan = true;
 	}
 
@@ -623,7 +623,7 @@ function precache()
 		
 		gunPrepSnd = new FlxSound();
 		FlxG.sound.list.add(gunPrepSnd);
-		gunPrepSnd.loadEmbedded(Paths.sound('Gun_Prep'));
+		gunPrepSnd.loadEmbedded(Paths.sound('weekend1/Gun_Prep'));
 		didCreateCasing = true;
 	}
 
@@ -638,7 +638,7 @@ function precache()
 			case 'firegun':
 				bonkSnd = new FlxSound();
 				FlxG.sound.list.add(bonkSnd);
-				bonkSnd.loadEmbedded(Paths.sound('Pico_Bonk'));
+				bonkSnd.loadEmbedded(Paths.sound('weekend1/Pico_Bonk'));
 		}
 	}
 	
@@ -646,7 +646,7 @@ function precache()
 	precacheCasing();
 
 	for (i in 1...5)
-		Paths.sound('shots/shot$i');
+		Paths.sound('weekend1/shots/shot$i');
 }
 
 function goodNoteHit(note:te)
@@ -684,7 +684,7 @@ function goodNoteHit(note:te)
 			boyfriend.holdTimer = 0;
 			boyfriend.playAnim('shoot', true);
 			boyfriend.specialAnim = true;
-			FlxG.sound.play(Paths.soundRandom('shots/shot', 1, 4));
+			FlxG.sound.play(Paths.soundRandom('weekend1/shots/shot', 1, 4));
 			cutsceneCan.visible = false;
 			cutsceneSpraycan();
 
