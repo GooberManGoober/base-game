@@ -1,5 +1,9 @@
 import openfl.filters.ShaderFilter;
 
+import funkin.audio.visualize.PolygonSpectogram;
+import funkin.audio.visualize.PolygonSpectogram.VISTYPE;
+import funkin.audio.visualize.SpectogramSprite.SPECDIRECTION;
+
 var startIntensity:Float = 0.6;
 var endIntensity:Float = 0.8;
 var rainShader:FlxShader;
@@ -16,6 +20,8 @@ var ending:FunkinVideoSprite;
 var lightningTimer:Float = 3.0;
 
 var endingSong:Bool = false;
+
+var viz:PolygonSpectogram;
 
 function onLoad() 
 {
@@ -85,6 +91,16 @@ function onCreatePost() {
 
 	camGame.filters = [new ShaderFilter(rainShader) /*, new ShaderFilter(rain2)*/];
 
+	viz = new PolygonSpectogram(null, FlxColor.WHITE, 1280, 2, SPECDIRECTION.VERTICAL);
+    viz.waveAmplitude = 720 / 4;
+	viz.thickness = 4;
+	viz.screenCenter().y -= 720;
+    viz.color = FlxColor.RED;
+	viz.zIndex = 1000;
+	viz.scrollFactor.set();
+    add(viz);
+	viz.setSound(audio.inst);
+
 	boyfriendGroup.zIndex = 3000;
 	dadGroup.zIndex = 2000;
 	playHUD.visible = false;
@@ -92,8 +108,8 @@ function onCreatePost() {
 	gfGroup.x += 950;
 	gfGroup.y += 1110;
 
-	dad.setPosition(800, 1425);
-	boyfriendGroup.setPosition(855, 740);
+	dad.setPosition(750, 1425);
+	boyfriendGroup.setPosition(805, 740);
 
 	dad.canDance = boyfriend.canDance = false;
 
@@ -116,7 +132,7 @@ function onCreatePost() {
 		character.color = 0xFF888888;
 	}
 
-	var unspawnNotes:Array<Note> = game.unspawnNotes;
+	var unspawnNotes:Array<Note> = game.queueNotes;
 	for (note in unspawnNotes)
 	{
 		if(note == null) continue;
