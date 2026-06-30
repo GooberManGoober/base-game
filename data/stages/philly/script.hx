@@ -10,21 +10,18 @@ var trainSound:FlxSound;
 function onLoad() {
 	if (!ClientPrefs.lowQuality) {
 		var bg:BGSprite = new BGSprite('backgrounds/philly/sky', -100, 0, 0.1, 0.1);
-		bg.zoomFactor = 0;
 		add(bg);
 	}
 
 	var city:BGSprite = new BGSprite('backgrounds/philly/city', -10, 0, 0.3, 0.3);
 	city.setGraphicSize(Std.int(city.width * 0.85));
 	city.updateHitbox();
-	city.zoomFactor = 0.3;
 	add(city);
 
 	phillyLightsColors = [0xFF31A2FD, 0xFF31FD8C, 0xFFFB33F5, 0xFFFD4531, 0xFFFBA633];
 	phillyWindow = new BGSprite('backgrounds/philly/window', city.x, city.y, 0.3, 0.3);
 	phillyWindow.setGraphicSize(Std.int(phillyWindow.width * 0.85));
 	phillyWindow.updateHitbox();
-	phillyWindow.zoomFactor = 0.3;
 	add(phillyWindow);
 	phillyWindow.alpha = 0;
 

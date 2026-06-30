@@ -15,7 +15,6 @@ var limoKillingState:Int = 0;
 
 function onLoad() {
 	var skyBG:BGSprite = new BGSprite('backgrounds/limo/limoSunset', -120, -50, 0.1, 0.1);
-	skyBG.zoomFactor = 0;
 	add(skyBG);
 
 	skyBG.zIndex = 0;
@@ -26,14 +25,12 @@ function onLoad() {
 		limoMetalPole.zIndex = 1;
 
 		bgLimo = new BGSprite('backgrounds/limo/bgLimo', -150, 480, 0.4, 0.4, ['background limo pink'], true);
-		bgLimo.zoomFactor = 0.55;
 		add(bgLimo);
 		bgLimo.zIndex = 2;
 
 		for (i in 0...5) {
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
-			dancer.zoomFactor = 0.55;
 			add(dancer);
 			dancer.zIndex = 3;
 			grpLimoDancers.push(dancer);
@@ -55,7 +52,6 @@ function onLoad() {
 	limo.zIndex = 7;
 
 	fastCar = new BGSprite('backgrounds/limo/fastCarLol', -300, 160);
-	fastCar.zoomFactor = 0.75;
 	fastCar.active = true;
 	fastCar.zIndex = 5;
 
