@@ -11,6 +11,7 @@ function onCreatePost() {
 	FlxG.usePixelPerfectRendering = true;
 
 	countdownPrefix = 'pixelUI/';
+	introSoundsSuffix = '-pixel';
 
 	playHUD.comboTween = false;
 
