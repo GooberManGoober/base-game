@@ -1,7 +1,6 @@
 {
 	"charters": [
-		"fabs",
-		"Spazkid"
+		"fabs + Spazkid"
 	],
 	"coders": [],
 	"freeplayIcon": "dad",
@@ -11,10 +10,9 @@
 		"Hard"
 	],
 	"composers": [
-		"That Andy Guy",
-		"Saruky"
+		"Xploshi (ft. Saster)"
 	],
-	"displayName": "Bopeebo (Pico Mix)",
+	"displayName": "Fresh (Pico Mix)",
 	"freeplayColor": "0xFFAF66CE",
 	"freeplayIconFrames": 2,
 	"artists": []

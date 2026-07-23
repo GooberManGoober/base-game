@@ -3,7 +3,11 @@ import funkin.game.shaders.DropShadowShader;
 import funkin.data.Chart;
 import funkin.objects.stageobjects.TankmenBG;
 
+import flixel.util.FlxTimerManager;
+
 import haxe.ds.ArraySort;
+
+using StringTools;
 
 var bg:FlxSprite;
 var sniper:FlxSprite;
@@ -30,26 +34,35 @@ function onLoad()
 	bg.scrollFactor.set(1, 1);
 	bg.antialiasing = true;
 	add(bg);
+
+	function onSniperAnimFinish(animName:String)
+	{
+		if (animName == "sip")
+			sniper.dance();
+	}
 	
 	sniper = new Bopper(-300, 200).loadAtlas('backgrounds/tank/erect/sniper');
 	sniper.addAnimByPrefix("idle", "Idle", 24, false);
 	sniper.addAnimByPrefix("sip", "Sip", 24, false);
-	sniper.animation.play("idle");
+	sniper.playAnim("idle");
+	sniper.onAnimationFinish.add(onSniperAnimFinish);
 	sniper.scale.set(1.15, 1.15);
 	sniper.scrollFactor.set(1, 1);
 	sniper.antialiasing = true;
 	add(sniper);
+
+	sniper.onAnimationFinish.dispatch("sip");
 	
 	tankmanRun = new FlxTypedGroup();
 	add(tankmanRun);
 	
-	// guy = new Bopper(-50, -150).loadAtlas('backgrounds/tank/erect/rando');
-	// guy.addAnimByPrefix("idle", "rando", 24, true);
-	// guy.animation.play("idle");
-	// guy.scale.set(1.15, 1.15);
-	// guy.scrollFactor.set(1, 1);
-	// guy.antialiasing = true;
-	// add(guy);
+	guy = new Bopper(1175, 280).loadAtlas('backgrounds/tank/erect/rando');
+	guy.addAnimByPrefix("idle", "rando", 24, true);
+	guy.playAnim("idle");
+	guy.scale.set(1.15, 1.15);
+	guy.scrollFactor.set(1, 1);
+	guy.antialiasing = true;
+	add(guy);
 	
 	tankBricks = new FlxSprite(465, 760);
 	tankBricks.loadGraphic(Paths.image("backgrounds/tank/erect/bricksGround"));
@@ -61,8 +74,11 @@ function onLoad()
 	
 	bg.zIndex = 10;
 	sniper.zIndex = 20;
+	guy.zIndex = 20;
 	tankmanRun.zIndex = 30;
 	tankBricks.zIndex = 101;
+
+	if (PlayState.SONG.song.toLowerCase().replace(' ', '-') == "stress-(pico-mix)") songEndCallback = loadEndcutscene;
 }
 
 function makeRimForSpr(spr, angle:Float = 0)
@@ -154,6 +170,25 @@ function onCreatePost()
 	}
 }
 
+function onStepHit()
+{
+	if (songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)")
+	{
+		if (curStep >= 763)
+		{
+			dad.animSuffix = '-bloody';
+			iconP2.changeIcon('tankman-bloody');
+		}
+	}
+}
+
+function onBeatHit()
+{
+	if (FlxG.random.bool(2)) sniper.playAnim('sip', true);
+
+	if (sniper.getAnimName() != "sip") sniper.onBeatHit(curBeat);
+}
+
 function updateOtisCharts()
 {
 	if (otisAnims.length != 0 && otisAnims[0].time <= Conductor.songPosition)
@@ -173,7 +208,7 @@ function onUpdate(elapsed)
 	updateOtisCharts();
 }
 
-var can = false;
+var can = true;
 
 function onStartCountdown()
 {
@@ -253,4 +288,55 @@ function onStartCountdown()
 		
 		return ScriptConstants.STOP_FUNC;
 	}
+}
+
+var bgSprite:FlxSprite;
+
+function loadEndcutscene()
+{
+	// trace('Adding black background behind cutscene over UI');
+	bgSprite = new FlxSprite(0, 0).makeGraphic(2000, 2500, 0xFF000000);
+	bgSprite.cameras = [camOther]; // Show over the HUD but below the video.
+	// this
+	bgSprite.zIndex = -10000;
+	add(bgSprite);
+	bgSprite.alpha = 0;
+
+	startEndCutscene();
+}
+
+function startEndCutscene()
+{
+	var picoPos:Array<Float> = [getCharacterCameraPos(boyfriend).x, getCharacterCameraPos(boyfriend).y];
+	var otisPos:Array<Float> = [getGFCameraPos().x, getGFCameraPos().y];
+	var tankmanPos:Array<Float> = [getCharacterCameraPos(dad).x, getCharacterCameraPos(dad).y];
+
+	// Disable player input during cutscene, so you can't get a gameover during cutscene
+	inCutscene = true;
+	camHUD.visible = false;
+
+	FlxTween.tween(camFollow, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 70}, 2.8, {ease: FlxEase.expoOut});
+	FlxTween.tween(FlxG.camera, {zoom: 0.65}, 2, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {	
+			defaultCamZoom = FlxG.camera.zoom;
+		}
+	});
+
+	dad.playAnim('stressPicoEnding', true);
+	FlxG.sound.play(Paths.sound('week7/erect/endCutscene'), 1.0);
+
+	new FlxTimer().start(176 / 24, _ ->
+	{
+		boyfriend.playAnim('laughEnd', true);
+	});
+
+	new FlxTimer().start(270 / 24, _ ->
+	{
+		FlxTween.tween(camFollow, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 370}, 2, {ease: FlxEase.quadInOut});
+		FlxTween.tween(bgSprite, {alpha: 1}, 2);
+	});
+
+	new FlxTimer().start(320 / 24, _ ->
+	{
+		endSong();
+	});
 }

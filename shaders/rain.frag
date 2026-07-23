@@ -1,5 +1,10 @@
 #pragma header
 
+
+
+
+// TODO: shouldn't this be isolated?
+
 //
 // Description : Array and textureless GLSL 2D/3D/4D simplex
 //               noise functions.
@@ -15,42 +20,81 @@
 // ALL UNUSED THINGS WERE DELETED FROM ORIGINAL SHADER!!!
 // things people keep crying about idk lol, do note that this was supposed to be in pragma header
 
+// normalized screen coord
+//   (0, 0) is the top left of the window
+//   (1, 1) is the bottom right of the window
 #define screenCoord openfl_TextureCoordv
+
+// equals (FlxG.width, FlxG.height)
 uniform vec2 uScreenResolution;
+
+// equals (camera.viewLeft, camera.viewTop, camera.viewRight, camera.viewBottom)
 uniform vec4 uCameraBounds;
 
-vec2 screenToWorld(vec2 screenCoord)
-{
-	vec2 scale = vec2(uCameraBounds.z - uCameraBounds.x, uCameraBounds.w - uCameraBounds.y);
-	vec2 offset = vec2(uCameraBounds.x, uCameraBounds.y);
-	return screenCoord * scale + offset;
+// equals (frame.left, frame.top, frame.right, frame.bottom)
+uniform vec4 uFrameBounds;
+
+// screen coord -> world coord conversion
+// returns world coord in px
+vec2 screenToWorld(vec2 screenCoord) {
+    float left = uCameraBounds.x;
+    float top = uCameraBounds.y;
+    float right = uCameraBounds.z;
+    float bottom = uCameraBounds.w;
+    vec2 scale = vec2(right - left, bottom - top);
+    vec2 offset = vec2(left, top);
+    return screenCoord * scale + offset;
 }
 
-vec2 worldToScreen(vec2 worldCoord)
-{
-	vec2 scale = vec2(uCameraBounds.z - uCameraBounds.x, uCameraBounds.w - uCameraBounds.y);
-	vec2 offset = vec2(uCameraBounds.x, uCameraBounds.y);
-	return (worldCoord - offset) / scale;
+// world coord -> screen coord conversion
+// returns normalized screen coord
+vec2 worldToScreen(vec2 worldCoord) {
+    float left = uCameraBounds.x;
+    float top = uCameraBounds.y;
+    float right = uCameraBounds.z;
+    float bottom = uCameraBounds.w;
+    vec2 scale = vec2(right - left, bottom - top);
+    vec2 offset = vec2(left, top);
+    return (worldCoord - offset) / scale;
 }
 
-vec2 bitmapCoordScale()
-{
-	return openfl_TextureCoordv / screenCoord;
+// screen coord -> frame coord conversion
+// returns normalized frame coord
+vec2 screenToFrame(vec2 screenCoord) {
+    float left = uFrameBounds.x;
+    float top = uFrameBounds.y;
+    float right = uFrameBounds.z;
+    float bottom = uFrameBounds.w;
+    float width = right - left;
+    float height = bottom - top;
+
+    float clampedX = clamp(screenCoord.x, left, right);
+    float clampedY = clamp(screenCoord.y, top, bottom);
+
+    return vec2(
+        (clampedX - left) / (width),
+        (clampedY - top) / (height)
+    );
 }
 
-vec2 screenToBitmap(vec2 screenCoord)
-{
-	return screenCoord * bitmapCoordScale();
+// internally used to get the maximum `openfl_TextureCoordv`
+vec2 bitmapCoordScale() {
+    return openfl_TextureCoordv / screenCoord;
 }
 
-vec4 sampleBitmapScreen(vec2 screenCoord)
-{
-	return texture2D(bitmap, screenToBitmap(screenCoord));
+// internally used to compute bitmap coord
+vec2 screenToBitmap(vec2 screenCoord) {
+    return screenCoord * bitmapCoordScale();
 }
 
-vec4 sampleBitmapWorld(vec2 worldCoord)
-{
-	return sampleBitmapScreen(worldToScreen(worldCoord));
+// samples the frame buffer using a screen coord
+vec4 sampleBitmapScreen(vec2 screenCoord) {
+    return texture2D(bitmap, screenToBitmap(screenCoord));
+}
+
+// samples the frame buffer using a world coord
+vec4 sampleBitmapWorld(vec2 worldCoord) {
+    return sampleBitmapScreen(worldToScreen(worldCoord));
 }
 
 // common
@@ -144,14 +188,46 @@ float snoise(vec3 v) {
 									dot(p2,x2), dot(p3,x3) ) );
 }
 
-float rand(vec2 a) {
-	return fract(sin(dot(mod(a, vec2(1000.0)).xy, vec2(12.9898, 78.233))) * 43758.5453);
-}
-
 // actual shader
+
+
+
+
+
+
+
+
+
+
+struct Light {
+	vec2 position;
+	vec3 color;
+	float radius;
+};
+
+// prevent auto field generation
+#define UNIFORM uniform
+
 uniform float uScale;
 uniform float uIntensity;
 uniform float uTime;
+uniform float uPuddleY;
+uniform float uPuddleScaleY;
+uniform sampler2D uBlurredScreen;
+uniform sampler2D uMask;
+uniform sampler2D uLightMap;
+uniform int numLights;
+
+uniform bool uSpriteMode;
+
+uniform vec3 uRainColor;
+
+const int MAX_LIGHTS = 8;
+UNIFORM Light lights[MAX_LIGHTS];
+
+float rand(vec2 a) {
+	return fract(sin(dot(mod(a, vec2(1000.0)).xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
 float ease(float t) {
 	return t * t * (3.0 - 2.0 * t);
@@ -183,8 +259,65 @@ float rainDist(vec2 p, float scale, float intensity) {
 	return empty ? 1.0 : res;
 }
 
+float rippleHeight(vec2 p, vec2 pos, float age, float size, float modSize, float thickness) {
+	float strength = 1.0 - exp(-(1.0 - age) * 1.0);
+	float h = max(0.0, 1.0 - abs(length(mod(p - pos + modSize * 0.5, vec2(modSize)) - modSize * 0.5) - size * age) / thickness);
+	h = h * h * (3.0 - 2.0 * h); // smoothstep
+	return h * strength;
+}
+
+vec2 puddleDisplace(vec2 p, float intensity) {
+	vec2 res = vec2(0);
+
+	const int numRipples = 30;
+	const float rippleLife = 0.8;
+	const float rippleSize = 100.0;
+	const float rippleMod = rippleSize * 2.0;
+	for (int i = 0; i < numRipples; i++) {
+		float shift = float(i) / float(numRipples);
+		float rippleNumber = uTime / rippleLife + shift;
+		float rippleId = floor(rippleNumber);
+		rippleId = rand(vec2(rippleId, i));
+		float x = rand(vec2(rippleId, rippleId + 1.0)) * rippleMod;
+		float y = rand(vec2(rippleId + 2.0, rippleId + 3.0)) * rippleMod;
+		vec2 pos = vec2(x, y);
+		float age = fract(rippleNumber);
+		float thickness = 4.0;
+		float eps = 1.0;
+		vec2 pScale = vec2(1, 1.0 / uPuddleScaleY);
+		float hc = rippleHeight(p * pScale, pos, age, rippleSize, rippleMod, thickness);
+		float hx = rippleHeight((p + vec2(eps, 0)) * pScale, pos, age, rippleSize, rippleMod, thickness);
+		float hy = rippleHeight((p + vec2(0, eps)) * pScale, pos, age, rippleSize, rippleMod, thickness);
+		vec2 normal = (vec2(hx, hy) - hc) / eps;
+		res += normal * 20.0;
+	}
+	return res;
+}
+
+vec3 lightUp(vec2 p) {
+	vec3 res = vec3(0);
+	for (int i = 0; i < MAX_LIGHTS; i++) {
+		if (i >= numLights) {
+			break;
+		}
+		vec2 lp = lights[i].position;
+		vec3 lc = lights[i].color;
+		float lr = lights[i].radius;
+		float w = max(0.0, 1.0 - length(lp - p) / lr);
+		res += ease(w) * lc;
+	}
+	return res;
+}
+
+vec2 worldToBackground(vec2 worldCoord) {
+	// this should work as long as the background sprite is placed at the origin without scaling
+	return worldCoord / uScreenResolution;
+}
+
 void main() {
+
 	vec2 wpos = screenToWorld(screenCoord);
+	if (uSpriteMode) wpos = screenToWorld(screenToFrame(openfl_TextureCoordv));
 	vec2 origWpos = wpos;
 	float intensity = uIntensity;
 
@@ -210,12 +343,33 @@ void main() {
 		}
 	}
 
+
+	//vec3 light = (texture2D(uLightMap, screenCoord).xyz + lightUp(wpos)) * intensity;
+
 	vec3 color = sampleBitmapWorld(wpos).xyz;
+	float alpha = sampleBitmapWorld(wpos).w;
+	if (uSpriteMode) {
+		vec2 rwpos = worldToScreen(wpos - origWpos);
+		color = flixel_texture2D(bitmap, openfl_TextureCoordv + rwpos).xyz;
+		alpha = flixel_texture2D(bitmap, openfl_TextureCoordv + rwpos).w;
+	}
 
-	vec3 rainColor = vec3(0.1, 0.1, 0.1);
+	/*
+	bool isPuddle = texture2D(uMask, screenCoord).x > 0.5;
+	if (isPuddle) {
+		vec2 wpos2 = vec2(wpos.x, uPuddleY - (wpos.y - uPuddleY) / uPuddleScaleY);
+		wpos2 += puddleDisplace(wpos / uScale, intensity) * uScale;
+		vec3 reflection = texture2D(uBlurredScreen, worldToScreen(wpos2)).xyz * 0.3 + 0.3;
+		float reflectionRatio = 1.0;
+		color = reflection;
+	}
+	*/
+
 	color += add;
-	color = mix(color, rainColor, 0.1 * rainSum);
+	color = mix(color, uRainColor, 0.1 * rainSum);
 
-	// alpha 1.0 doesn't really matter for camGame
-	gl_FragColor = vec4(color, 1.0);
+	// vec3 fog = light * (0.5 + rainSum * 0.5);
+	// color = color / (1.0 + fog) + fog;
+
+	gl_FragColor = vec4(color, alpha);
 }

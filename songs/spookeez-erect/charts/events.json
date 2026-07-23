@@ -1,0 +1,156 @@
+{
+	"song": {
+		"events": [
+			[
+				0.634146341499218,
+				[
+					[
+						"Focus Camera",
+						"Player",
+						"0,0,4,CLASSIC"
+					]
+				]
+			],
+			[
+				5783.6341463415,
+				[
+					[
+						"Focus Camera",
+						"Opponent",
+						"0,0,4,CLASSIC"
+					]
+				]
+			],
+			[
+				8674.6341463415,
+				[
+					[
+						"Focus Camera",
+						"Player",
+						"0,0,4,CLASSIC"
+					]
+				]
+			],
+			[
+				11566.6341463415,
+				[
+					[
+						"Focus Camera",
+						"Opponent",
+						"0,0,4,CLASSIC"
+					]
+				]
+			],
+			[
+				14457.6341463415,
+				[
+					[
+						"Focus Camera",
+						"Player",
+						"0,0,4,CLASSIC"
+					]
+				]
+			],
+			[
+				15903.9512195122,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"1.1,32,expoOut"
+					]
+				]
+			],
+			[
+				17259.3614457831,
+				[
+					[
+						"Set Camera Bop",
+						"2",
+						"1"
+					]
+				]
+			],
+			[
+				17349,
+				[
+					[
+						"Focus Camera",
+						"Girlfriend",
+						"-50,50,32,expoOut"
+					]
+				]
+			],
+			[
+				17349.3975903614,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"0.9,32,expoOut"
+					]
+				]
+			],
+			[
+				23132,
+				[
+					[
+						"Focus Camera",
+						"Player",
+						"0,0,32,expoOut"
+					]
+				]
+			],
+			[
+				23313.2530120482,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"1,32,expoOut"
+					]
+				]
+			],
+			[
+				24578.9512195122,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"0.95,32,expoOut"
+					]
+				]
+			],
+			[
+				26024.2530120482,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"1,32,expoOut"
+					]
+				]
+			],
+			[
+				28915,
+				[
+					[
+						"Focus Camera",
+						"Girlfriend",
+						"-50,50,32,expoOut"
+					]
+				]
+			],
+			[
+				28915.6626506024,
+				[
+					[
+						"Zoom Camera",
+						"Stage",
+						"0.9,32,expoOut"
+					]
+				]
+			]
+		]
+	}
+}

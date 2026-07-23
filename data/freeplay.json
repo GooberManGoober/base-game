@@ -2,28 +2,40 @@
     "tabs": [
         {
             "title": "Friday Night Funkin'",
-            "fromWeeks": ["tutorial", "week1", "week1-pico", "week2", "week3", "week4", "week5", "week6", "week7"]
+            "fromWeeks": ["tutorial", "week1", "week1-pico", "week2", "week3", "week4", "week5", "week6", "week7"],
+            "songs": [
+                "darnell-(bf-mix)",
+                "lit-up-(bf-mix)"
+            ]
         },
         {
             "title": "Erect Mixes",
             "songs": [
                 "Bopeebo-erect",
                 "Fresh-erect",
-                "Dadbattle-erect"
+                "Dadbattle-erect",
+                "Spookeez-erect",
+                "South-erect"
             ]
         },
         {
             "title": "Pico Mixes",
             "songs": [
-                "Bopeebo (Pico Mix)",
-                "Fresh (Pico Mix)",
-                "DadBattle (Pico Mix)",
-                "Stress (Pico Mix)",
+                "bopeebo-(pico-mix)",
+                "fresh-(pico-mix)",
+                "dadBattle-(pico-mix)",
+                "stress-(pico-mix)",
                 "Darnell",
                 "Lit-Up",
                 "2hot",
                 "Blazin"
             ]
-        }   
+        },
+        {
+            "title": "Pico Mixes (Erect)",
+            "songs": [
+                "Darnell-erect"
+            ]
+        }
     ]
 }

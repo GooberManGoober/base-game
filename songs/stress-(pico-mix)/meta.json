@@ -1,21 +1,19 @@
 {
 	"charters": [
-		"fabs",
-		"Spazkid"
+		"fabs + Spazkid"
 	],
 	"coders": [],
-	"freeplayIcon": "dad",
+	"freeplayIcon": "tankman",
 	"difficulties": [
 		"Easy",
 		"Normal",
 		"Hard"
 	],
 	"composers": [
-		"That Andy Guy",
 		"Saruky"
 	],
-	"displayName": "Bopeebo (Pico Mix)",
-	"freeplayColor": "0xFFAF66CE",
+	"displayName": "Stress (Pico Mix)",
+	"freeplayColor": "0xFFE1E1E1",
 	"freeplayIconFrames": 2,
 	"artists": []
 }
