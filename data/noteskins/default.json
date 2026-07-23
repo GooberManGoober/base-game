@@ -131,7 +131,7 @@
 				-2,
 				-2
 			],
-			"xmlName": "note splash",
+			"xmlName": "splash purple 1",
 			"anim": "note0"
 		},
 		{
@@ -139,7 +139,7 @@
 				-2,
 				-2
 			],
-			"xmlName": "note splash",
+			"xmlName": "splash blue 1",
 			"anim": "note1"
 		},
 		{
@@ -147,7 +147,7 @@
 				-2,
 				-2
 			],
-			"xmlName": "note splash",
+			"xmlName": "splash green 1",
 			"anim": "note2"
 		},
 		{
@@ -155,7 +155,7 @@
 				-2,
 				-2
 			],
-			"xmlName": "note splash",
+			"xmlName": "splash red 1",
 			"anim": "note3"
 		}
 	],
