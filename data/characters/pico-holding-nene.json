@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				0,
-				0
+				95,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -15,8 +15,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				95,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -28,8 +28,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				91,
+				86
 			],
 			"flipY": false,
 			"loop": false,
@@ -41,8 +41,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				97,
+				88
 			],
 			"flipY": false,
 			"loop": false,
@@ -54,8 +54,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				94,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -67,8 +67,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				94,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -80,8 +80,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				90,
+				86
 			],
 			"flipY": false,
 			"loop": false,
@@ -93,8 +93,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				96,
+				88
 			],
 			"flipY": false,
 			"loop": false,
@@ -106,8 +106,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				93,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -119,8 +119,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				95,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -132,8 +132,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				95,
+				85
 			],
 			"flipY": false,
 			"loop": false,
@@ -145,8 +145,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				0
+				95,
+				85
 			],
 			"flipY": false,
 			"loop": true,
@@ -213,8 +213,8 @@
 	"ghosts_enabled": false,
 	"image": "characters/pico-holding-nene,characters/pico-holding-nene/picoAndNene-DEAD",
 	"position": [
-		52,
-		16
+		0,
+		290
 	],
 	"dance_every": 2,
 	"gameover_intial_sound": null,
@@ -226,8 +226,8 @@
 	"flip_x": true,
 	"healthbar_colour": -4728747,
 	"camera_position": [
-		-32,
-		24
+		165,
+		-3
 	],
 	"gameover_loop_sound": null,
 	"icon_count": 2,

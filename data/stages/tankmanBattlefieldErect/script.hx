@@ -14,7 +14,6 @@ var sniper:FlxSprite;
 var guy:FlxSprite;
 var tankBricks:FlxSprite;
 
-//
 var anims:Array<String> = ['shoot1', 'shoot2', 'shoot3', 'shoot4'];
 var otisAnims:Array<CrowdAnim> = [];
 var chart:Song = null;
@@ -37,8 +36,7 @@ function onLoad()
 
 	function onSniperAnimFinish(animName:String)
 	{
-		if (animName == "sip")
-			sniper.dance();
+		if (animName == "sip") sniper.dance();
 	}
 	
 	sniper = new Bopper(-300, 200).loadAtlas('backgrounds/tank/erect/sniper');
@@ -78,7 +76,7 @@ function onLoad()
 	tankmanRun.zIndex = 30;
 	tankBricks.zIndex = 101;
 
-	if (PlayState.SONG.song.toLowerCase().replace(' ', '-') == "stress-(pico-mix)") songEndCallback = loadEndcutscene;
+	if (songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)") songEndCallback = loadEndcutscene;
 }
 
 function makeRimForSpr(spr, angle:Float = 0)
@@ -99,10 +97,20 @@ function onCreatePost()
 {
 	var dadrim = makeRimForSpr(dad, 25);
 	dadrim.threshold = 0.3;
+	dad.animation.onFrameChange.add(() -> {
+		dadrim.updateFrameInfo(dad.frame);
+	});
 	
 	var bfRim = makeRimForSpr(boyfriend, 90);
+	boyfriend.animation.onFrameChange.add(() -> {
+		bfRim.updateFrameInfo(boyfriend.frame);
+	});
 	
 	var gfRim = makeRimForSpr(gf, 90);
+	gf.animation.onFrameChange.add(() -> {
+		gfRim.updateFrameInfo(gf.frame);
+	});
+
 	rim.loadAltMask(Paths.image('backgrounds/tank/erect/masks/neneTankmen_mask'));
 	rim.maskThreshold = 0.4;
 	rim.useAltMask = true;
@@ -111,60 +119,64 @@ function onCreatePost()
 	{
 		i.shader.distance = 0;
 		FlxTween.tween(i.shader, {distance: 15}, 1);
+		
 	}
 	
-	chart = Chart.fromPath(Paths.json('stress-(pico-mix)/charts/picospeaker'));
-	if (chart != null)
+	if (songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)")
 	{
-		for (section in chart.notes)
+		chart = Chart.fromPath(Paths.json('stress-(pico-mix)/charts/picospeaker'));
+		if (chart != null)
 		{
-			for (note in section.sectionNotes)
+			for (section in chart.notes)
 			{
-				otisAnims.push(
-					{
-						time: note[0],
-						data: Math.floor(note[1] % 4),
-						length: note[2]
-					});
+				for (note in section.sectionNotes)
+				{
+					otisAnims.push(
+						{
+							time: note[0],
+							data: Math.floor(note[1] % 4),
+							length: note[2]
+						});
+				}
 			}
 		}
-	}
-	
-	ArraySort.sort(otisAnims, (a, b) -> {
-		if (a.time < b.time) return -1;
-		else if (a.time > b.time) return 1;
-		return 0;
-	});
-	
-	if (!ClientPrefs.lowQuality)
-	{
-		var firstTank:TankmenBG = new TankmenBG(20, 500, true);
-		firstTank.resetShit(-200, 600, true);
-		firstTank.strumTime = 10;
-		firstTank.visible = false;
-		tankmanRun.add(firstTank);
 		
-		for (i in 0...otisAnims.length)
+		ArraySort.sort(otisAnims, (a, b) -> {
+			if (a.time < b.time) return -1;
+			else if (a.time > b.time) return 1;
+			return 0;
+		});
+		
+		if (!ClientPrefs.lowQuality)
 		{
-			final goingRight = otisAnims[i].data < 2;
+			var firstTank:TankmenBG = new TankmenBG(20, 500, true);
+			firstTank.resetShit(-200, 600, true);
+			firstTank.strumTime = 10;
+			firstTank.visible = false;
+			tankmanRun.add(firstTank);
 			
-			if (FlxG.random.bool(20))
+			for (i in 0...otisAnims.length)
 			{
-				var tankBih = tankmanRun.recycle(TankmenBG);
-				tankBih.strumTime = otisAnims[i].time;
-				tankBih.setScale(1, 1);
-				tankBih.resetShit(0, 130, goingRight);
-				tankBih.endingOffset = goingRight ? 160 : 10;
-				tankBih.endAnimOffset = goingRight ? [300, 200] : [270, 200];
-				tankBih.visible = true;
+				final goingRight = otisAnims[i].data < 2;
 				
-				var rim = makeRimForSpr(tankBih, 90);
-				rim.distance = 10;
-				tankBih.animation.onFrameChange.add(() -> {
-					rim.updateFrameInfo(tankBih.frame);
-				});
-				
-				tankmanRun.add(tankBih);
+				if (FlxG.random.bool(20))
+				{
+					var tankBih = tankmanRun.recycle(TankmenBG);
+					tankBih.strumTime = otisAnims[i].time;
+					tankBih.setScale(1, 1);
+					tankBih.resetShit(0, 130, goingRight);
+					tankBih.endingOffset = goingRight ? 160 : 10;
+					tankBih.endAnimOffset = goingRight ? [300, 200] : [270, 200];
+					tankBih.visible = true;
+					
+					var rim = makeRimForSpr(tankBih, 90);
+					rim.distance = 10;
+					tankBih.animation.onFrameChange.add(() -> {
+						rim.updateFrameInfo(tankBih.frame);
+					});
+					
+					tankmanRun.add(tankBih);
+				}
 			}
 		}
 	}
@@ -205,14 +217,14 @@ function updateOtisCharts()
 
 function onUpdate(elapsed)
 {
-	updateOtisCharts();
+	if (songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)") updateOtisCharts();
 }
 
 var can = true;
 
 function onStartCountdown()
 {
-	if (can)
+	if (can && songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)")
 	{
 		camHUD.alpha = 0;
 		
@@ -229,7 +241,7 @@ function onStartCountdown()
 		
 		dadGroup.visible = boyfriendGroup.visible = gfGroup.visible = false;
 		
-		snapCamToPos(getCharacterCameraPos(dad).x + 440, getCharacterCameraPos(dad).y, true);
+		snapCamToPos(getCharacterCameraPos(dad).x + 350, getCharacterCameraPos(dad).y, true);
 		
 		anim.onAnimationFrameChange.add((anim, frame) -> {
 			switch (frame)

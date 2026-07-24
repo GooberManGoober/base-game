@@ -1,3 +1,5 @@
+import funkin.game.shaders.RainShader;
+
 var lightningStrikeBeat:Int = 0;
 var lightningStrikeOffset:Int = 8;
 
@@ -5,8 +7,16 @@ var bfLight:Character;
 var dadLight:Character;
 var gfLight:Character;
 
+var rain:RainShader;
+
 function onCreatePost()
 {
+	shader = new RainShader();
+	shader.scale = FlxG.height / 200 * 2;
+	shader.intensity = 0.4;
+	shader.spriteMode = true;
+	bgTrees.shader = shader;
+	
 	bfLight = new Character(0, 0, boyfriend.curCharacter == "pico" ? 'pico-dark' : 'bf', true);
 	bfLight.flipX = false;
 	bfLight.alpha = 0.0001;
@@ -28,6 +38,12 @@ function onCreatePost()
 	gfLight.danceIdle = true;
 	gfLight.alpha = 0.0001;
 	gfGroup.addChar(gfLight);
+}
+
+function onUpdate(elapsed)
+{
+	shader?.updateFrameInfo(bgTrees.frame);
+	shader?.update(elapsed);
 }
 
 function doLightningStrike(playSound:Bool, beat:Int):Void

@@ -10,6 +10,17 @@ var abotVis:ABotVis;
 var abot:FlxSpriteGroup;
 var started = false;
 
+function makeAdjustShader(_brightness, _hue, _contrast, _saturation)
+{
+	var shader = newShader('adjustColor');
+	shader.setFloat('brightness', _brightness);
+	shader.setFloat('hue', _hue);
+	shader.setFloat('contrast', _contrast);
+	shader.setFloat('saturation', _saturation);
+	
+	return shader;
+}
+
 function onCreatePost()
 {
 	dadGroup.zIndex += 1;
@@ -46,6 +57,14 @@ function onCreatePost()
 	// add(aBot);
 	stage.add(aBot);
 	refreshZ(stage);
+
+	var adjust = makeAdjustShader(-40, -20, -40, -25);
+	var vizAdjust = makeAdjustShader(-12, -30, 0, -10);
+	
+	for (spr in [pupil, abotSpeaker, stereoBG, eyeWhites])
+		spr.shader = adjust;
+	for (spr in abotVis.members)
+		spr.shader = vizAdjust;
 	
 	aBot.add(eyeWhites);
 	aBot.add(stereoBG);
@@ -164,8 +183,6 @@ var readyToKill = false;
 
 function onUpdatePost()
 {
-	synchronizeShader();
-	
 	if (health <= 0.6 && !readyToKill)
 	{
 		gf.stunned = true;
@@ -181,14 +198,4 @@ function onUpdatePost()
 		readyToKill = false;
 		gf.playAnimForDuration('lowerKnife', 0.3, true);
 	}
-}
-
-function synchronizeShader()
-{
-	eyeWhites.shader = gf.shader;
-	stereoBG.shader = gf.shader;
-	pupil.shader = gf.shader;
-	abotVis.shader = gf.shader;
-
-	for (member in aBot.members) member.shader = gf.shader;
 }

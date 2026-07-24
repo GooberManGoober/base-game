@@ -54,7 +54,7 @@ function onCreatePost()
 	abotVis.x += 30;
 	abotVis.y += 35;
 	
-	aBot.setPosition(gf.x + 275, gf.y + 480);
+	aBot.setPosition(gf.x - 319, gf.y + 360);
 	aBot.zIndex = gfGroup.zIndex - 1;
 	// add(aBot);
 	// stage.add(aBot);

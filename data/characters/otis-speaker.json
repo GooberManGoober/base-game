@@ -1,76 +1,77 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
+			"loop": false,
 			"flipY": false,
+			"offsets": [
+				320,
+				125
+			],
 			"anim": "idle",
-			"loop": false,
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": [],
+			"flipX": false
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
+			"loop": false,
 			"flipY": false,
+			"offsets": [
+				320,
+				125
+			],
 			"anim": "shoot1",
-			"loop": false,
-			"name": "shoot right"
+			"fps": 24,
+			"name": "shoot right",
+			"indices": [],
+			"flipX": false
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
+			"loop": false,
 			"flipY": false,
+			"offsets": [
+				320,
+				125
+			],
 			"anim": "shoot2",
-			"loop": false,
-			"name": "shoot right low"
+			"fps": 24,
+			"name": "shoot right low",
+			"indices": [],
+			"flipX": false
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
+			"loop": false,
 			"flipY": false,
+			"offsets": [
+				320,
+				125
+			],
 			"anim": "shoot3",
-			"loop": false,
-			"name": "shoot left"
+			"fps": 24,
+			"name": "shoot left",
+			"indices": [],
+			"flipX": false
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
-			"anim": "shoot4",
 			"loop": false,
-			"name": "shoot left low"
+			"flipY": false,
+			"offsets": [
+				320,
+				125
+			],
+			"anim": "shoot4",
+			"fps": 24,
+			"name": "shoot left low",
+			"indices": [],
+			"flipX": false
 		}
 	],
 	"no_antialiasing": false,
+	"ghosts_enabled": false,
 	"image": "characters/otis",
 	"position": [
-		-13,
-		-132
+		30,
+		0
 	],
 	"dance_every": 2,
 	"gameover_intial_sound": null,
@@ -82,10 +83,11 @@
 	"flip_x": false,
 	"healthbar_colour": -8355712,
 	"camera_position": [
-		-27,
-		57
+		-328,
+		-8
 	],
 	"gameover_loop_sound": null,
+	"icon_count": 2,
 	"sing_duration": 4,
 	"scale": 1,
 	"_editor_isPlayer": false

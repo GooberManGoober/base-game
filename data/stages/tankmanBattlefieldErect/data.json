@@ -3,9 +3,9 @@
 	"defaultZoom": 0.7,
 	"isPixelStage": false,
 
-	"boyfriend": [750, 180],
-	"girlfriend": [67, 11.5],
-	"opponent": [-275, 125],
+	"boyfriend": [924, -9],
+	"girlfriend": [342.5, 5.5],
+	"opponent": [-160, -70],
 
     "dadZIndex": 200,
     "bfZIndex": 300,
