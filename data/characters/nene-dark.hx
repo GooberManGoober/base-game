@@ -21,6 +21,7 @@ function onCreatePost()
 	eyeWhites = new FlxSprite(-120, 200).makeGraphic(160, 60, FlxColor.WHITE);
 	
 	stereoBG = new FlxSprite(-20, -20).loadGraphic(Paths.image('characters/abot/stereoBG'));
+	stereoBG.color = 0xFF616785;
 	
 	pupil = new FlxAnimate(-125, 190);
 	pupil.frames = FlxAnimateFrames.fromAnimate((Paths.textureAtlas('characters/abot/systemEyes')));
@@ -32,7 +33,7 @@ function onCreatePost()
 	pupil.antialiasing = true;
 	
 	abotSpeaker = new FlxAnimate(-175, -50);
-	abotSpeaker.frames = FlxAnimateFrames.fromAnimate((Paths.textureAtlas('characters/abot/abotSystem')));
+	abotSpeaker.frames = FlxAnimateFrames.fromAnimate((Paths.textureAtlas('characters/abot/dark/abotSystem')));
 	abotSpeaker.anim.addBySymbol('sys', 'Abot System', 24, false);
 	abotSpeaker.anim.play('sys');
 	abotSpeaker.antialiasing = true;
@@ -53,7 +54,19 @@ function onCreatePost()
 	aBot.add(abotVis);
 	
 	aBot.add(abotSpeaker);
-	
+
+	vizAdjustColor = newShader('adjustColor');
+
+    vizAdjustColor.setFloat('brightness', -12);
+    vizAdjustColor.setFloat('hue', -26);
+    vizAdjustColor.setFloat('contrast', 0);
+    vizAdjustColor.setFloat('saturation', -45);
+
+    for (spr in aBot.members)
+    {
+      spr.shader = vizAdjustColor;
+    }
+
 	tempAnalyzer();
 }
 
@@ -113,7 +126,10 @@ var left = true;
 
 function onBeatHit()
 {
-	if (abotSpeaker != null) abotSpeaker.anim.play('sys', true);
+	if (abotSpeaker != null)
+	{
+		abotSpeaker.anim.play('sys', true);
+	}
 	
 	if (ClientPrefs.streamedMusic) speakerBump();
 }
@@ -129,11 +145,11 @@ function speakerBump()
 		
 		i.animation.curAnim.curFrame = choice;
 		FlxTween.num(choice, 6, Conductor.stepCrotchet / 500,
-			{
-				onUpdate: (t) -> {
-					i.animation.curAnim.curFrame = t.value;
-				}
-			});
+		{
+			onUpdate: (t) -> {
+				i.animation.curAnim.curFrame = t.value;
+			}
+		});
 	}
 }
 
@@ -148,7 +164,10 @@ function onSectionHit()
 		if (sec != null)
 		{
 			if (curSection > 0) prevSec = PlayState.SONG.notes[curSection - 1];
-			if (sec.mustHitSection != prevSec.mustHitSection) pupil.anim.play('lookin ' + (sec.mustHitSection ? 'right' : 'left'));
+			if (sec.mustHitSection != prevSec.mustHitSection)
+			{
+				pupil.anim.play('lookin ' + (sec.mustHitSection ? 'right' : 'left'));
+			}
 		}
 	}
 }
@@ -164,7 +183,8 @@ var readyToKill = false;
 
 function onUpdatePost()
 {
-	synchronizeShader();
+	for (aBotShit in [eyeWhites, stereoBG, pupil, abotVis, abotSpeaker])
+		aBotShit.alpha = gf.alpha;
 	
 	if (health <= 0.6 && !readyToKill)
 	{
@@ -181,15 +201,4 @@ function onUpdatePost()
 		readyToKill = false;
 		gf.playAnimForDuration('lowerKnife', 0.3, true);
 	}
-}
-
-function synchronizeShader()
-{
-	eyeWhites.shader = gf.shader;
-	stereoBG.shader = gf.shader;
-	pupil.shader = gf.shader;
-	abotVis.shader = gf.shader;
-
-	for (member in aBot.members) member.shader = gf.shader;
-	for (member in aBot.members) member.alpha = gf.alpha;
 }

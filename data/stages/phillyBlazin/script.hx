@@ -1,9 +1,11 @@
 import openfl.filters.ShaderFilter;
+import funkin.game.shaders.RainShader;
 
 var startIntensity:Float = 0.6;
 var endIntensity:Float = 0.8;
-var rainShader:FlxShader;
-var rainTime:Float = 0;
+
+var rainShader:RainShader;
+var rainTimeScale:Float = 1;
 
 var scrollingSky:FlxTiledSprite;
 var skyAdditive:BGSprite;
@@ -77,13 +79,10 @@ function onCreatePost() {
 	modManager.setValue("alpha", 1, 1);
 	modManager.setValue("opponentSwap", 0.5);
 
-	rainShader = newShader('rain');
-	rainShader.setFloatArray('uScreenResolution', [FlxG.width, FlxG.height]);
-	rainShader.setFloat('uTime', 0);
-	rainShader.setFloat('uScale', FlxG.height / 300);
-	rainShader.setFloat('uIntensity', startIntensity);
-
-	camGame.filters = [new ShaderFilter(rainShader) /*, new ShaderFilter(rain2)*/];
+	rainShader = new RainShader();
+	rainShader.scale = FlxG.height / 200;
+	rainShader.intensity = 0.5;
+	FlxG.camera.filters = [new ShaderFilter(rainShader)];
 
 	boyfriendGroup.zIndex = 3000;
 	dadGroup.zIndex = 2000;
@@ -133,18 +132,12 @@ function onCreatePost() {
 function onUpdate(elapsed) {
 	if(scrollingSky != null) scrollingSky.scrollX -= elapsed * 35;
 
-	rainTime += elapsed;
-
-	var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.songPosition, 0, FlxG.sound.music.length, startIntensity, endIntensity);
-
-	rainShader.setFloatArray('uCameraBounds', [
-		camGame.scroll.x + camGame.viewMarginX,
-		camGame.scroll.y + camGame.viewMarginY,
-		camGame.scroll.x + camGame.viewMarginX + camGame.width,
-		camGame.scroll.y + camGame.viewMarginY + camGame.height
-	]);
-	rainShader.setFloat('uTime', rainTime);
-	rainShader.setFloat('uIntensity', remappedIntensityValue);
+	if(rainShader != null)
+	{
+		rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
+		rainShader.update(elapsed * rainTimeScale);
+		rainTimeScale = FlxMath.lerp(0.02, Math.min(1, rainTimeScale), Math.exp(-elapsed / (1/3)));
+	}
 
 	lightningTimer -= elapsed;
 	if (lightningTimer <= 0)
@@ -221,4 +214,10 @@ function endEnding()
     ending.destroy();
     endSong();
     ending = null;
+}
+
+function goodNoteHit(note)
+{
+	//trace('hit note! ${note.noteType}');
+	rainTimeScale += 0.7;
 }

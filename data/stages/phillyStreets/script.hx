@@ -1,17 +1,20 @@
 import openfl.filters.ShaderFilter;
 
+import funkin.game.shaders.RainShader;
+
 import animate.FlxAnimateFrames;
 import animate.FlxAnimate;
 
 import flixel.addons.display.FlxTiledSprite;
 
+using StringTools;
+
 var skipCutscene = false;
 var seenCutscene = false;
 
-var rainShader:FlxRuntimeShader;
+var rainShader:RainShader;
 var rainShaderStartIntensity:Float = 0;
 var rainShaderEndIntensity:Float = 0.01;
-var rainTime:Float = 0;
 
 var scrollingSky:FlxTiledSprite;
 var phillyTraffic:BGSprite;
@@ -115,6 +118,9 @@ function onLoad()
 		add(picoFade);
 		darkenable.push(picoFade);
 	}
+
+	if (ClientPrefs.shaders)
+        setupRainShader();
 	
 	spraycanPile = new BGSprite('backgrounds/phillyStreets/SpraycanPile', 50, 420, 1, 1);
 	spraycanPile.zIndex = 5;
@@ -155,29 +161,31 @@ function onCreatePost()
 		}
 		if(!noteTypes.contains(note.noteType)) noteTypes.push(note.noteType);
 	}
-	
-	switch (PlayState.SONG.song.toLowerCase())
-	{
-		case 'darnell':
-			rainShaderStartIntensity = 0;
-			rainShaderEndIntensity = 0.1;
-		case 'lit up':
-			rainShaderStartIntensity = 0.1;
-			rainShaderEndIntensity = 0.2;
-		case '2hot':
-			rainShaderStartIntensity = 0.2;
-			rainShaderEndIntensity = 0.4;
-	}
-	
-	rainShader = newShader('rain');
-	rainShader.setFloatArray('uScreenResolution', [FlxG.width, FlxG.height]);
-	rainShader.setFloat('uTime', 0);
-	rainShader.setFloat('uScale', FlxG.height / 300);
-	rainShader.setFloat('uIntensity', rainShaderStartIntensity);
-	FlxG.camera.filters = [new ShaderFilter(rainShader)];
 
 	if(!isStoryMode) return;
     if (PlayState.SONG.song.toLowerCase() == "2hot") songEndCallback = blazin_intro;
+}
+
+function setupRainShader()
+{
+	rainShader = new RainShader();
+	rainShader.scale = FlxG.height / 200;
+	switch (songName.toLowerCase().replace(' ', '-'))
+	{
+		case 'darnell', 'darnell-(bf-mix)', 'darnell-erect':
+			rainShaderStartIntensity = 0;
+			rainShaderEndIntensity = 0.01;
+		case 'lit-up', 'lit-up-(bf-mix)':
+			rainShaderStartIntensity = 0.01;
+			rainShaderEndIntensity = 0.02;
+		case '2hot':
+			rainShaderStartIntensity = 0.02;
+			rainShaderEndIntensity = 0.04;
+	}
+	rainShader.intensity = rainShaderStartIntensity;
+	rainShader.rainColor = 0xFFa8adb5;
+	
+	FlxG.camera.filters = [new ShaderFilter(rainShader)];
 }
 
 var neneTimer = 0;
@@ -185,19 +193,15 @@ var neneTimer = 0;
 function onUpdate(elapsed)
 {
 	if (scrollingSky != null) scrollingSky.scrollX -= FlxG.elapsed * 22;
-	
-	rainTime += elapsed;
-	
-	var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.songPosition, 0, FlxG.sound.music.length, rainShaderStartIntensity, rainShaderEndIntensity);
-	
-	rainShader.setFloatArray('uCameraBounds', [
-		camGame.scroll.x + camGame.viewMarginX,
-		camGame.scroll.y + camGame.viewMarginY,
-		camGame.scroll.x + camGame.viewMarginX + camGame.width,
-		camGame.scroll.y + camGame.viewMarginY + camGame.height
-	]);
-	rainShader.setFloat('uTime', rainTime);
-	rainShader.setFloat('uIntensity', remappedIntensityValue);
+
+	if (rainShader != null)
+	{
+		var remappedIntensityValue:Float = FlxMath.remapToRange(Conductor.songPosition, 0, (FlxG.sound.music != null ? FlxG.sound.music.length : 0),
+		rainShaderStartIntensity, rainShaderEndIntensity);
+		rainShader.intensity = remappedIntensityValue;
+		rainShader.updateViewInfo(FlxG.width, FlxG.height, FlxG.camera);
+		rainShader.update(elapsed);
+	}
 	
 	if (!skipCutscene && !seenCutscene && isStoryMode)
 	{
