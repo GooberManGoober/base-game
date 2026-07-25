@@ -434,20 +434,20 @@ function onStartCountdown()
 					});
 					
 					FlxTimer.wait(2, () -> {
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 350, y: getCharacterCameraPos(dad).y}, 2.5, {ease: FlxEase.quadInOut});
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 350, y: getCharacterCameraPos(dad).y}, 2.5, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(5, () -> {
 						dad.playAnim('lightCan', true);
 						FlxG.sound.play(Paths.sound('weekend1/Darnell_Lighter'));
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 150}, 0.5, {ease: FlxEase.quadInOut});
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 150}, 0.5, {ease: FlxEase.quadInOut});
 						FlxTween.tween(camGame, {zoom: 0.9}, 0.625, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(6, () -> {
 						boyfriend.playAnim('cock', true);
 						FlxG.sound.play(Paths.sound('weekend1/Gun_Prep'));
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 500, y: getCharacterCameraPos(dad).y}, 0.4, {ease: FlxEase.quadInOut});
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 500, y: getCharacterCameraPos(dad).y}, 0.4, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(6.4, () -> {
@@ -455,7 +455,7 @@ function onStartCountdown()
 						FlxG.sound.play(Paths.sound('weekend1/Kick_Can_UP'));
 						cutsceneCan.animation.play('up');
 						cutsceneCan.visible = true;
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 350, y: getCharacterCameraPos(dad).y}, 0.5, {ease: FlxEase.quadInOut});
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 350, y: getCharacterCameraPos(dad).y}, 0.5, {ease: FlxEase.quadInOut});
 					});
 					
 					FlxTimer.wait(6.9, () -> {
@@ -468,7 +468,7 @@ function onStartCountdown()
 					FlxTimer.wait(7.1, () -> {
 						boyfriend.playAnim('intro2', true);
 						FlxG.sound.play(Paths.soundRandom('weekend1/shots/shot', 1, 4));
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x + 100, y: getCharacterCameraPos(dad).y - 25}, 2.5, {ease: FlxEase.quadInOut});
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x + 100, y: getCharacterCameraPos(dad).y - 25}, 2.5, {ease: FlxEase.quadInOut});
 						cutsceneCan.visible = false;
 						cutsceneSpraycan();
 						
@@ -491,7 +491,7 @@ function onStartCountdown()
 					
 					FlxTimer.wait(10, () -> {
 						FlxTween.tween(camGame, {zoom: 0.77}, 2, {ease: FlxEase.sineInOut});
-						FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x, y: getCharacterCameraPos(dad).y}, 2,
+						FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: getCharacterCameraPos(dad).y}, 2,
 							{
 								ease: FlxEase.sineInOut,
 								onComplete: () -> {
@@ -575,7 +575,7 @@ function blazin_intro()
 		});
 
 		FlxTimer.wait(2, () -> {
-			FlxTween.tween(camFollow, {x:1500.25, y: 855}, 2.5, {ease: FlxEase.quadInOut});
+			FlxTween.tween(camFollowPoint, {x:1500.25, y: 855}, 2.5, {ease: FlxEase.quadInOut});
 		});
 	});
 	cutscene.load(Paths.video("2hotCutscene"));
@@ -752,7 +752,14 @@ function opponentNoteHit(note)
 			defaultCamZoom += 0.1;
 			moveCamera(true);
 			game.cameraSpeed = 2;
-			camFollow.x -= 100;
+			if (camFollowTween != null) camFollowTween.cancel();
+			camFollowTween = FlxTween.tween(camFollowPoint, {
+				x: getCharacterCameraPos(dad).x - 100
+			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+					camFollowTween = null;
+				}
+			});
+			
 		case 'kickcan':
 			dad.holdTimer = 0;
 			dad.playAnim('kickCan', true);
@@ -760,7 +767,15 @@ function opponentNoteHit(note)
 			kickCanSnd.play(true, sndTime - 50);
 			cutsceneCan.animation.play('up');
 			cutsceneCan.visible = true;
-			camFollow.x += 500;
+
+			if (camFollowTween != null) camFollowTween.cancel();
+			camFollowTween = FlxTween.tween(camFollowPoint, {
+				x: camFollowPoint.x + 500
+			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+					camFollowTween = null;
+				}
+			});
+
 			cameraSpeed = 1.5;
 			defaultCamZoom -= 0.1;
 			

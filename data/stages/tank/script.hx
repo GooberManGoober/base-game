@@ -268,8 +268,15 @@ function tankIntro()
 			
 			FlxTimer.wait(3, () -> {
 				isCameraOnForcedPos = true;
-				camFollow.x += 550;
-				camFollow.y += 50;
+				
+				if (camFollowTween != null) camFollowTween.cancel();
+				camFollowTween = FlxTween.tween(camFollowPoint, {
+					x: camFollowPoint.x + 550,
+					y: camFollowPoint.y + 50,
+				}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+						camFollowTween = null;
+					}
+				});
 			});
 			
 			FlxTimer.wait(4.5, () -> {
@@ -279,8 +286,14 @@ function tankIntro()
 			});
 			
 			FlxTimer.wait(6, () -> {
-				camFollow.x -= 550;
-				camFollow.y -= 50;
+				if (camFollowTween != null) camFollowTween.cancel();
+				camFollowTween = FlxTween.tween(camFollowPoint, {
+					x: camFollowPoint.x - 550,
+					y: camFollowPoint.y - 50,
+				}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+						camFollowTween = null;
+					}
+				});
 				
 				tankman.playAnim('ugh2');
 				FlxG.sound.play(Paths.sound('week7/killYou'));
@@ -341,10 +354,9 @@ function tankIntro()
 			picoCutscene.alpha = 0;
 			stage.add(picoCutscene);
 			
-			var boyfriendCutscene:FlxSprite = new FlxSprite(boyfriend.x + 5, boyfriend.y + 20);
-			boyfriendCutscene.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
-			boyfriendCutscene.animation.addByPrefix('idle', 'BF idle dance', 24, false);
-			boyfriendCutscene.animation.play('idle', true);
+			var boyfriendCutscene:Bopper = new Bopper(boyfriend.x + 5, boyfriend.y + 20).loadAtlas('characters/bf');
+			boyfriendCutscene.addAnimByPrefix('idle', 'BF idle dance', 24, false);
+			boyfriendCutscene.playAnim('idle', true);
 			boyfriendCutscene.animation.curAnim.finish();
 			stage.add(boyfriendCutscene);
 			
@@ -361,7 +373,7 @@ function tankIntro()
 			var stressScene = new FlxSound().loadEmbedded(Paths.sound('week7/stressCutscene'));
 			FlxG.sound.list.add(stressScene);
 			
-			FunkinSound.playMusic(Paths.music('week7/klaskii-romper'), 0.2);
+			FunkinSound.playMusic(Paths.music('klaskii-romper'), 0.2);
 			FlxG.sound.music.fadeIn(2, 0.0125, 0.1);
 			
 			FlxTimer.wait(0.1, () -> {
@@ -372,7 +384,7 @@ function tankIntro()
 			FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2}, 1, {ease: FlxEase.quadInOut});
 			
 			FlxTimer.wait(15.2, () -> {
-				FlxTween.tween(camFollow, {x: 650, y: 300}, 1, {ease: FlxEase.sineOut});
+				FlxTween.tween(camFollowPoint, {x: 650, y: 300}, 1, {ease: FlxEase.sineOut});
 				FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2 * 1.2}, 2.25, {ease: FlxEase.quadInOut});
 				gfDance.visible = false;
 				gfCutscene.alpha = 1;
@@ -414,7 +426,14 @@ function tankIntro()
 				tankman.playAnim('stress2', true);
 			});
 			FlxTimer.wait(20, () -> {
-				camFollow.setPosition(dad.x + 500, dad.y + 170);
+				if (camFollowTween != null) camFollowTween.cancel();
+				camFollowTween = FlxTween.tween(camFollowPoint, {
+					x: dad.x + 500,
+					y: dad.y + 170
+				}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+						camFollowTween = null;
+					}
+				});
 			});
 			FlxTimer.wait(31.2, () -> {
 				boyfriend.playAnim('singUPmiss', true);
@@ -426,7 +445,7 @@ function tankIntro()
 					}
 				};
 				
-				camFollow.setPosition(boyfriend.x + 280, boyfriend.y + 200);
+				camFollowPoint.set(boyfriend.x + 280, boyfriend.y + 200);
 				cameraSpeed = 12;
 				FlxTween.tween(FlxG.camera, {zoom: 2}, 0.25, {ease: FlxEase.elasticOut});
 			});
@@ -464,7 +483,7 @@ function zoomBack()
 {
 	var camPosX:Float = 630;
 	var camPosY:Float = 425;
-	camFollow.setPosition(camPosX, camPosY);
+	camFollowPoint.set(camPosX, camPosY);
 	FlxG.camera.zoom = 0.8;
 	cameraSpeed = 1;
 	

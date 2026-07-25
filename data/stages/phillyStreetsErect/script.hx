@@ -666,7 +666,13 @@ function opponentNoteHit(note)
 			defaultCamZoom += 0.1;
 			moveCamera(true);
 			game.cameraSpeed = 2;
-			camFollow.x -= 100;
+			if (camFollowTween != null) camFollowTween.cancel();
+			camFollowTween = FlxTween.tween(camFollowPoint, {
+				x: getCharacterCameraPos(dad).x - 100
+			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+					camFollowTween = null;
+				}
+			});
 		case 'kickcan':
 			dad.holdTimer = 0;
 			dad.playAnim('kickCan', true);
@@ -674,7 +680,13 @@ function opponentNoteHit(note)
 			kickCanSnd.play(true, sndTime - 50);
 			cutsceneCan.animation.play('up');
 			cutsceneCan.visible = true;
-			camFollow.x += 500;
+			if (camFollowTween != null) camFollowTween.cancel();
+			camFollowTween = FlxTween.tween(camFollowPoint, {
+				x: camFollowPoint.x + 500
+			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
+					camFollowTween = null;
+				}
+			});
 			cameraSpeed = 1.5;
 			defaultCamZoom -= 0.1;
 			

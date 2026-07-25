@@ -143,8 +143,8 @@ function onStartCountdown()
 
 		if (playerShoot)
 		{
-			cigarHolderCamPos = [getCharacterCameraPos(dad).x - 100, getCharacterCameraPos(dad).y];
-			shooterCamPos = [getCharacterCameraPos(boyfriend).x + 100, getCharacterCameraPos(boyfriend).y];
+			cigarHolderCamPos = [getCharacterCameraPos(dad).x - 50, getCharacterCameraPos(dad).y];
+			shooterCamPos = [getCharacterCameraPos(boyfriend).x, getCharacterCameraPos(boyfriend).y];
 			
 			if (picoPlayer != null)
 				picoPlayer.playAnim("shoot", true, false, false);
@@ -157,8 +157,8 @@ function onStartCountdown()
 		}
 		else
 		{
-			shooterCamPos = [getCharacterCameraPos(dad).x - 100, getCharacterCameraPos(dad).y];
-			cigarHolderCamPos = [getCharacterCameraPos(boyfriend).x + 100, getCharacterCameraPos(boyfriend).y];
+			shooterCamPos = [getCharacterCameraPos(dad).x - 50, getCharacterCameraPos(dad).y];
+			cigarHolderCamPos = [getCharacterCameraPos(boyfriend).x, getCharacterCameraPos(boyfriend).y];
 			
 			if (picoOpponent != null) picoOpponent.playAnim("shoot", true, false, false);
 
@@ -169,7 +169,8 @@ function onStartCountdown()
 			}
 		}
 
-		snapCamToPos(700, 550, true);
+		camFollowTween.cancel();
+		snapCamToPos(675, 575, true);
 
 		new FlxTimer(cutsceneTimerManager).start(0.3, () -> {
 			FlxG.sound.play(Paths.sound('week3/cutscene/picoGasp'), 1.0);
@@ -268,7 +269,10 @@ function onStartCountdown()
 					can = false;
 					startCountdown();
 
-					camFollowTween = FlxTween.tween(camFollowPoint, {x: 745, y: 524.5}, 1.9, {
+					camFollowTween = FlxTween.tween(camFollowPoint, {
+						x: getCharacterCameraPos(boyfriend).x,
+						y: getCharacterCameraPos(boyfriend).y
+					}, 1.9, {
 						ease: FlxEase.sineInOut,
 						onComplete: function(twn:FlxTween)
 						{
@@ -305,7 +309,10 @@ function onStartCountdown()
 				can = false;
 				startCountdown();
 
-				camFollowTween = FlxTween.tween(camFollowPoint, {x: 745, y: 524.5}, 1.9, {
+				camFollowTween = FlxTween.tween(camFollowPoint, {
+					x: getCharacterCameraPos(boyfriend).x,
+					y: getCharacterCameraPos(boyfriend).y
+				}, 1.9, {
 					ease: FlxEase.sineInOut,
 					onComplete: function(twn:FlxTween)
 					{
