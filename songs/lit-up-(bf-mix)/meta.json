@@ -4,7 +4,11 @@
 	],
 	"coders": [],
 	"freeplayIcon": "darnell",
-	"difficulties": ["easy", "normal", "hard"],
+	"difficulties": [
+		"Easy",
+		"Normal",
+		"Hard"
+	],
 	"composers": [
 		"Saruky"
 	],

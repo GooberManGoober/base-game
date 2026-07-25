@@ -1,20 +1,19 @@
 {
 	"charters": [
-		"ninjamuffin99",
-		"MtH"
+		"fabs + Spazkid"
 	],
 	"coders": [],
-	"freeplayIcon": "gf",
+	"freeplayIcon": "spooky",
 	"difficulties": [
 		"Easy",
 		"Normal",
 		"Hard"
 	],
 	"composers": [
-		"Kawai Sprite"
+		"six impala (feat. Saster)"
 	],
-	"displayName": "Tutorial",
-	"freeplayColor": "0xFFA5004D",
+	"displayName": "South (Pico Mix)",
+	"freeplayColor": "0xFFD57E00",
 	"freeplayIconFrames": 2,
 	"artists": []
 }

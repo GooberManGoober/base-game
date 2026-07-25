@@ -240,43 +240,45 @@ function onStartCountdown()
 		rim.distance = 0;
 		
 		dadGroup.visible = boyfriendGroup.visible = gfGroup.visible = false;
-		
-		snapCamToPos(getCharacterCameraPos(dad).x + 350, getCharacterCameraPos(dad).y, true);
+
+		camFollowTween.cancel();
+		isCameraOnForcedPos = true;
+		camFollowPoint.set(getCharacterCameraPos(dad).x + 350, getCharacterCameraPos(dad).y);
+		FlxG.camera.snapToTarget();
 		
 		anim.onAnimationFrameChange.add((anim, frame) -> {
 			switch (frame)
 			{
 				case 151:
-					cameraSpeed = 2;
-					
 					FlxTween.tween(camGame, {zoom: 1.2}, 0.5, {ease: FlxEase.quartInOut});
-					FlxTween.tween(camFollow, {y: camFollow.y - 120}, 0.2, {ease: FlxEase.quartIn});
+					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 120}, 0.5, {ease: FlxEase.quartInOut});
 				case 205:
-					camFollow.x -= 40;
+					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 40}, 1.9, {ease: FlxEase.expoOut});
 				case 270:
 					cameraSpeed = 0.3;
 					
 					FlxTween.tween(camGame, {zoom: 0.74}, 2.8, {ease: FlxEase.quartInOut});
-					FlxTween.tween(camFollow, {y: camFollow.y - 200}, 1.2, {ease: FlxEase.quartIn});
+					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 200}, 2.8, {ease: FlxEase.quartInOut});
 				case 326:
 					cameraSpeed = 1;
 					
 					FlxTween.cancelTweensOf(camGame);
+					FlxTween.cancelTweensOf(camFollowPoint);
 					FlxTween.tween(camGame, {zoom: 0.9125}, 0.4, {ease: FlxEase.bounceOut});
-					camFollow.setPosition(getCharacterCameraPos(boyfriend).x, getCharacterCameraPos(boyfriend).y);
+					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(boyfriend).x, y: getCharacterCameraPos(boyfriend).y}, 1.9, {ease: FlxEase.expoOut});
 				case 579:
 					FlxTween.cancelTweensOf(camGame);
 					FlxTween.tween(camGame, {zoom: 0.8}, 0.7, {ease: FlxEase.quartInOut});
-					FlxTween.tween(camFollow, {x: getCharacterCameraPos(dad).x, y: camFollow.y - 50}, 0.4, {ease: FlxEase.circInOut});
+					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: camFollowPoint.y - 50}, 0.7, {ease: FlxEase.quartInOut});
 				case 669:
-					camFollow.x -= 30;
+					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 30}, 1.9, {ease: FlxEase.expoOut});
 					camGame.shake(0.05, 0.01);
 				case 750:
 					final pos = getCharacterCameraPos(dad);
 					
 					FlxTween.cancelTweensOf(camGame);
 					FlxTween.tween(camGame, {zoom: 0.7}, 0.7, {ease: FlxEase.quadInOut});
-					FlxTween.tween(camFollow, {x: pos.x + 440, y: pos.y}, 0.4, {ease: FlxEase.circIn});
+					FlxTween.tween(camFollowPoint, {x: pos.x + 440, y: pos.y}, 0.7, {ease: FlxEase.quadInOut});
 				case 790:
 					FlxTween.tween(camHUD, {alpha: 1}, 0.6);
 					can = false;
@@ -327,7 +329,7 @@ function startEndCutscene()
 	inCutscene = true;
 	camHUD.visible = false;
 
-	FlxTween.tween(camFollow, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 70}, 2.8, {ease: FlxEase.expoOut});
+	FlxTween.tween(camFollowPoint, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 70}, 2.8, {ease: FlxEase.expoOut});
 	FlxTween.tween(FlxG.camera, {zoom: 0.65}, 2, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {	
 			defaultCamZoom = FlxG.camera.zoom;
 		}
@@ -343,7 +345,7 @@ function startEndCutscene()
 
 	new FlxTimer().start(270 / 24, _ ->
 	{
-		FlxTween.tween(camFollow, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 370}, 2, {ease: FlxEase.quadInOut});
+		FlxTween.tween(camFollowPoint, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 370}, 2, {ease: FlxEase.quadInOut});
 		FlxTween.tween(bgSprite, {alpha: 1}, 2);
 	});
 

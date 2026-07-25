@@ -49,7 +49,7 @@ function onCreatePost()
 	gfLight.danceEveryNumBeats = gf.danceEveryNumBeats;
 	gfLight.danceIdle = true;
 	gfLight.alpha = 0.0001;
-	gfGroup.addChar(gfLight);
+	if (gf.curCharacter != "nene-dark") gfGroup.addChar(gfLight);
 
 	if (gf.curCharacter == "nene-dark")
 	{
@@ -80,9 +80,10 @@ function onCreatePost()
 		abotVisLight.y += 35;
 		
 		aBotLight.setPosition(55, 365);
-		aBotLight.zIndex = gfGroup.zIndex - 2;
+		aBotLight.zIndex = gfGroup.zIndex - 1;
 		// add(aBot);
 		gfGroup.add(aBotLight);
+		if (gf.curCharacter == "nene-dark") gfGroup.addChar(gfLight);
 		refreshZ(stage);
 		
 		aBotLight.add(eyeWhitesLight);
@@ -264,11 +265,33 @@ function onSectionHit()
 
 var readyToKill = false;
 
+function goodNoteHit()
+{
+	if (combo == 50 && gf.curCharacter == "nene-dark") gfLight.playAnimForDuration('combo50', 1.2, true);
+	if (combo == 200 && gf.curCharacter == "nene-dark") gfLight.playAnimForDuration('combo200', 1.2, true);
+}
+
 function onUpdatePost()
 {
 	if (gf.curCharacter == "nene-dark")
 	{
 		for (aBotShitLight in [eyeWhitesLight, stereoBGLight, pupilLight, abotVisLight, abotSpeakerLight])
 			aBotShitLight.alpha = gfLight.alpha;
+	
+		if (health <= 0.6 && !readyToKill)
+		{
+			gfLight.stunned = true;
+			readyToKill = true;
+			gfLight.playAnim('raiseKnife', true);
+			FlxTimer.wait(0.36, () -> {
+				gfLight.playAnim('idleKnife', true);
+			});
+		}
+		else if (health > 0.6 && readyToKill)
+		{
+			gfLight.stunned = false;
+			readyToKill = false;
+			gfLight.playAnimForDuration('lowerKnife', 0.3, true);
+		}
 	}
 }

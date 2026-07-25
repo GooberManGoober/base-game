@@ -1,20 +1,19 @@
 {
 	"charters": [
-		"ninjamuffin99",
-		"MtH"
+		"fabs + Spazkid"
 	],
 	"coders": [],
-	"freeplayIcon": "gf",
+	"freeplayIcon": "pico",
 	"difficulties": [
 		"Easy",
 		"Normal",
 		"Hard"
 	],
 	"composers": [
-		"Kawai Sprite"
+		"Metaroom (feat. Saruky)"
 	],
-	"displayName": "Tutorial",
-	"freeplayColor": "0xFFA5004D",
+	"displayName": "Blammed (Pico Mix)",
+	"freeplayColor": "0xFFB7D855",
 	"freeplayIconFrames": 2,
 	"artists": []
 }

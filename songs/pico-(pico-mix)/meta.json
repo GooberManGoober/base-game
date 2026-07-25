@@ -1,20 +1,19 @@
 {
 	"charters": [
-		"ninjamuffin99",
-		"MtH"
+		"fabs"
 	],
 	"coders": [],
-	"freeplayIcon": "gf",
+	"freeplayIcon": "pico",
 	"difficulties": [
 		"Easy",
 		"Normal",
 		"Hard"
 	],
 	"composers": [
-		"Kawai Sprite"
+		"Metaroom (ft. Saster)"
 	],
-	"displayName": "Tutorial",
-	"freeplayColor": "0xFFA5004D",
+	"displayName": "Pico (Pico Mix)",
+	"freeplayColor": "0xFFB7D855",
 	"freeplayIconFrames": 2,
 	"artists": []
 }

@@ -1,13 +1,20 @@
 {
-    "songName": "fresh",
-    "displayName": "Fresh",
-
-    "composers": ["Kawai Sprite"],
-    "charters": ["ninjamuffin99", "MtH"],
-
-    "freeplayColor": "#9271FD",
-    "freeplayIcon": "dad",
-
-    "difficulties": ["easy", "Normal", "hard"]
-
+	"charters": [
+		"ninjamuffin99",
+		"MtH"
+	],
+	"coders": [],
+	"freeplayIcon": "dad",
+	"difficulties": [
+		"Easy",
+		"Normal",
+		"Hard"
+	],
+	"composers": [
+		"Kawai Sprite"
+	],
+	"displayName": "Fresh",
+	"freeplayColor": "0xFF9271FD",
+	"freeplayIconFrames": 2,
+	"artists": []
 }

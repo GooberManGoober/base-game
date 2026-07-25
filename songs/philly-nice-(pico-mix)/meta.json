@@ -1,20 +1,19 @@
 {
 	"charters": [
-		"ninjamuffin99",
-		"MtH"
+		"Spazkid"
 	],
 	"coders": [],
-	"freeplayIcon": "gf",
+	"freeplayIcon": "pico",
 	"difficulties": [
 		"Easy",
 		"Normal",
 		"Hard"
 	],
 	"composers": [
-		"Kawai Sprite"
+		"tsuyunoshi (ft. Saruky)"
 	],
-	"displayName": "Tutorial",
-	"freeplayColor": "0xFFA5004D",
+	"displayName": "Philly Nice (Pico Mix)",
+	"freeplayColor": "0xFFB7D855",
 	"freeplayIconFrames": 2,
 	"artists": []
 }
