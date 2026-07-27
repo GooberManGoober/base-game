@@ -18,7 +18,7 @@ function onStartCountdown() {
 		var blackScreen:FlxSprite = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 		add(blackScreen);
 		blackScreen.scrollFactor.set();
-		camHUD.visible = false;
+		camHUD.alpha = 0;
 		inCutscene = true;
 
 		FlxTween.tween(blackScreen, {alpha: 0}, 0.7, {
@@ -28,17 +28,22 @@ function onStartCountdown() {
 			}
 		});
 		FlxG.sound.play(Paths.sound('week5/Lights_Turn_On'));
-		snapCamToPos(400, -2050);
+		camFollowTween.cancel();
+		snapCamToPos(425, -2050, true);
 		FlxG.camera.zoom = 1.5;
 
 		new FlxTimer().start(0.8, function(tmr:FlxTimer) {
-			camHUD.visible = true;
 			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(twn:FlxTween) {
 					allowCountdown = true;
 					inCutscene = false;
 					startCountdown();
+					FlxTween.tween(camHUD, {alpha: 1}, 2.5, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)
+						{
+							isCameraOnForcedPos = false;
+						}
+					});
 				}
 			});
 		});

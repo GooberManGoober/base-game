@@ -7,8 +7,7 @@ function onCreatePost() {
 			j.camDisplacement = 10;
 	}
 
-	cameraSpeed = 4;
-	FlxG.usePixelPerfectRendering = true;
+	FlxG.camera.pixelPerfectRender = true;
 
 	countdownPrefix = 'pixelUI/';
 	introSoundsSuffix = '-pixel';

@@ -116,6 +116,9 @@ function onBeatHit()
 	if (abotSpeaker != null) abotSpeaker.anim.play('sys', true);
 	
 	if (ClientPrefs.streamedMusic) speakerBump();
+
+	if (pupil.anim.curAnim.name != 'lookin ' + (camCurTarget == boyfriend ? 'right' : 'left'))
+		pupil.anim.play('lookin ' + (camCurTarget == boyfriend ? 'right' : 'left'));
 }
 
 function speakerBump()
@@ -134,22 +137,6 @@ function speakerBump()
 					i.animation.curAnim.curFrame = t.value;
 				}
 			});
-	}
-}
-
-var prevSec = PlayState.SONG.notes[0];
-
-function onSectionHit()
-{
-	if (pupil != null)
-	{
-		var sec = PlayState.SONG.notes[curSection];
-		
-		if (sec != null)
-		{
-			if (curSection > 0) prevSec = PlayState.SONG.notes[curSection - 1];
-			if (sec.mustHitSection != prevSec.mustHitSection) pupil.anim.play('lookin ' + (sec.mustHitSection ? 'right' : 'left'));
-		}
 	}
 }
 

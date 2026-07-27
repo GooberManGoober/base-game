@@ -3,11 +3,14 @@ import funkin.objects.Bopper;
 import flixel.util.FlxTimerManager;
 
 var lightColors:Array<FlxColor> = [0xFFB66F43, 0xFF329A6D, 0xFF932C28, 0xFF2663AC, 0xFF502D64];
+var lights:FlxSprite;
 
 var trainSound:FlxSound;
 var colorShader:FlxRuntimeShader;
 
 var trainEnabled:Bool = true;
+
+var train:FlxSprite;
 
 var hasPlayedInGameCutscene = true;
 var cutsceneSkipped:Bool = false;
@@ -20,16 +23,44 @@ var controls = Controls.instance;
 */
 function onLoad()
 {
-	trainSound = new FlxSound().loadEmbedded(Paths.sound('week3/train_passes'));
-	FlxG.sound.list.add(trainSound);
-
 	colorShader = newShader('adjustColor');
 	colorShader.setFloat('hue', -26);
 	colorShader.setFloat('saturation', -16);
 	colorShader.setFloat('contrast', 0);
 	colorShader.setFloat('brightness', -5);
-	train.shader = colorShader;
 
+	var sky:FlxSprite = new FlxSprite(-100, 0).loadGraphic(Paths.image("backgrounds/philly/erect/sky"));
+	sky.zIndex = 10;
+	sky.scrollFactor.set(0.1, 0.1);
+	add(sky);
+
+	var city:FlxSprite = new FlxSprite(-255, 45).loadGraphic(Paths.image("backgrounds/philly/erect/city"));
+	city.zIndex = 20;
+	city.scale.set(0.9, 0.9);
+	city.scrollFactor.set(0.3, 0.3);
+	add(city);
+
+	lights = new FlxSprite(-184 + 7.5, 155 + 15).loadGraphic(Paths.image("backgrounds/philly/erect/win"));
+	lights.zIndex = 30;
+	lights.scale.set(0.9, 0.9);
+	lights.scrollFactor.set(0.3, 0.3);
+	lights.alpha = 0;
+	add(lights);
+
+	var behindTrain:FlxSprite = new FlxSprite(-299, 144).loadGraphic(Paths.image("backgrounds/philly/erect/behindTrain"));
+	behindTrain.zIndex = 50;
+	add(behindTrain);
+
+	train = new FlxSprite(2000, 360).loadGraphic(Paths.image("backgrounds/philly/train"));
+	train.zIndex = 60;
+	train.shader = colorShader;
+	add(train);
+
+	var street:FlxSprite = new FlxSprite(-299, 144).loadGraphic(Paths.image("backgrounds/philly/erect/street"));
+	street.zIndex = 70;
+	add(street);
+
+	trainSound = new FlxSound().loadEmbedded(Paths.sound('week3/train_passes'));
 	FlxG.sound.list.add(trainSound);
 }
 
@@ -46,6 +77,7 @@ var extendBloodPool:Bool = false;
 
 var can = true;
 
+var canDoPicoShit:Bool = false;
 var playerShoot:Bool = FlxG.random.bool(50);
 var explode:Bool = FlxG.random.bool(8);
 
@@ -58,6 +90,7 @@ function onStartCountdown()
 {
 	if (can && boyfriend.curCharacter == 'pico-playable')
 	{
+		canDoPicoShit = true;
 		camHUD.alpha = 0;
 
 		skipText = new FlxText(821, 618, 0, 'Skip [ ACCEPT ]', 20);
@@ -73,6 +106,7 @@ function onStartCountdown()
 		cutsceneTimerManager = new FlxTimerManager();
 
 		cameraSpeed = 1.5;
+		defaultCamZoom = 0.9;
 
 		hasPlayedInGameCutscene = false;
 
@@ -84,6 +118,7 @@ function onStartCountdown()
 		picoPlayer.addAnimByPrefix("shoot", "shootPlayer", 24, false);
 		picoPlayer.addAnimByPrefix("cigarette", "cigarettePlayer", 24, false);
 		picoPlayer.addAnimByPrefix("explode", "explodePlayer", 24, false);
+		// picoPlayer.addAnimByPrefix("explodeLoop", "loopPlayer", 24, false);
 		picoPlayer.scrollFactor.set(1, 1);
 		picoPlayer.antialiasing = true;
 
@@ -91,6 +126,7 @@ function onStartCountdown()
 		picoOpponent.addAnimByPrefix("shoot", "shootOpponent", 24, false);
 		picoOpponent.addAnimByPrefix("cigarette", "cigaretteOpponent", 24, false);
 		picoOpponent.addAnimByPrefix("explode", "explodeOpponent", 24, false);
+		// picoOpponent.addAnimByPrefix("explodeLoop", "loopOpponent", 24, false);
 		picoOpponent.scrollFactor.set(1, 1);
 		picoOpponent.antialiasing = true;
 
@@ -136,9 +172,8 @@ function onStartCountdown()
 		boyfriend.alpha = 0;
 		dad.alpha = 0;
 
-		if (!explode) cutsceneMusic = FunkinSound.load(Paths.music("week3/cutscene/cutscene"), true);
-		else cutsceneMusic = FunkinSound.load(Paths.music("week3/cutscene/cutscene2"), true);
-		cutsceneMusic.volume = 1;
+		if (!explode) cutsceneMusic = FunkinSound.load(Paths.music("week3/cutscene/cutscene"), 1);
+		else cutsceneMusic = FunkinSound.load(Paths.music("week3/cutscene/cutscene2"), 1);
 		cutsceneMusic.play(false);
 
 		if (playerShoot)
@@ -170,23 +205,16 @@ function onStartCountdown()
 		}
 
 		camFollowTween.cancel();
-		snapCamToPos(675, 575, true);
+		snapCamToPos(675, 525, true);
 
 		new FlxTimer(cutsceneTimerManager).start(0.3, () -> {
 			FlxG.sound.play(Paths.sound('week3/cutscene/picoGasp'), 1.0);
 			FlxG.sound.play(Paths.sound('week3/cutscene/picoGasp'), 1.0);
 		});
 
-		new FlxTimer(cutsceneTimerManager).start(6.29, () -> {
-			FlxG.sound.play(Paths.sound('week3/cutscene/picoShoot'), 1.0);
-		});
-
-		new FlxTimer(cutsceneTimerManager).start(10.33, () -> {
-			FlxG.sound.play(Paths.sound('week3/cutscene/picoSpin'), 1.0);
-		});
-
 		new FlxTimer(cutsceneTimerManager).start(3.7, () -> {
 			if (!explode) FlxG.sound.play(Paths.sound('week3/cutscene/picoCigarette'), 1.0);
+			else FlxG.sound.play(Paths.sound('week3/cutscene/picoCigarette2'), 1.0);
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(4, () -> {
@@ -199,7 +227,9 @@ function onStartCountdown()
 			});
 		});
 
-		new FlxTimer(cutsceneTimerManager).start(6.3, () -> {
+		new FlxTimer(cutsceneTimerManager).start(6.29, () -> {
+			FlxG.sound.play(Paths.sound('week3/cutscene/picoShoot'), 1.0);
+			
 			camFollowTween = FlxTween.tween(camFollowPoint, {
 				x: shooterCamPos[0],
 				y: shooterCamPos[1]
@@ -210,6 +240,7 @@ function onStartCountdown()
 		});
 
 		new FlxTimer(cutsceneTimerManager).start(8.75, () -> {
+			if (explode) FlxG.sound.play(Paths.sound('week3/cutscene/picoExplode'), 1.0);
 			cutsceneSkipped = true;
 			canSkipCutscene = false;
 			FlxTween.tween(skipText, {alpha: 0}, 0.5, {
@@ -235,6 +266,10 @@ function onStartCountdown()
 			}
 		});
 
+		new FlxTimer(cutsceneTimerManager).start(10.33, () -> {
+			FlxG.sound.play(Paths.sound('week3/cutscene/picoSpin'), 1.0);
+		});
+
 		new FlxTimer(cutsceneTimerManager).start(11.2, _ ->
 		{
 			if (explode)
@@ -242,6 +277,9 @@ function onStartCountdown()
 				bloodPool.playAnim("bloodPool", true);
 				bloodPool.alpha = 1;
 				extendBloodPool = true;
+
+				// if (playerShoot) picoOpponent.playAnim("explodeLoop", true, false, false);
+				// else picoPlayer.playAnim("explodeLoop", true, false, false);
 			}
 		});
 
@@ -264,7 +302,7 @@ function onStartCountdown()
 					picoPlayer.alpha = 0;
 					boyfriend.alpha = 1;
 					hasPlayedInGameCutscene = true;
-					cameraSpeed = 1.5;
+					cameraSpeed = 1;
 					FlxTween.tween(camHUD, {alpha: 1}, 0.6);
 					can = false;
 					startCountdown();
@@ -279,6 +317,8 @@ function onStartCountdown()
 							camFollowTween = null;
 						}
 					});
+
+					camChangeZoom(1.1, 1.9, FlxEase.sineInOut);
 				}
 				else
 				{
@@ -304,7 +344,7 @@ function onStartCountdown()
 				picoOpponent.alpha = 0;
 				dad.alpha = 1;
 				hasPlayedInGameCutscene = true;
-				cameraSpeed = 1.5;
+				cameraSpeed = 1;
 				FlxTween.tween(camHUD, {alpha: 1}, 0.6);
 				can = false;
 				startCountdown();
@@ -319,6 +359,8 @@ function onStartCountdown()
 						camFollowTween = null;
 					}
 				});
+
+				camChangeZoom(1.1, 1.9, FlxEase.sineInOut);
 			}
 			cutsceneMusic.stop();
 		});
@@ -338,7 +380,8 @@ function skipCutscene()
 	new FlxTimer().start(0.5, _ ->
 	{
 		camOther.fade(0xFF000000, 0.5, true, null, true);
-		isCameraOnForcedPos = false;
+		camFollowPoint.x = getCharacterCameraPos(boyfriend).x;
+		camFollowPoint.y = getCharacterCameraPos(boyfriend).y;
 		
 		cutsceneTimerManager.clear();
 		cutsceneMusic.stop();
@@ -347,13 +390,17 @@ function skipCutscene()
       	picoPlayer.visible = false;
       	picoOpponent.visible = false;
 
+		canDoPicoShit = false;
+
+		defaultCamZoom = 1.1;
+
 		canPause = true;
 		picoPlayer.alpha = 0;
 		boyfriend.alpha = 1;
 		picoOpponent.alpha = 0;
 		dad.alpha = 1;
 		hasPlayedInGameCutscene = true;
-		cameraSpeed = 1.5;
+		cameraSpeed = 1;
 		FlxTween.tween(camHUD, {alpha: 1}, 0.6);
 		can = false;
 		startCountdown();
@@ -362,12 +409,12 @@ function skipCutscene()
 
 function onSpawnNotePost(note)
 {
-	if (note.owner == dad && (explode && playerShoot)) note.noAnimation = true;
+	if (note.owner == dad && (explode && playerShoot) && canDoPicoShit) note.noAnimation = true;
 }
 
 function opponentNoteHitPre(note, ID)
 {
-	if (explode && playerShoot)
+	if (explode && playerShoot && canDoPicoShit)
 	{
 		audio.opponentVolume = 0;
 	}
@@ -395,7 +442,9 @@ function updateTrainPos():Void
 		startedMoving = true;
 		if (gf != null)
 		{
-			gf.playAnim('hairBlow');
+			gf.canDance = false;
+			if (gf.curCharacter == "nene") gf.playAnim(health <= 0.6 ? 'hairBlowKnife' : 'hairBlowNormal');
+			else gf.playAnim('hairBlow');
 			gf.specialAnim = true;
 		}
 	}
@@ -423,7 +472,9 @@ function trainReset():Void
 	if (gf != null)
 	{
 		gf.danced = false; // Sets head to the correct position once the animation ends
-		gf.playAnim('hairFall');
+		if (gf.curCharacter == "nene") gf.playAnim(health <= 0.6 ? 'hairFallKnife' : 'hairFallNormal');
+		else gf.playAnim('hairFall');
+		gf.canDance = true;
 		gf.specialAnim = true;
 	}
 	train.x = FlxG.width + 200;
@@ -434,6 +485,7 @@ function trainReset():Void
 }
 
 var neneTimer = 0;
+var winTimer = 0;
 
 function onUpdate(elapsed)
 {
@@ -459,6 +511,16 @@ function onUpdate(elapsed)
 		{
 			neneTimer = 0;
 			gf.dance();
+		}
+
+		winTimer += elapsed;
+		if (winTimer >= 0.72)
+		{
+			winTimer = 0;
+			// Switch to a different light
+			curLight = FlxG.random.int(0, lightColors.length - 1);
+			lights.color = lightColors[curLight];
+			lights.alpha = 1;
 		}
 
 		if (controls.ACCEPT && !cutsceneSkipped)

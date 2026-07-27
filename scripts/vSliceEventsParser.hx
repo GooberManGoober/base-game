@@ -18,11 +18,11 @@ function triggerVSliceEvent(name, values, strumTime):Void
 
             switch (values.char)
             {
-                case 0:
+                case 0, "0":
                     focusChar = "player";
-                case 1:
+                case 1, "1":
                     focusChar = "opponent";
-                case 2:
+                case 2, "2":
                     focusChar = "girlfriend";
                 default:
                     focusChar = "position";

@@ -23,7 +23,7 @@ function onLoad() {
 		add(bgEscalator);
 	}
 
-	var tree:BGSprite = new BGSprite('backgrounds/christmas/backgrounds/christmasTree', 370, -250, 0.40, 0.40);
+	var tree:BGSprite = new BGSprite('backgrounds/christmas/erect/christmasTree', 370, -250, 0.40, 0.40);
 	add(tree);
 
 	bottomBoppers = new BGSprite('backgrounds/christmas/bottomBop', -300, 140, 0.9, 0.9, ['Bottom Level Boppers Idle']);

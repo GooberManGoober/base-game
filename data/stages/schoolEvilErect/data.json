@@ -1,0 +1,14 @@
+{
+  "defaultZoom": 1,
+  "directory": "week6",
+
+  "boyfriend": [870, 280],
+	"girlfriend": [300, 250],
+	"opponent": [80, 190],
+
+	"camera_boyfriend": [-40, -130],
+
+  "bfZIndex" : 300,
+  "gfZIndex": 100,
+  "dadZIndex": 200
+}

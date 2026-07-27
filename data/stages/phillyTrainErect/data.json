@@ -8,88 +8,12 @@
 	"opponent": [100, 100],
 	"hide_girlfriend": false,
 
-	"camera_boyfriend": [100, 0],
+	"camera_boyfriend": [0, 0],
 	"camera_opponent": [-50, 50],
 	"camera_girlfriend": [0, 0],
 	"camera_speed": 1,
 
   "bfZIndex" : 300,
   "gfZIndex": 100,
-  "dadZIndex": 200,
-
-  "stageObjects": [
-    {
-      "danceEvery": 0,
-      "zIndex": 10,
-      "position": [-100, 0],
-      "scale": [1, 1],
-      "animType": "sparrow",
-      "id": "sky",
-      "isPixel": false,
-      "asset": "backgrounds/philly/erect/sky",
-      "scrollFactor": [0.1, 0.1],
-      "animations": []
-    },
-    {
-      "danceEvery": 0,
-      "zIndex": 20,
-      "position": [-255, 45],
-      "scale": [0.9, 0.9],
-      "animType": "sparrow",
-      "id": "city",
-      "isPixel": false,
-      "asset": "backgrounds/philly/erect/city",
-      "scrollFactor": [0.3, 0.3],
-      "animations": []
-    },
-    {
-      "danceEvery": 0,
-      "zIndex": 30,
-      "position": [-184, 155],
-      "scale": [0.9, 0.9],
-      "animType": "sparrow",
-      "id": "lights",
-      "isPixel": false,
-      "alpha": 0,
-      "asset": "backgrounds/philly/erect/win",
-      "scrollFactor": [0.3, 0.3],
-      "animations": []
-    },
-    {
-      "danceEvery": 0,
-      "zIndex": 50,
-      "position": [-299, 144],
-      "scale": [1, 1],
-      "animType": "sparrow",
-      "id": "behindTrain",
-      "isPixel": false,
-      "asset": "backgrounds/philly/erect/behindTrain",
-      "scrollFactor": [1, 1],
-      "animations": []
-    },
-    {
-      "danceEvery": 0,
-      "zIndex": 60,
-      "position": [2000, 360],
-      "scale": [1, 1],
-      "animType": "sparrow",
-      "id": "train",
-      "isPixel": false,
-      "asset": "backgrounds/philly/train",
-      "scrollFactor": [1, 1],
-      "animations": []
-    },
-    {
-      "danceEvery": 0,
-      "zIndex": 70,
-      "position": [-299, 144],
-      "scale": [1, 1],
-      "animType": "sparrow",
-      "id": "street",
-      "isPixel": false,
-      "asset": "backgrounds/philly/erect/street",
-      "scrollFactor": [1, 1],
-      "animations": []
-    }
-  ]
+  "dadZIndex": 200
 }

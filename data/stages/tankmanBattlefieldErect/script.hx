@@ -250,35 +250,35 @@ function onStartCountdown()
 			switch (frame)
 			{
 				case 151:
-					FlxTween.tween(camGame, {zoom: 1.2}, 0.5, {ease: FlxEase.quartInOut});
-					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 120}, 0.5, {ease: FlxEase.quartInOut});
+					camChangeZoom(1.2, 0.5, FlxEase.quartInOut);
+					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 120}, 0.5 * 1.5, {ease: FlxEase.quartInOut});
 				case 205:
 					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 40}, 1.9, {ease: FlxEase.expoOut});
 				case 270:
 					cameraSpeed = 0.3;
 					
-					FlxTween.tween(camGame, {zoom: 0.74}, 2.8, {ease: FlxEase.quartInOut});
+					camChangeZoom(0.74, 2.8, FlxEase.quartInOut);
 					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 200}, 2.8, {ease: FlxEase.quartInOut});
 				case 326:
 					cameraSpeed = 1;
 					
 					FlxTween.cancelTweensOf(camGame);
 					FlxTween.cancelTweensOf(camFollowPoint);
-					FlxTween.tween(camGame, {zoom: 0.9125}, 0.4, {ease: FlxEase.bounceOut});
+					camChangeZoom(0.9125, 0.4 * 1.5, FlxEase.bounceOut);
 					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(boyfriend).x, y: getCharacterCameraPos(boyfriend).y}, 1.9, {ease: FlxEase.expoOut});
 				case 579:
 					FlxTween.cancelTweensOf(camGame);
-					FlxTween.tween(camGame, {zoom: 0.8}, 0.7, {ease: FlxEase.quartInOut});
-					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: camFollowPoint.y - 50}, 0.7, {ease: FlxEase.quartInOut});
+					camChangeZoom(0.8, 0.7, FlxEase.quartInOut);
+					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: camFollowPoint.y - 50}, 0.7 * 1.5, {ease: FlxEase.quartInOut});
 				case 669:
-					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 30}, 1.9, {ease: FlxEase.expoOut});
+					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 30}, 1.9 * 1.5, {ease: FlxEase.expoOut});
 					camGame.shake(0.05, 0.01);
 				case 750:
 					final pos = getCharacterCameraPos(dad);
 					
 					FlxTween.cancelTweensOf(camGame);
-					FlxTween.tween(camGame, {zoom: 0.7}, 0.7, {ease: FlxEase.quadInOut});
-					FlxTween.tween(camFollowPoint, {x: pos.x + 440, y: pos.y}, 0.7, {ease: FlxEase.quadInOut});
+					camChangeZoom(0.7, 0.7, FlxEase.quadInOut);
+					FlxTween.tween(camFollowPoint, {x: pos.x + 440, y: pos.y}, 0.7 * 1.5, {ease: FlxEase.quadInOut});
 				case 790:
 					FlxTween.tween(camHUD, {alpha: 1}, 0.6);
 					can = false;
