@@ -73,3 +73,11 @@ function onCreatePost()
 {
   initScript('data/scripts/pixelUI');
 }
+
+function onUpdate(elapsed)
+{
+  wiggleSchool.update(elapsed);
+  wiggleGround.update(elapsed);
+  wiggleBack.update(elapsed);
+  wiggleSpike.update(elapsed);
+}

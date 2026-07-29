@@ -1,6 +1,8 @@
 import funkin.objects.stageobjects.BackgroundDancer;
 import funkin.objects.BGSprite;
 
+import funkin.game.shaders.OverlayShader;
+
 var grpLimoDancers:Array<BackgroundDancer> = [];
 var grpLimoParticles:Array<BGSprite> = [];
 var limo:BGSprite;
@@ -13,11 +15,28 @@ var fastCar:BGSprite;
 var limoSpeed:Float = 0;
 var limoKillingState:Int = 0;
 
-function onLoad() {
+function onLoad()
+{
 	var skyBG:BGSprite = new BGSprite('backgrounds/limo/limoSunset', -120, -50, 0.1, 0.1);
 	add(skyBG);
 
 	skyBG.zIndex = 0;
+
+	// Apply sky shader.
+    var skyOverlay:OverlayShader = new OverlayShader();
+    var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('backgrounds/limo/limoOverlay'));
+    sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
+    sunOverlay.updateHitbox();
+    skyOverlay.setBitmapOverlay(sunOverlay.pixels);
+    var skyBG:FlxSprite = skyBG;
+    if (skyBG == null)
+    {
+      trace(' WARNING '.bg_yellow().bold() + ' Could not retrieve skyBG');
+    }
+    else
+    {
+      skyBG.shader = skyOverlay;
+    }
 
 	if (!ClientPrefs.lowQuality) {
 		limoMetalPole = new BGSprite('backgrounds/limo/gore/metalPole', -500, 220, 0.4, 0.4);
@@ -28,32 +47,42 @@ function onLoad() {
 		add(bgLimo);
 		bgLimo.zIndex = 2;
 
+		limoCorpse = new BGSprite('gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
+		limoCorpse.zIndex = 3;
+		add(limoCorpse);
+
+		limoCorpseTwo = new BGSprite('gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
+		limoCorpseTwo.zIndex = 4;
+		add(limoCorpseTwo);
+
+		grpLimoDancers = new FlxTypedGroup();
+		add(grpLimoDancers);
+
 		for (i in 0...5) {
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
-			add(dancer);
-			dancer.zIndex = 3;
-			grpLimoDancers.push(dancer);
+			dancer.zIndex = 5;
+			grpLimoDancers.add(dancer);
 		}
 
 		limoLight = new BGSprite('backgrounds/limo/gore/coldHeartKiller', limoMetalPole.x - 180, limoMetalPole.y - 80, 0.4, 0.4);
 		add(limoLight);
-		limoLight.zIndex = 4;
+		limoLight.zIndex = 6;
 
 		// PRECACHE BLOOD
 		var particle:BGSprite = new BGSprite('backgrounds/limo/gore/stupidBlood', -400, -400, 0.4, 0.4, ['blood'], false);
 		particle.alpha = 0.01;
 		add(particle);
-		particle.zIndex = 5;
+		particle.zIndex = 7;
 		grpLimoParticles.push(particle);
 	}
 
 	limo = new BGSprite('backgrounds/limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
-	limo.zIndex = 7;
+	limo.zIndex = 8;
 
 	fastCar = new BGSprite('backgrounds/limo/fastCarLol', -300, 160);
 	fastCar.active = true;
-	fastCar.zIndex = 5;
+	fastCar.zIndex = 6;
 
 	add(limo);
 	add(fastCar);
@@ -122,18 +151,20 @@ function onUpdate(elapsed) {
 				spr.destroy();
 			}
 		}
-		switch (limoKillingState) {
+		switch (limoKillingState)
+		{
 			case 1:
 				limoMetalPole.x += 5000 * elapsed;
 				limoLight.x = limoMetalPole.x - 180;
 				limoCorpse.x = limoLight.x - 50;
 				limoCorpseTwo.x = limoLight.x + 35;
 
-				var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
-				for (i in 0...dancers.length) {
+				var dancers = grpLimoDancers.members;
+				for (i in 0...dancers.length)
+				{
 					if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 170) {
 						switch (i) {
-							case 0 | 3:
+							case 0, 3:
 								if (i == 0)
 									FlxG.sound.play(Paths.sound('week4/dancerdeath'), 0.5);
 
@@ -200,8 +231,9 @@ function onUpdate(elapsed) {
 		}
 
 		if (limoKillingState > 2) {
-			for (i in 0...grpLimoDancers.length) {
-				grpLimoDancers[i].x = (370 * i) + bgLimo.x + 280;
+			var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+			for (i in 0...dancers.length) {
+				dancers[i].x = (370 * i) + bgLimo.x + 280;
 			}
 		}
 	}
@@ -226,6 +258,6 @@ function onBeatHit() {
 }
 
 function onEvent(event, value1, value2) {
-	if (value1 == 'Kill Henchmen')
+	if (event == 'Kill Henchmen')
 		killHenchmen();
 }

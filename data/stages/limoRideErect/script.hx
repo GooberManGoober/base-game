@@ -27,14 +27,7 @@ var shootingStarBeat:Int = 0;
 var shootingStarOffset:Int = 2;
 
 function onLoad()
-{
-        // Apply sky shader.
-    var skyOverlay:OverlayShader = new OverlayShader();
-    var sunOverlay:FlxSprite = new FlxSprite().loadGraphic(Paths.image('backgrounds/limo/limoOverlay'));
-    sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
-    sunOverlay.updateHitbox();
-    skyOverlay.setBitmapOverlay(sunOverlay.pixels);
-    
+{   
     colorShader = newShader('adjustColor');
     colorShader.setFloat('hue', -30);
     colorShader.setFloat('saturation', -20);
@@ -44,16 +37,16 @@ function onLoad()
     addMist();
 
 	var skyBG:BGSprite = new BGSprite('backgrounds/limo/erect/limoSunset', -120, -50, 0.1, 0.1);
-	add(skyBG);
-
 	skyBG.zIndex = 10;
+	add(skyBG);
 
     shootingStar = new BGSprite('backgrounds/limo/erect/shooting star', 200, 0, 0.12, 0.12, ['shooting star'], false);
     shootingStar.blend = 0;
     shootingStar.zIndex = 20;
     add(shootingStar);
 
-    if (!ClientPrefs.lowQuality) {
+    if (!ClientPrefs.lowQuality)
+	{
 		limoMetalPole = new BGSprite('backgrounds/limo/gore/metalPole', -500, 220, 0.4, 0.4);
         limoMetalPole.shader = colorShader;
 		add(limoMetalPole);
@@ -63,7 +56,8 @@ function onLoad()
 		add(bgLimo);
 		bgLimo.zIndex = 25;
 
-		for (i in 0...5) {
+		for (i in 0...5)
+		{
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
 			add(dancer);
@@ -175,7 +169,8 @@ function addMist()
     add(mist5);
 }
 
-function resetLimoKill():Void {
+function resetLimoKill():Void
+{
 	limoMetalPole.x = -500;
 	limoMetalPole.visible = false;
 	limoLight.x = -500;
@@ -186,9 +181,12 @@ function resetLimoKill():Void {
 	limoCorpseTwo.visible = false;
 }
 
-function killHenchmen():Void {
-	if (!ClientPrefs.lowQuality) {
-		if (limoKillingState < 1) {
+function killHenchmen():Void
+{
+	if (!ClientPrefs.lowQuality)
+	{
+		if (limoKillingState < 1)
+		{
 			limoMetalPole.x = -400;
 			limoMetalPole.visible = true;
 			limoLight.visible = true;
@@ -199,7 +197,8 @@ function killHenchmen():Void {
 	}
 }
 
-function resetFastCar():Void {
+function resetFastCar():Void
+{
 	fastCar.x = -12600;
 	fastCar.y = FlxG.random.int(140, 250);
 	fastCar.velocity.x = 0;
@@ -208,12 +207,14 @@ function resetFastCar():Void {
 
 var carTimer:FlxTimer;
 
-function fastCarDrive() {
+function fastCarDrive()
+{
 	FlxG.sound.play(Paths.soundRandom('week4/carPass', 0, 1), 0.7);
 
 	fastCar.velocity.x = (FlxG.random.int(170, 220) / FlxG.elapsed) * 3;
 	fastCarCanDrive = false;
-	carTimer = new FlxTimer().start(2, function(tmr:FlxTimer) {
+	carTimer = new FlxTimer().start(2, function(tmr:FlxTimer)
+	{
 		resetFastCar();
 		carTimer = null;
 	});

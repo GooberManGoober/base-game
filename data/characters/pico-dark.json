@@ -269,7 +269,7 @@
 	"dance_every": 2,
 	"gameover_intial_sound": "gameplay/gameover/fnf_loss_sfx-pico",
 	"scalableOffsets": false,
-	"gameover_confirm_sound": null,
+	"gameover_confirm_sound": "gameOverEnd-pico",
 	"healthicon": "pico",
 	"gameover_character": "pico-playable",
 	"vslice_sustains": false,
@@ -279,7 +279,7 @@
 		165,
 		-3
 	],
-	"gameover_loop_sound": null,
+	"gameover_loop_sound": "gameOver-pico",
 	"icon_count": 2,
 	"sing_duration": 4,
 	"scale": 1,

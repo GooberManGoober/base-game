@@ -66,11 +66,34 @@ function doHorrorlandTransition() {
 	endSong();
 }
 
+function onUpdate(elapsed)
+{
+	if(heyTimer > 0) {
+		heyTimer -= elapsed;
+		if(heyTimer <= 0) {
+			bottomBoppers.dance(true);
+			heyTimer = 0;
+		}
+	}
+}
+
 function onBeatHit() {
 	if (!ClientPrefs.lowQuality) {
 		upperBoppers.dance(true);
 	}
 
-	bottomBoppers.dance(true);
+	if(heyTimer <= 0) bottomBoppers.dance(true);
 	santa.dance(true);
+}
+
+function onEvent(name, v1, v2)
+{
+	if (name == "Hey!")
+	{
+		var time:Float = Std.parseFloat(v2);
+		if(Math.isNaN(time) || time <= 0) time = 0.6;
+		
+		bottomBoppers.animation.play('hey', true);
+		heyTimer = time;
+	}
 }

@@ -13,7 +13,7 @@
 	"camera_girlfriend": [0, 0],
 	"camera_speed": 1,
 
-	"dadZIndex": 300,
-	"bfZIndex": 200,
-	"gfZIndex": 100
+	"dadZIndex": 40,
+	"bfZIndex": 35,
+	"gfZIndex": 30
 }

@@ -2,6 +2,7 @@
 	"song": {
 		"stage": "schoolEvilErect",
 		"gfVersion": "gf-pixel",
+		"arrowSkins": ["pixel", "pixel"],
 		"events": [],
 		"speed": 2.5,
 		"player1": "bf-pixel",

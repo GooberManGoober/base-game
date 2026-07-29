@@ -1,127 +1,132 @@
 {
 	"animations": [
 		{
+			"offsets": [
+				215,
+				265
+			],
+			"flipY": false,
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"flipX": false,
+			"indices": [],
+			"name": "Idle"
+		},
+		{
 			"loop": false,
 			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"anim": "idle",
+			"anim": "singDOWNmiss",
 			"fps": 24,
-			"name": "Idle",
+			"name": "Down Miss",
 			"indices": [],
 			"flipX": false
 		},
 		{
-			"offsets": [
-				215,
-				265
-			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
-			"anim": "singDOWNmiss",
 			"loop": false,
-			"name": "Down Miss"
-		},
-		{
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singDOWN",
-			"loop": false,
-			"name": "Down"
+			"fps": 24,
+			"name": "Down",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singLEFTmiss",
-			"loop": false,
-			"name": "Left Miss"
+			"fps": 24,
+			"name": "Left Miss",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "Left"
+			"fps": 24,
+			"name": "Left",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singRIGHTmiss",
-			"loop": false,
-			"name": "Right Miss"
+			"fps": 24,
+			"name": "Right Miss",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singRIGHT",
-			"loop": false,
-			"name": "Right"
+			"fps": 24,
+			"name": "Right",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singUPmiss",
-			"loop": false,
-			"name": "Up Miss"
+			"fps": 24,
+			"name": "Up Miss",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				215,
 				265
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "singUP",
-			"loop": false,
-			"name": "Up"
+			"fps": 24,
+			"name": "Up",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": false,
+			"flipY": false,
 			"offsets": [
 				220,
 				259
 			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "Death Intro",
 			"indices": [
 				1,
 				2,
@@ -172,38 +177,33 @@
 				46,
 				47
 			],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
-			"anim": "firstDeath",
-			"loop": false,
-			"name": "Death Intro"
+			"flipX": false
 		},
 		{
+			"loop": true,
+			"flipY": false,
 			"offsets": [
 				220,
 				259
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "deathConfirm",
-			"loop": true,
-			"name": "Death Confirm"
+			"fps": 24,
+			"name": "Death Confirm",
+			"indices": [],
+			"flipX": false
 		},
 		{
+			"loop": true,
+			"flipY": false,
 			"offsets": [
 				220,
 				259
 			],
-			"indices": [],
-			"fps": 24,
-			"flipX": false,
-			"flipY": false,
 			"anim": "deathLoop",
-			"loop": true,
-			"name": "Death Loop"
+			"fps": 24,
+			"name": "Death Loop",
+			"indices": [],
+			"flipX": false
 		}
 	],
 	"no_antialiasing": false,
@@ -216,9 +216,9 @@
 	"dance_every": 2,
 	"gameover_intial_sound": "gameplay/gameover/fnf_loss_sfx-pico",
 	"scalableOffsets": false,
-	"gameover_confirm_sound": null,
+	"gameover_confirm_sound": "gameOverEnd-pico",
 	"healthicon": "pico",
-	"gameover_character": "pico-playable",
+	"gameover_character": "pico-christmas",
 	"vslice_sustains": false,
 	"flip_x": true,
 	"healthbar_colour": -7613395,
@@ -226,7 +226,7 @@
 		335,
 		-130
 	],
-	"gameover_loop_sound": null,
+	"gameover_loop_sound": "gameOver-pico",
 	"icon_count": 2,
 	"sing_duration": 4,
 	"scale": 1,

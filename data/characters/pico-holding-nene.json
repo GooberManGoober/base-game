@@ -155,73 +155,21 @@
 			"flipX": false,
 			"indices": [],
 			"name": "laugh loop"
-		},
-		{
-			"offsets": [
-				543,
-				0
-			],
-			"flipY": false,
-			"loop": false,
-			"fps": 24,
-			"anim": "firstDeath",
-			"flipX": false,
-			"indices": [],
-			"name": "intro"
-		},
-		{
-			"offsets": [
-				543,
-				0
-			],
-			"flipY": false,
-			"loop": true,
-			"fps": 24,
-			"anim": "deathLoop",
-			"flipX": false,
-			"indices": [],
-			"name": "loop"
-		},
-		{
-			"offsets": [
-				543,
-				0
-			],
-			"flipY": false,
-			"loop": false,
-			"fps": 24,
-			"anim": "deathConfirm",
-			"flipX": false,
-			"indices": [],
-			"name": "confirm"
-		},
-		{
-			"offsets": [
-				543,
-				0
-			],
-			"flipY": false,
-			"loop": true,
-			"fps": 24,
-			"anim": "deathConfirm-loop",
-			"flipX": false,
-			"indices": [],
-			"name": "confirm loop"
 		}
 	],
 	"no_antialiasing": false,
 	"ghosts_enabled": false,
-	"image": "characters/pico-holding-nene,characters/pico-holding-nene/picoAndNene-DEAD",
+	"image": "characters/pico-holding-nene",
 	"position": [
 		0,
 		290
 	],
 	"dance_every": 2,
-	"gameover_intial_sound": null,
+	"gameover_intial_sound": "gameplay/gameover/fnf_loss_sfx-pico-and-nene",
 	"scalableOffsets": false,
-	"gameover_confirm_sound": null,
+	"gameover_confirm_sound": "gameOverEnd-pico",
 	"healthicon": "pico",
-	"gameover_character": null,
+	"gameover_character": "pico-holding-nene-dead",
 	"vslice_sustains": false,
 	"flip_x": true,
 	"healthbar_colour": -4728747,
@@ -229,7 +177,7 @@
 		165,
 		-3
 	],
-	"gameover_loop_sound": null,
+	"gameover_loop_sound": "gameOver-pico",
 	"icon_count": 2,
 	"sing_duration": 4,
 	"scale": 1,

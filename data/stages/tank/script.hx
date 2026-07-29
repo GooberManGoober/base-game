@@ -213,20 +213,12 @@ function onBeatHit()
 
 function deathAnimStart(volume)
 {
-	GameOverSubstate.instance.playingDeathSound = true;
-}
-
-function deathAnimStartPost(volume)
-{
 	FlxG.sound.music.volume = 0.2;
 	var exclude:Array<Int> = [];
 	// if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
 	
 	FlxG.sound.play(Paths.sound('week7/jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
-		if (!GameOverSubstate.instance.isEnding)
-		{
-			FlxG.sound.music.fadeIn(0.2, 1, 6);
-		}
+		if (!GameOverSubstate.instance.isEnding) FlxTween.tween(FlxG.sound.music, {volume: 1}, 6);
 	});
 }
 

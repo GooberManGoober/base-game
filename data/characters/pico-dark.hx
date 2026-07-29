@@ -21,7 +21,7 @@ function onGameOverPost()
 
 	dead.boyfriend.shader = null;
 	
-	neneSpr = new Bopper(gf.x - 100, gf.y).setFrames(Paths.getSparrowAtlas("characters/NeneKnifeToss"));
+	neneSpr = new Bopper(gf.x - 500, gf.y - 150).setFrames(Paths.getSparrowAtlas("characters/NeneKnifeToss"));
 	neneSpr.addAnimByPrefix('die', 'knife toss', 24, false);
 	neneSpr.playAnim('die');
 	dead.add(neneSpr);

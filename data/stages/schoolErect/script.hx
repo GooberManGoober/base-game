@@ -4,11 +4,6 @@ using StringTools;
 
 function onLoad()
 {
-  GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
-	GameOverSubstate.loopSoundName = 'gameOver-pixel';
-	GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
-	GameOverSubstate.characterName = 'bf-pixel-dead';
-
   var bgSky:BGSprite = new BGSprite('backgrounds/weeb/erect/weebSky', -626, -78, 0.2, 0.2);
   bgSky.zIndex = 10;
   bgSky.setScale(6, 6, true);
@@ -65,6 +60,21 @@ function onLoad()
 function onCreatePost()
 {
   initScript('data/scripts/pixelUI');
+
+  if (boyfriend.curCharacter == "pico-pixel")
+  {
+    GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel-pico';
+    GameOverSubstate.loopSoundName = 'gameOver-pixel-pico';
+    GameOverSubstate.endSoundName = 'gameOverEnd-pixel-pico';
+    GameOverSubstate.characterName = 'pico-pixel';
+  }
+  else
+  {
+    GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
+    GameOverSubstate.loopSoundName = 'gameOver-pixel';
+    GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
+    GameOverSubstate.characterName = 'bf-pixel-dead';
+  }
   
   addShaderToCharacter(dad);
   addShaderToCharacter(boyfriend);
