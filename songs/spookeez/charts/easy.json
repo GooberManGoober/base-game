@@ -1874,7 +1874,7 @@
 		"player3": null,
 		"keys": 4,
 		"song": "Spookeez",
-		"stage": "spooky",
+		"stage": "spookyMansion",
 		"validScore": true,
 		"needsVoices": true,
 		"speed": 1,

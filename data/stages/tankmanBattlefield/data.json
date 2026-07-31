@@ -5,5 +5,9 @@
 
 	"boyfriend": [810, 100],
 	"girlfriend": [200, 65],
-	"opponent": [20, 100]
+	"opponent": [20, 100],
+
+	"dadZIndex": 102,
+    "bfZIndex": 102,
+    "gfZIndex": 100
 }

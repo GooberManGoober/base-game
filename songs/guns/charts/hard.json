@@ -5150,7 +5150,7 @@
 		"player3": null,
 		"keys": 4,
 		"song": "Guns",
-		"stage": "tank",
+		"stage": "tankmanBattlefield",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 185,

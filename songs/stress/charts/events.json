@@ -1,7 +1,7 @@
 {
 	"song": {
 		"speed": 2.6,
-		"stage": "tank",
+		"stage": "tankmanBattlefield",
 		"player1": "bf-holding-gf",
 		"player2": "tankman",
 		"player3": null,
@@ -15,9 +15,9 @@
 						"dad"
 					],
 					[
-						"Set Property",
-						"defaultCamZoom",
-						"1.08"
+						"Set Cam Zoom",
+						"1.08",
+						""
 					],
 					[
 						"Camera Follow Pos",
@@ -35,9 +35,9 @@
 						""
 					],
 					[
-						"Set Property",
-						"defaultCamZoom",
-						"0.9"
+						"Set Cam Zoom",
+						"0.9",
+						""
 					]
 				]
 			]

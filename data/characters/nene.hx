@@ -177,6 +177,12 @@ function synchronizeShader()
 	pupil.shader = gf.shader;
 	abotVis.shader = gf.shader;
 
+	eyeWhites.color = gf.color;
+	stereoBG.color = gf.color;
+	pupil.color = gf.color;
+	abotVis.color = gf.color;
+
 	for (member in aBot.members) member.shader = gf.shader;
 	for (member in aBot.members) member.alpha = gf.alpha;
+	for (member in aBot.members) member.color = gf.color;
 }

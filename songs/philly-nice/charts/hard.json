@@ -2685,7 +2685,7 @@
 		"player3": null,
 		"keys": 4,
 		"song": "Philly Nice",
-		"stage": "philly",
+		"stage": "phillyTrain",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 175,

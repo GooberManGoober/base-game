@@ -103,8 +103,8 @@ var skipText:FlxText;
 
 function startCutscene()
 {
-	camFollowTween.cancel();
-	FlxTween.cancelTweensOf(FlxG.camera, ["zoom"]);
+	if (camFollowTween != null) camFollowTween.cancel();
+	if (camZoomTween != null) camZoomTween.cancel();
 	
 	skipText = new FlxText(821, 618, 0, 'Skip [ ACCEPT ]', 20);
 
@@ -149,12 +149,8 @@ function startCutscene()
 	isCameraOnForcedPos = true;
 	camZooming = false;
 
-	FlxTween.tween(camFollowPoint, {x: santaDead.x + 1200, y: santaDead.y + 300}, 2.8, {ease: FlxEase.expoOut});
-	FlxTween.tween(FlxG.camera, {zoom: 0.73}, 2, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween) 
-		{
-			defaultCamzoom = 0.73;
-		}
-	});
+	focusCamera("position", santaDead.x + 1200, santaDead.y + 300, 2.8, 'expoOut', true);
+	camChangeZoom(0.73, 2, FlxEase.quadInOut);
 
 	santaSound = FunkinSound.load(Paths.sound('week5/santa_emotion'), 1);
 	santaSound.volume = 1;
@@ -165,12 +161,8 @@ function startCutscene()
 
 	new FlxTimer().start(2.8, function(tmr)
 	{
-		FlxTween.tween(camFollowPoint, {x: santaDead.x + 1050, y: santaDead.y + 300}, 9, {ease: FlxEase.quartInOut});
-		FlxTween.tween(FlxG.camera, {zoom: 0.79}, 9, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween) 
-			{
-				defaultCamzoom = 0.79;
-			}
-		});
+		focusCamera("position", santaDead.x + 1050, santaDead.y + 300, 9, 'quartInOut', true);
+		camChangeZoom(0.79, 9, FlxEase.quadInOut);
 	});
 
 	new FlxTimer().start(11.375, function(tmr)
@@ -181,7 +173,7 @@ function startCutscene()
 	new FlxTimer().start(12.83, function(tmr)
 	{
 		camGame.shake(0.005, 0.2);
-		FlxTween.tween(camFollowPoint, {x: santaDead.x + 1060, y: santaDead.y + 380}, 5, {ease: FlxEase.expoOut});
+		focusCamera("position", santaDead.x + 1060, santaDead.y + 380, 5, 'expoOut', true);
 	});
 
 	new FlxTimer().start(14, function(tmr)

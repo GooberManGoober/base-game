@@ -28,15 +28,9 @@ function onLoad()
     sunOverlay.setGraphicSize(Std.int(sunOverlay.width * 2));
     sunOverlay.updateHitbox();
     skyOverlay.setBitmapOverlay(sunOverlay.pixels);
-    var skyBG:FlxSprite = skyBG;
-    if (skyBG == null)
-    {
-      trace(' WARNING '.bg_yellow().bold() + ' Could not retrieve skyBG');
-    }
-    else
-    {
-      skyBG.shader = skyOverlay;
-    }
+    
+	if (skyBG == null) trace(' WARNING '.bg_yellow().bold() + ' Could not retrieve skyBG');
+    else skyBG.shader = skyOverlay;
 
 	if (!ClientPrefs.lowQuality) {
 		limoMetalPole = new BGSprite('backgrounds/limo/gore/metalPole', -500, 220, 0.4, 0.4);
@@ -47,11 +41,11 @@ function onLoad()
 		add(bgLimo);
 		bgLimo.zIndex = 2;
 
-		limoCorpse = new BGSprite('gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
+		limoCorpse = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
 		limoCorpse.zIndex = 3;
 		add(limoCorpse);
 
-		limoCorpseTwo = new BGSprite('gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
+		limoCorpseTwo = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
 		limoCorpseTwo.zIndex = 4;
 		add(limoCorpseTwo);
 
@@ -90,15 +84,18 @@ function onLoad()
 	limoKillingState = 0;
 }
 
-function onCreatePost() {
+function onCreatePost()
+{
 	dadGroup.zIndex = 8;
 	boyfriendGroup.zIndex = 8;
 	gfGroup.zIndex = 6;
 
 	resetFastCar();
+	resetLimoKill();
 }
 
-function resetLimoKill():Void {
+function resetLimoKill():Void
+{
 	limoMetalPole.x = -500;
 	limoMetalPole.visible = false;
 	limoLight.x = -500;
@@ -109,9 +106,12 @@ function resetLimoKill():Void {
 	limoCorpseTwo.visible = false;
 }
 
-function killHenchmen():Void {
-	if (!ClientPrefs.lowQuality) {
-		if (limoKillingState < 1) {
+function killHenchmen():Void
+{
+	if (!ClientPrefs.lowQuality)
+	{
+		if (limoKillingState < 1)
+		{
 			limoMetalPole.x = -400;
 			limoMetalPole.visible = true;
 			limoLight.visible = true;
@@ -122,7 +122,8 @@ function killHenchmen():Void {
 	}
 }
 
-function resetFastCar():Void {
+function resetFastCar():Void
+{
 	fastCar.x = -12600;
 	fastCar.y = FlxG.random.int(140, 250);
 	fastCar.velocity.x = 0;
@@ -131,7 +132,8 @@ function resetFastCar():Void {
 
 var carTimer:FlxTimer;
 
-function fastCarDrive() {
+function fastCarDrive()
+{
 	FlxG.sound.play(Paths.soundRandom('week4/carPass', 0, 1), 0.7);
 
 	fastCar.velocity.x = (FlxG.random.int(170, 220) / FlxG.elapsed) * 3;
@@ -142,10 +144,14 @@ function fastCarDrive() {
 	});
 }
 
-function onUpdate(elapsed) {
-	if (!ClientPrefs.lowQuality) {
-		for (spr in grpLimoParticles) {
-			if (spr.animation.curAnim.finished) {
+function onUpdate(elapsed)
+{
+	if (!ClientPrefs.lowQuality)
+	{
+		for (spr in grpLimoParticles)
+		{
+			if (spr.animation.curAnim.finished)
+			{
 				spr.kill();
 				grpLimoParticles.remove(spr);
 				spr.destroy();
@@ -162,11 +168,12 @@ function onUpdate(elapsed) {
 				var dancers = grpLimoDancers.members;
 				for (i in 0...dancers.length)
 				{
-					if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 170) {
-						switch (i) {
+					if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 170)
+					{
+						switch (i)
+						{
 							case 0, 3:
-								if (i == 0)
-									FlxG.sound.play(Paths.sound('week4/dancerdeath'), 0.5);
+								if (i == 0) FlxG.sound.play(Paths.sound('week4/dancerdeath'), 0.5);
 
 								var diffStr:String = i == 3 ? ' 2 ' : ' ';
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4,
@@ -197,7 +204,10 @@ function onUpdate(elapsed) {
 					}
 				}
 
-				if (limoMetalPole.x > FlxG.width * 2) {
+				refreshZ();
+
+				if (limoMetalPole.x > FlxG.width * 2)
+				{
 					resetLimoKill();
 					limoSpeed = 800;
 					limoKillingState = 2;
@@ -206,58 +216,57 @@ function onUpdate(elapsed) {
 			case 2:
 				limoSpeed -= 4000 * elapsed;
 				bgLimo.x -= limoSpeed * elapsed;
-				if (bgLimo.x > FlxG.width * 1.5) {
+				if (bgLimo.x > FlxG.width * 1.5)
+				{
 					limoSpeed = 3000;
 					limoKillingState = 3;
 				}
 
 			case 3:
 				limoSpeed -= 2000 * elapsed;
-				if (limoSpeed < 1000)
-					limoSpeed = 1000;
+				if (limoSpeed < 1000) limoSpeed = 1000;
 
 				bgLimo.x -= limoSpeed * elapsed;
-				if (bgLimo.x < -275) {
+				if (bgLimo.x < -275)
+				{
 					limoKillingState = 4;
 					limoSpeed = 800;
 				}
 
 			case 4:
 				bgLimo.x = FlxMath.lerp(bgLimo.x, -150, FlxMath.bound(elapsed * 9, 0, 1));
-				if (Math.round(bgLimo.x) == -150) {
+				if (Math.round(bgLimo.x) == -150)
+				{
 					bgLimo.x = -150;
 					limoKillingState = 0;
 				}
 		}
 
-		if (limoKillingState > 2) {
+		if (limoKillingState > 2)
+		{
 			var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
-			for (i in 0...dancers.length) {
-				dancers[i].x = (370 * i) + bgLimo.x + 280;
-			}
+			for (i in 0...dancers.length) dancers[i].x = (370 * i) + bgLimo.x + 280;
 		}
 	}
 }
 
-function onCountdownTick() {
-	if (!ClientPrefs.lowQuality) {
-		for (dancer in grpLimoDancers) {
-			dancer.dance();
-		}
+function onCountdownTick()
+{
+	if (!ClientPrefs.lowQuality)
+	{
+		for (dancer in grpLimoDancers) dancer.dance();
 	}
 }
 
 function onBeatHit() {
-	if (!ClientPrefs.lowQuality) {
-		for (dancer in grpLimoDancers) {
-			dancer.dance();
-		}
+	if (!ClientPrefs.lowQuality)
+	{
+		for (dancer in grpLimoDancers) dancer.dance();
 	}
-	if (FlxG.random.bool(10) && fastCarCanDrive)
-		fastCarDrive();
+	if (FlxG.random.bool(10) && fastCarCanDrive) fastCarDrive();
 }
 
-function onEvent(event, value1, value2) {
-	if (event == 'Kill Henchmen')
-		killHenchmen();
+function onEvent(event, value1, value2) 
+{
+	if (event == 'Kill Henchmen') killHenchmen();
 }

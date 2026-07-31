@@ -2239,7 +2239,7 @@
 		"player3": null,
 		"keys": 4,
 		"song": "High",
-		"stage": "limo",
+		"stage": "limoRide",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 125,

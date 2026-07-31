@@ -1,6 +1,6 @@
 import funkin.data.Chart;
 
-var heyTimer:Float;
+var heyTimer:Float = 0;
 var upperBoppers:BGSprite;
 var bottomBoppers:BGSprite;
 var santa:BGSprite;

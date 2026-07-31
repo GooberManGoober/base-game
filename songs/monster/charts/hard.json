@@ -2695,7 +2695,7 @@
 		"player3": null,
 		"keys": 4,
 		"song": "Monster",
-		"stage": "spooky",
+		"stage": "spookyMansion",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 95,

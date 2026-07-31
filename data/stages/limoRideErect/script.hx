@@ -56,27 +56,40 @@ function onLoad()
 		add(bgLimo);
 		bgLimo.zIndex = 25;
 
+		limoCorpse = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
+		limoCorpse.zIndex = 26;
+		limoCorpse.shader = colorShader;
+		add(limoCorpse);
+
+		limoCorpseTwo = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
+		limoCorpseTwo.zIndex = 27;
+		limoCorpseTwo.shader = colorShader;
+		add(limoCorpseTwo);
+
+		grpLimoDancers = new FlxTypedGroup();
+		add(grpLimoDancers);
+
 		for (i in 0...5)
 		{
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
+            dancer.shader = colorShader;
 			add(dancer);
 			dancer.zIndex = 30;
-			grpLimoDancers.push(dancer);
-
-            dancer.shader = colorShader;
+			grpLimoDancers.add(dancer);
 		}
 
 		limoLight = new BGSprite('backgrounds/limo/gore/coldHeartKiller', limoMetalPole.x - 180, limoMetalPole.y - 80, 0.4, 0.4);
         limoLight.shader = colorShader;
+		limoLight.zIndex = 35;
 		add(limoLight);
-		limoLight.zIndex = 40;
 
 		// PRECACHE BLOOD
 		var particle:BGSprite = new BGSprite('backgrounds/limo/gore/stupidBlood', -400, -400, 0.4, 0.4, ['blood'], false);
 		particle.alpha = 0.01;
+		particle.zIndex = 40;
+		particle.shader = colorShader;
 		add(particle);
-		particle.zIndex = 50;
 		grpLimoParticles.push(particle);
 	}
 
@@ -105,6 +118,7 @@ function onCreatePost()
     boyfriend.shader = colorShader;
 
 	resetFastCar();
+	resetLimoKill();
 }
 
 function addMist()
@@ -251,27 +265,33 @@ function onUpdate(elapsed)
 				limoCorpse.x = limoLight.x - 50;
 				limoCorpseTwo.x = limoLight.x + 35;
 
-				var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+				var dancers = grpLimoDancers.members;
 				for (i in 0...dancers.length)
                 {
 					if (dancers[i].x < FlxG.width * 1.5 && limoLight.x > (370 * i) + 170)
                     {
 						switch (i)
                         {
-							case 0 | 3:
+							case 0, 3:
 								if (i == 0) FlxG.sound.play(Paths.sound('week4/dancerdeath'), 0.5);
 
 								var diffStr:String = i == 3 ? ' 2 ' : ' ';
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4,
 									['hench leg spin' + diffStr + 'PINK'], false);
+								particle.shader = colorShader;
+								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 160, dancers[i].y + 200, 0.4, 0.4,
 									['hench arm spin' + diffStr + 'PINK'], false);
+								particle.shader = colorShader;
+								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x, dancers[i].y + 50, 0.4, 0.4,
 									['hench head spin' + diffStr + 'PINK'], false);
+								particle.shader = colorShader;
+								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 
@@ -279,6 +299,8 @@ function onUpdate(elapsed)
 									['blood'], false);
 								particle.flipX = true;
 								particle.angle = -57.5;
+								particle.shader = colorShader;
+								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 							case 1:
@@ -289,6 +311,8 @@ function onUpdate(elapsed)
 						dancers[i].x += FlxG.width * 2;
 					}
 				}
+
+				refreshZ();
 
 				if (limoMetalPole.x > FlxG.width * 2)
                 {
@@ -329,9 +353,9 @@ function onUpdate(elapsed)
 
 		if (limoKillingState > 2)
         {
-			for (i in 0...grpLimoDancers.length)
-            {
-				grpLimoDancers[i].x = (370 * i) + bgLimo.x + 280;
+			var dancers:Array<BackgroundDancer> = grpLimoDancers.members;
+			for (i in 0...dancers.length) {
+				dancers[i].x = (370 * i) + bgLimo.x + 280;
 			}
 		}
 	}
@@ -369,6 +393,6 @@ function onBeatHit() {
 }
 
 function onEvent(event, value1, value2) {
-	if (value1 == 'Kill Henchmen')
+	if (event == 'Kill Henchmen')
 		killHenchmen();
 }

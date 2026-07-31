@@ -1,14 +1,14 @@
-import funkin.objects.BGSprite;
-
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowGradient;
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowParticle;
 
-var phillyLightsColors:Array<FlxColor>;
-var phillyWindow:BGSprite;
-var phillyStreet:BGSprite;
-var phillyTrain:BGSprite;
+var phillyLightsColors:Array<FlxColor> = [0xFF31A2FD, 0xFF31FD8C, 0xFFFB33F5, 0xFFFD4531, 0xFFFBA633];
+var phillyWindow:FlxSprite;
+var phillyCityLightsGlow:FlxSprite;
+
+var phillyStreet:FlxSprite;
+var phillyTrain:FlxSprite;
 var blammedLightsBlack:FlxSprite;
-var phillyWindowEvent:BGSprite;
+var phillyWindowEvent:FlxSprite;
 var trainSound:FlxSound;
 
 var phillyGlowGradient:PhillyGlowGradient;
@@ -17,45 +17,50 @@ var phillyGlowParticles:FlxTypedGroup<PhillyGlowParticle>;
 var curLight:Int = -1;
 var curLightEvent:Int = -1;
 
-function onLoad() {
-	if (!ClientPrefs.lowQuality)
-	{
-		var bg:BGSprite = new BGSprite('backgrounds/philly/sky', -100, 0, 0.1, 0.1);
-		bg.zIndex = 0;
-		add(bg);
-	}
+function onLoad()
+{
+	var sky:FlxSprite = new FlxSprite(-100, 0).loadGraphic(Paths.image("backgrounds/philly/sky"));
+	sky.zIndex = 0;
+	sky.scrollFactor.set(0.1, 0.1);
+	add(sky);
 
-	var city:BGSprite = new BGSprite('backgrounds/philly/city', -10, 0, 0.3, 0.3);
-	city.setGraphicSize(Std.int(city.width * 0.85));
-	city.updateHitbox();
+	var city:FlxSprite = new FlxSprite(-255, 45).loadGraphic(Paths.image("backgrounds/philly/city"));
 	city.zIndex = 5;
+	city.setScale(0.9, 0.9, true);
+	city.scrollFactor.set(0.3, 0.3);
 	add(city);
 
-	phillyLightsColors = [0xFF31A2FD, 0xFF31FD8C, 0xFFFB33F5, 0xFFFD4531, 0xFFFBA633];
-	phillyWindow = new BGSprite('backgrounds/philly/window', city.x, city.y, 0.3, 0.3);
-	phillyWindow.setGraphicSize(Std.int(phillyWindow.width * 0.85));
-	phillyWindow.updateHitbox();
+	phillyWindow = new FlxSprite(-184, 155).loadGraphic(Paths.image("backgrounds/philly/window"));
 	phillyWindow.zIndex = 10;
+	phillyWindow.setScale(0.9, 0.9, true);
+	phillyWindow.scrollFactor.set(0.3, 0.3);
 	add(phillyWindow);
-	phillyWindow.alpha = 0;
 
-	if (!ClientPrefs.lowQuality)
-	{
-		var streetBehind:BGSprite = new BGSprite('backgrounds/philly/behindTrain', -40, 50);
-		streetBehind.zIndex = 15;
-		add(streetBehind);
-	}
+	phillyCityLightsGlow = new FlxSprite(-255, 45).loadGraphic(Paths.image("backgrounds/philly/windowWhiteGlow"));
+	phillyCityLightsGlow.scrollFactor.set(0.3, 0.3);
+	phillyCityLightsGlow.scale.set(0.9, 0.9);
+	phillyCityLightsGlow.updateHitbox();
+	phillyCityLightsGlow.blend = BlendMode.ADD;
+	phillyCityLightsGlow.alpha = 0;
+	phillyCityLightsGlow.zIndex = 11;
+	add(phillyCityLightsGlow);
 
-	phillyTrain = new BGSprite('backgrounds/philly/train', 2000, 360);
+	randomizeLights();
+
+	var behindTrain:FlxSprite = new FlxSprite(-299, 144).loadGraphic(Paths.image("backgrounds/philly/behindTrain"));
+	behindTrain.zIndex = 15;
+	add(behindTrain);
+
+	phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image("backgrounds/philly/train"));
 	phillyTrain.zIndex = 20;
 	add(phillyTrain);
 
-	trainSound = new FlxSound().loadEmbedded(Paths.sound('week3/train_passes'));
-	FlxG.sound.list.add(trainSound);
-
-	phillyStreet = new BGSprite('backgrounds/philly/street', -40, 50);
+	phillyStreet = new FlxSprite(-299, 144).loadGraphic(Paths.image("backgrounds/philly/street"));
 	phillyStreet.zIndex = 25;
 	add(phillyStreet);
+
+	trainSound = new FlxSound().loadEmbedded(Paths.sound('week3/train_passes'));
+	FlxG.sound.list.add(trainSound);
 }
 
 function onEventPush(event)
@@ -67,9 +72,10 @@ function onEventPush(event)
 		blammedLightsBlack.zIndex = 21;
 		add(blammedLightsBlack);
 
-		phillyWindowEvent = new BGSprite('backgrounds/philly/window', phillyWindow.x, phillyWindow.y, 0.3, 0.3);
-		phillyWindowEvent.setGraphicSize(Std.int(phillyWindowEvent.width * 0.85));
-		phillyWindowEvent.updateHitbox();
+		phillyWindowEvent = new FlxSprite(phillyWindow.x, phillyWindow.y).loadGraphic(Paths.image("backgrounds/philly/window"));
+		phillyWindowEvent.zIndex = 30;
+		phillyWindowEvent.setScale(0.9, 0.9, true);
+		phillyWindowEvent.scrollFactor.set(0.3, 0.3);
 		phillyWindowEvent.visible = false;
 		phillyWindowEvent.zIndex = 22;
 		add(phillyWindowEvent);
@@ -162,8 +168,7 @@ function onUpdate(elapsed)
 		}
 	}
 
-	phillyWindow.alpha = FlxMath.lerp(phillyWindow.alpha, 0, FlxMath.bound(elapsed * 3.2, 0, 1));
-	// boyfriend.angle += 5;
+	phillyCityLightsGlow.alpha = FlxMath.lerp(phillyCityLightsGlow.alpha, 0, FlxMath.bound(elapsed * 3.2, 0, 1));
 
 	if(phillyGlowParticles != null)
 	{
@@ -276,8 +281,11 @@ function onEvent(eventName, value1, value2)
 function randomizeLights()
 {
 	curLight = FlxG.random.int(0, phillyLightsColors.length - 1, [curLight]);
+	
 	phillyWindow.color = phillyLightsColors[curLight];
-	phillyWindow.alpha = 1;
+	phillyCityLightsGlow.color = phillyLightsColors[curLight];
+	FlxTween.cancelTweensOf(phillyCityLightsGlow);
+	phillyCityLightsGlow.alpha = 0.9;
 }
 
 function onBeatHit()

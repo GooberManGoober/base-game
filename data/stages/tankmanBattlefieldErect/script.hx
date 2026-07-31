@@ -62,9 +62,9 @@ function onLoad()
 	guy.antialiasing = true;
 	add(guy);
 	
-	tankBricks = new FlxSprite(465, 760);
+	tankBricks = new FlxSprite(250, 650);
 	tankBricks.loadGraphic(Paths.image("backgrounds/tank/erect/bricksGround"));
-	tankBricks.scale.set(1.15, 1.15);
+	tankBricks.setScale(1.15, 1.15, true);
 	tankBricks.scrollFactor.set(1, 1);
 	tankBricks.flipX = true;
 	tankBricks.antialiasing = true;

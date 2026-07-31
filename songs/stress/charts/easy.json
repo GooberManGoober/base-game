@@ -3023,7 +3023,7 @@
 		"player2": "tankman",
 		"player3": null,
 		"song": "Stress",
-		"stage": "tank",
+		"stage": "tankmanBattlefield",
 		"needsVoices": true,
 		"validScore": true,
 		"bpm": 178,

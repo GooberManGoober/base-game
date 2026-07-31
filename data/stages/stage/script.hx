@@ -32,7 +32,7 @@ function onEventPush(event)
         add(dadbattleSmokes);
 
         var offsetX = 200;
-        var smokeLeft:BGSprite = new BGSprite('smoke', -1050 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
+        var smokeLeft:BGSprite = new BGSprite('backgrounds/week1/smoke', -1050 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
         smokeLeft.setGraphicSize(Std.int(smokeLeft.width * FlxG.random.float(1.1, 1.22)));
         smokeLeft.updateHitbox();
         smokeLeft.velocity.x = FlxG.random.float(15, 22);
