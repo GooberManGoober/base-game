@@ -16,7 +16,6 @@ function onCreatePost()
 function onUpdate()
 {
     dad.vSliceSustains = boyfriend.vSliceSustains = gf.vSliceSustains = true;
-    dad.ghostsEnabled = boyfriend.ghostsEnabled = gf.ghostsEnabled = true;
     
     if (FlxG.keys.justPressed.NINE)
     {

@@ -70,10 +70,10 @@ function onLoad()
 
 	for (i in stage.members) i.antialiasing = false;
 
-	school.shader = wiggleSchool;
-	evilstreet.shader = wiggleGround;
-	weebBackSpikes.shader = wiggleBack;
-	backSpike.shader = wiggleSpike;
+	school.shader = wiggleSchool.shader;
+	evilstreet.shader = wiggleGround.shader;
+	weebBackSpikes.shader = wiggleBack.shader;
+	backSpike.shader = wiggleSpike.shader;
 }
 
 function onCreatePost()
