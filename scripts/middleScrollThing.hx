@@ -15,8 +15,6 @@ function onCreatePost()
 
 function onUpdate()
 {
-    dad.vSliceSustains = boyfriend.vSliceSustains = gf.vSliceSustains = true;
-    
     if (FlxG.keys.justPressed.NINE)
     {
         if (iconP1.characterName == boyfriend.healthIcon) iconP1.changeIcon('bf-old');

@@ -32,13 +32,13 @@ function triggerVSliceEvent(name, values, strumTime):Void
             if (values.ease != null) easeType = values.ease;
             if (values.easeDir != null && (easeType.toLowerCase() != "classic" || easeType.toLowerCase() != "instant")) easeType += values.easeDir;
 
-            triggerEventNote("Focus Camera", focusChar, '${values.x ?? 0},${values.y ?? 0},${values.duration ?? 4},$easeType');
+            triggerEventNote("Focus Camera", '$focusChar,A', '${values.x ?? 0},${values.y ?? 0},${values.duration ?? 4},$easeType');
         case "ZoomCamera":
             var easeType:String = "CLASSIC";
             if (values.ease != null) easeType = values.ease;
             if (values.easeDir != null && (easeType.toLowerCase() != "classic" || easeType.toLowerCase() != "instant")) easeType += values.easeDir;
             
-            triggerEventNote("Zoom Camera", values.mode, '${values.zoom ?? 1},${values.duration ?? 4},$easeType');
+            triggerEventNote("Zoom Camera", '${values.mode},A', '${values.zoom ?? 1},${values.duration ?? 4},$easeType');
         case "SetCameraBop":
             triggerEventNote("Set Camera Bop", '${values.rate}', '${values.intensity}');
         case "PlayAnimation":
