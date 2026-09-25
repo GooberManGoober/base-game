@@ -748,17 +748,9 @@ function opponentNoteHit(note)
 			dad.specialAnim = true;
 			lightCanSnd.play(true, sndTime - 65);
 			
-			isCameraOnForcedPos = true;
-			defaultCamZoom += 0.1;
-			moveCamera(true);
-			game.cameraSpeed = 2;
-			if (camFollowTween != null) camFollowTween.cancel();
-			camFollowTween = FlxTween.tween(camFollowPoint, {
-				x: getCharacterCameraPos(dad).x - 100
-			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
-					camFollowTween = null;
-				}
-			});
+			cameraSpeed = 2;
+			camChangeZoomAdjust(0.1, 1.9, FlxEase.expoOut);
+			focusCamera("opponent", -100, 0, 1.9, "expoOut", true);
 			
 		case 'kickcan':
 			dad.holdTimer = 0;
@@ -768,16 +760,10 @@ function opponentNoteHit(note)
 			cutsceneCan.animation.play('up');
 			cutsceneCan.visible = true;
 
-			if (camFollowTween != null) camFollowTween.cancel();
-			camFollowTween = FlxTween.tween(camFollowPoint, {
-				x: camFollowPoint.x + 500
-			}, 1.9, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {
-					camFollowTween = null;
-				}
-			});
-
 			cameraSpeed = 1.5;
-			defaultCamZoom -= 0.1;
+
+			camChangeZoomAdjust(0, 1.9, FlxEase.expoOut);
+			focusCamera("opponent", 300, 0, 1.9, "expoOut", true);
 			
 			new FlxTimer().start(1.1, function(_) {
 				isCameraOnForcedPos = false;

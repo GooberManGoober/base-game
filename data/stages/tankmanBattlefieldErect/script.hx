@@ -18,6 +18,10 @@ var anims:Array<String> = ['shoot1', 'shoot2', 'shoot3', 'shoot4'];
 var otisAnims:Array<CrowdAnim> = [];
 var chart:Song = null;
 
+var hasPlayedInGameCutscene = true;
+var cutsceneSkipped:Bool = false;
+var canSkipCutscene:Bool = false;
+
 typedef CrowdAnim =
 {
 	var time:Float;
@@ -218,24 +222,67 @@ function updateOtisCharts()
 function onUpdate(elapsed)
 {
 	if (songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)") updateOtisCharts();
+
+	if (cutsceneTimerManager != null) cutsceneTimerManager.update(elapsed);
+	
+	if (!hasPlayedInGameCutscene)
+	{
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && !cutsceneSkipped)
+		{
+			if (!canSkipCutscene)
+			{
+				if (skipText != null)
+				{
+					FlxTween.tween(skipText, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+					new FlxTimer().start(0.5, _ ->
+					{
+						canSkipCutscene = true;
+					});
+				}
+			}
+		}
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && !cutsceneSkipped && canSkipCutscene)
+		{
+			skipCutscene();
+		}
+	}
 }
 
+var cutsceneMusic:FunkinSound;
 var can = true;
+var skipText:FlxText;
+var cutsceneAnim:Bopper;
+var cutsceneTimerManager:FlxTimerManager;
 
 function onStartCountdown()
 {
 	if (can && songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)")
 	{
+		cutsceneMusic = FunkinSound.load(Paths.sound('week7/stressPicoCutscene'), 1);
+		
 		camHUD.alpha = 0;
+
+		cutsceneTimerManager = new FlxTimerManager();
+
+		skipText = new FlxText(821, 618, 0, 'Skip [ Z ]', 20);
+
+		skipText.setFormat(Paths.font('vcr.ttf'), 40, 0xFFFFFFFF, "right", FlxTextBorderStyle.OUTLINE, 0xFF000000);
+		skipText.scrollFactor.set();
+		skipText.borderSize = 2;
+		skipText.alpha = 0;
+		add(skipText);
+
+		skipText.cameras = [camOther];
+
+		hasPlayedInGameCutscene = false;
 		
-		var anim = new Bopper(-320, -885).loadAtlas('cutscenes/stress-pico-mix');
-		anim.addAnimByPrefix('play', 'full scene ', 24, false);
-		anim.playAnim('play');
-		anim.zIndex = 99999;
-		// anim.angularVelocity = 200;
-		stage.add(anim);
+		cutsceneAnim = new Bopper(-320, -885).loadAtlas('cutscenes/stress-pico-mix');
+		cutsceneAnim.addAnimByPrefix('play', 'full scene ', 24, false);
+		cutsceneAnim.zIndex = 99999;
+		// cutsceneAnim.angularVelocity = 200;
+		stage.add(cutsceneAnim);
 		
-		var rim = makeRimForSpr(anim, 90);
+		var rim = makeRimForSpr(cutsceneAnim, 90);
 		rim.threshold = 0.3;
 		rim.distance = 0;
 		
@@ -245,49 +292,70 @@ function onStartCountdown()
 		isCameraOnForcedPos = true;
 		camFollowPoint.set(getCharacterCameraPos(dad).x + 350, getCharacterCameraPos(dad).y);
 		FlxG.camera.snapToTarget();
-		
-		anim.onAnimationFrameChange.add((anim, frame) -> {
-			switch (frame)
-			{
-				case 151:
-					camChangeZoom(1.2, 0.5, FlxEase.quartInOut);
-					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 120}, 0.5 * 1.5, {ease: FlxEase.quartInOut});
-				case 205:
-					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 40}, 1.9, {ease: FlxEase.expoOut});
-				case 270:
-					cameraSpeed = 0.3;
+
+		new FlxTimer(cutsceneTimerManager).start(0.01, () -> {
+			cutsceneMusic.play(false);
+			cutsceneAnim.playAnim('play');
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(6.308, () -> {
+			camChangeZoom(1.2, 0.5, FlxEase.quartInOut);
+			focusCamera("position", camFollowPoint.x, camFollowPoint.y - 120, 0.75, "quartInOut", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(8.559, () -> {
+			focusCamera("position", camFollowPoint.x - 40, camFollowPoint.y, 1.9, "expoOut", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(11.159, () -> {
+			cameraSpeed = 0.3;
 					
-					camChangeZoom(0.74, 2.8, FlxEase.quartInOut);
-					FlxTween.tween(camFollowPoint, {y: camFollowPoint.y - 200}, 2.8, {ease: FlxEase.quartInOut});
-				case 326:
-					cameraSpeed = 1;
+			camChangeZoom(0.74, 2.8, FlxEase.quartInOut);
+			focusCamera("position", camFollowPoint.x, camFollowPoint.y - 200, 2.8, "quartInOut", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(13.639, () -> {
+			cameraSpeed = 1;
 					
-					FlxTween.cancelTweensOf(camGame);
-					FlxTween.cancelTweensOf(camFollowPoint);
-					camChangeZoom(0.9125, 0.4 * 1.5, FlxEase.bounceOut);
-					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(boyfriend).x, y: getCharacterCameraPos(boyfriend).y}, 1.9, {ease: FlxEase.expoOut});
-				case 579:
-					FlxTween.cancelTweensOf(camGame);
-					camChangeZoom(0.8, 0.7, FlxEase.quartInOut);
-					FlxTween.tween(camFollowPoint, {x: getCharacterCameraPos(dad).x, y: camFollowPoint.y - 50}, 0.7 * 1.5, {ease: FlxEase.quartInOut});
-				case 669:
-					FlxTween.tween(camFollowPoint, {x: camFollowPoint.x - 30}, 1.9 * 1.5, {ease: FlxEase.expoOut});
-					camGame.shake(0.05, 0.01);
-				case 750:
-					final pos = getCharacterCameraPos(dad);
-					
-					FlxTween.cancelTweensOf(camGame);
-					camChangeZoom(0.7, 0.7, FlxEase.quadInOut);
-					FlxTween.tween(camFollowPoint, {x: pos.x + 440, y: pos.y}, 0.7 * 1.5, {ease: FlxEase.quadInOut});
-				case 790:
-					FlxTween.tween(camHUD, {alpha: 1}, 0.6);
-					can = false;
-					startCountdown();
-			}
+			camChangeZoom(0.9125, 0.4 * 1.5, FlxEase.bounceOut);
+			focusCamera("player", 0, 0, 4, "CLASSIC", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(24.119, () -> {
+			camChangeZoom(0.8, 0.7, FlxEase.quartInOut);
+			focusCamera("opponent", 0, 0, 0.7 * 1.5, "quartInOut", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(27.889, () -> {
+			focusCamera("position", camFollowPoint.x - 30, camFollowPoint.y, 1.9 * 1.5, "expoOut", true);
+			camGame.shake(0.05, 0.01);
+
+			cutsceneSkipped = true;
+			canSkipCutscene = false;
+			FlxTween.tween(skipText, {alpha: 0}, 0.5, {
+				ease: FlxEase.quadIn,
+				onComplete: _ ->
+				{
+					skipText.visible = false;
+				}
+			});
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(31.378, () -> {
+			camChangeZoom(0.7, 0.7, FlxEase.quadInOut);
+			focusCamera("opponent", 440, 0, 0.7 * 1.5, "quadInOut", true);
+		});
+
+		new FlxTimer(cutsceneTimerManager).start(33.047, () -> {
+			FlxTween.tween(camHUD, {alpha: 1}, 0.6);
+			can = false;
+			hasPlayedInGameCutscene = true;
+			startCountdown();
+			cutsceneMusic.stop();
 		});
 		
-		anim.onAnimationFinish.add(() -> {
-			anim.visible = false;
+		cutsceneAnim.onAnimationFinish.add(() -> {
+			cutsceneAnim.visible = false;
 			dadGroup.visible = boyfriendGroup.visible = gfGroup.visible = true;
 			
 			for (i in [dad, gf, boyfriend])
@@ -298,10 +366,50 @@ function onStartCountdown()
 			}
 		});
 		
-		FlxG.sound.play(Paths.sound('week7/stressPicoCutscene'));
-		
 		return ScriptConstants.STOP_FUNC;
 	}
+}
+
+function skipCutscene()
+{
+	cutsceneSkipped = true;
+	hasPlayedCutscene = true;
+	camOther.fade(0xFF000000, 0.5, false, null, true);
+	cutsceneMusic.fadeOut(0.5, 0);
+
+	new FlxTimer().start(0.5, _ ->
+	{
+		camOther.fade(0xFF000000, 0.5, true, null, true);
+		camFollowPoint.x = getCharacterCameraPos(dad).x;
+		camFollowPoint.y = getCharacterCameraPos(dad).y;
+		
+		cutsceneTimerManager.clear();
+		cutsceneMusic.stop();
+
+		skipText.visible = false;
+
+		canDoPicoShit = false;
+
+		defaultCamZoom = 0.7;
+
+		canPause = true;
+		
+		cutsceneAnim.visible = false;
+		dadGroup.visible = boyfriendGroup.visible = gfGroup.visible = true;
+		
+		for (i in [dad, gf, boyfriend])
+		{
+			i.shader.distance = 0;
+			
+			FlxTween.tween(i.shader, {distance: 15}, 1);
+		}
+
+		cameraSpeed = 1;
+		FlxTween.tween(camHUD, {alpha: 1}, 0.6);
+		can = false;
+		hasPlayedInGameCutscene = true;
+		startCountdown();
+	});
 }
 
 var bgSprite:FlxSprite;
@@ -329,27 +437,27 @@ function startEndCutscene()
 	inCutscene = true;
 	camHUD.visible = false;
 
-	FlxTween.tween(camFollowPoint, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 70}, 2.8, {ease: FlxEase.expoOut});
-	FlxTween.tween(FlxG.camera, {zoom: 0.65}, 2, {ease: FlxEase.expoOut, onComplete: function(twn:FlxTween) {	
-			defaultCamZoom = FlxG.camera.zoom;
-		}
+	focusCamera("position", tankmanPos[0] + 320, tankmanPos[1] - 70, 2.8, "expoOut", true);
+	camChangeZoom(0.65, 2, FlxEase.expoOut);
+
+	new FlxTimer().start(0.1, _ ->
+	{
+		dad.playAnim('stressPicoEnding', true);
+		FlxG.sound.play(Paths.sound('week7/erect/endCutscene'), 1.0);
 	});
 
-	dad.playAnim('stressPicoEnding', true);
-	FlxG.sound.play(Paths.sound('week7/erect/endCutscene'), 1.0);
-
-	new FlxTimer().start(176 / 24, _ ->
+	new FlxTimer().start(7.433333333, _ ->
 	{
 		boyfriend.playAnim('laughEnd', true);
 	});
 
-	new FlxTimer().start(270 / 24, _ ->
+	new FlxTimer().start(11.35, _ ->
 	{
-		FlxTween.tween(camFollowPoint, {x: tankmanPos[0] + 320, y: tankmanPos[1] - 370}, 2, {ease: FlxEase.quadInOut});
+		focusCamera("position", tankmanPos[0] + 320, tankmanPos[1] - 370, 2, "quadInOut", true);
 		FlxTween.tween(bgSprite, {alpha: 1}, 2);
 	});
 
-	new FlxTimer().start(320 / 24, _ ->
+	new FlxTimer().start(13.1, _ ->
 	{
 		endSong();
 	});

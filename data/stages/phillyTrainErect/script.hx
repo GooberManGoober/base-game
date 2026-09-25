@@ -1,6 +1,8 @@
 import funkin.objects.FunkinSprite;
 import flixel.util.FlxTimerManager;
 
+import funkin.game.shaders.AdjustColor;
+
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowGradient;
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowParticle;
 
@@ -14,7 +16,7 @@ var phillyTrain:FlxSprite;
 var blammedLightsBlack:FlxSprite;
 var phillyWindowEvent:FlxSprite;
 var trainSound:FlxSound;
-var colorShader:FlxRuntimeShader;
+var colorShader:AdjustColor;
 
 var trainEnabled:Bool = true;
 
@@ -35,11 +37,11 @@ var controls = Controls.instance;
 */
 function onLoad()
 {
-	colorShader = newShader('adjustColor');
-	colorShader.setFloat('hue', -26);
-	colorShader.setFloat('saturation', -16);
-	colorShader.setFloat('contrast', 0);
-	colorShader.setFloat('brightness', -5);
+	colorShader = new AdjustColor();
+    colorShader.hue = -26;
+    colorShader.saturation = -16;
+    colorShader.contrast = 0;
+    colorShader.brightness = -5;
 
 	var sky:FlxSprite = new FlxSprite(-100, 0).loadGraphic(Paths.image("backgrounds/philly/erect/sky"));
 	sky.zIndex = 10;
@@ -74,7 +76,7 @@ function onLoad()
 
 	phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image("backgrounds/philly/train"));
 	phillyTrain.zIndex = 60;
-	phillyTrain.shader = colorShader;
+	phillyTrain.shader = colorShader.shader;
 	add(phillyTrain);
 
 	phillyStreet = new FlxSprite(-299, 144).loadGraphic(Paths.image("backgrounds/philly/erect/street"));
@@ -186,9 +188,9 @@ function onStartCountdown()
 		add(bloodPool);
 		refreshZ();
 
-		picoPlayer.shader = colorShader;
-		picoOpponent.shader = colorShader;
-	 	bloodPool.shader = colorShader;
+		picoPlayer.shader = colorShader.shader;
+		picoOpponent.shader = colorShader.shader;
+	 	bloodPool.shader = colorShader.shader;
 
 		boyfriend.alpha = 0;
 		dad.alpha = 0;
@@ -558,7 +560,7 @@ function onUpdate(elapsed)
 			randomizeLights();
 		}
 
-		if (controls.ACCEPT && !cutsceneSkipped)
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && !cutsceneSkipped)
 		{
 			if (!canSkipCutscene)
 			{
@@ -572,7 +574,7 @@ function onUpdate(elapsed)
 				}
 			}
 		}
-		if (controls.ACCEPT && !cutsceneSkipped && canSkipCutscene)
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && !cutsceneSkipped && canSkipCutscene)
 		{
 			skipCutscene();
 		}
@@ -588,7 +590,7 @@ function onUpdate(elapsed)
 function onCreatePost()
 {
 	for (character in [gf, dad, boyfriend])
-		character.shader = colorShader;
+		character.shader = colorShader.shader;
 }
 
 function onEventPush(event)
@@ -653,7 +655,7 @@ function onEvent(eventName, value1, value2)
 					for (who in chars)
 					{
 						who.color = FlxColor.WHITE;
-						who.shader = colorShader;
+						who.shader = colorShader.shader;
 					}
 					phillyStreet.color = FlxColor.WHITE;
 				}

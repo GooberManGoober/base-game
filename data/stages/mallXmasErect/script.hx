@@ -1,3 +1,5 @@
+import funkin.game.shaders.AdjustColor;
+
 using StringTools;
 
 var heyTimer:Float;
@@ -68,19 +70,20 @@ function onLoad()
 function onCreatePost()
 {
 	// Create a single color shader and reuse it.
-    colorShader = newShader('adjustColor');
-    colorShader.setFloat('hue', 5);
-    colorShader.setFloat('saturation', 20);
+    var colorShader:AdjustColor = new AdjustColor();
+    colorShader.hue = 5;
+    colorShader.saturation = 20;
 
-    santa.shader = colorShader;
-	dad.shader = colorShader;
-	gf.shader = colorShader;
-	boyfriend.shader = colorShader;
+    santa.shader = colorShader.shader;
+	dad.shader = colorShader.shader;
+	gf.shader = colorShader.shader;
+	boyfriend.shader = colorShader.shader;
 
-    var colorShaderBoppers = newShader('adjustColor');
-    colorShaderBoppers.setFloat('hue', 15);
-    colorShaderBoppers.setFloat('brightness', 20);
-    bottomBoppers.shader = colorShaderBoppers;
+    var colorShaderBoppers = new AdjustColor();
+    colorShaderBoppers.hue = 15;
+    colorShaderBoppers.brightness = 20;
+    bottomBoppers.shader = colorShaderBoppers.shader;
+
 }
 
 function onCountdownTick()

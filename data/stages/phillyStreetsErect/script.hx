@@ -1,6 +1,7 @@
 import openfl.filters.ShaderFilter;
 
 import funkin.game.shaders.RainShader;
+import funkin.game.shaders.AdjustColor;
 
 import animate.FlxAnimateFrames;
 import animate.FlxAnimate;
@@ -253,13 +254,13 @@ function onCreatePost()
 		if(!noteTypes.contains(note.noteType)) noteTypes.push(note.noteType);
 	}
 	
-	colorShader = newShader('adjustColor');
-    colorShader.setFloat('hue', -5);
-    colorShader.setFloat('saturation', -40);
-    colorShader.setFloat('contrast', -25);
-    colorShader.setFloat('brightness', -20);
+	colorShader = new AdjustColor();
+    colorShader.hue = -5;
+    colorShader.saturation = -40;
+    colorShader.contrast = -25;
+    colorShader.brightness = -20;
 
-	dad.shader = gf.shader = boyfriend.shader = colorShader;
+	dad.shader = gf.shader = boyfriend.shader = colorShader.shader;
 
 	if(!isStoryMode) return;
     if (PlayState.SONG.song.toLowerCase() == "2hot") songEndCallback = blazin_intro;

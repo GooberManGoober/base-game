@@ -1,4 +1,4 @@
-import funkin.game.shaders.OverlayShader;
+import funkin.game.shaders.AdjustColor;
 
 import funkin.objects.stageobjects.BackgroundDancer;
 import funkin.objects.BGSprite;
@@ -16,7 +16,7 @@ var fastCar:BGSprite;
 var limoSpeed:Float = 0;
 var limoKillingState:Int = 0;
 
-var colorShader:AdjustColorShader;
+var colorShader:AdjustColor;
 var mist1:FlxBackdrop;
 var mist2:FlxBackdrop;
 var mist3:FlxBackdrop;
@@ -28,11 +28,11 @@ var shootingStarOffset:Int = 2;
 
 function onLoad()
 {   
-    colorShader = newShader('adjustColor');
-    colorShader.setFloat('hue', -30);
-    colorShader.setFloat('saturation', -20);
-    colorShader.setFloat('contrast', 0);
-    colorShader.setFloat('brightness', -30);
+    colorShader = new AdjustColor();
+    colorShader.hue = -30;
+    colorShader.saturation = -20;
+    colorShader.contrast = 0;
+    colorShader.brightness = -30;
 
     addMist();
 
@@ -48,7 +48,7 @@ function onLoad()
     if (!ClientPrefs.lowQuality)
 	{
 		limoMetalPole = new BGSprite('backgrounds/limo/gore/metalPole', -500, 220, 0.4, 0.4);
-        limoMetalPole.shader = colorShader;
+        limoMetalPole.shader = colorShader.shader;
 		add(limoMetalPole);
 		limoMetalPole.zIndex = 20;
 
@@ -58,12 +58,12 @@ function onLoad()
 
 		limoCorpse = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y - 130, 0.4, 0.4, ['Henchmen on rail'], true);
 		limoCorpse.zIndex = 26;
-		limoCorpse.shader = colorShader;
+		limoCorpse.shader = colorShader.shader;
 		add(limoCorpse);
 
 		limoCorpseTwo = new BGSprite('backgrounds/limo/gore/noooooo', -500, limoMetalPole.y, 0.4, 0.4, ['henchmen death'], true);
 		limoCorpseTwo.zIndex = 27;
-		limoCorpseTwo.shader = colorShader;
+		limoCorpseTwo.shader = colorShader.shader;
 		add(limoCorpseTwo);
 
 		grpLimoDancers = new FlxTypedGroup();
@@ -73,14 +73,14 @@ function onLoad()
 		{
 			var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 170, bgLimo.y - 400);
 			dancer.scrollFactor.set(0.4, 0.4);
-            dancer.shader = colorShader;
+            dancer.shader = colorShader.shader;
 			add(dancer);
 			dancer.zIndex = 30;
 			grpLimoDancers.add(dancer);
 		}
 
 		limoLight = new BGSprite('backgrounds/limo/gore/coldHeartKiller', limoMetalPole.x - 180, limoMetalPole.y - 80, 0.4, 0.4);
-        limoLight.shader = colorShader;
+        limoLight.shader = colorShader.shader;
 		limoLight.zIndex = 35;
 		add(limoLight);
 
@@ -88,7 +88,7 @@ function onLoad()
 		var particle:BGSprite = new BGSprite('backgrounds/limo/gore/stupidBlood', -400, -400, 0.4, 0.4, ['blood'], false);
 		particle.alpha = 0.01;
 		particle.zIndex = 40;
-		particle.shader = colorShader;
+		particle.shader = colorShader.shader;
 		add(particle);
 		grpLimoParticles.push(particle);
 	}
@@ -113,9 +113,9 @@ function onCreatePost()
 	boyfriendGroup.zIndex = 300;
 	gfGroup.zIndex = 100;
 
-    dad.shader = colorShader;
-    gf.shader = colorShader;
-    boyfriend.shader = colorShader;
+    dad.shader = colorShader.shader;
+    gf.shader = colorShader.shader;
+    boyfriend.shader = colorShader.shader;
 
 	resetFastCar();
 	resetLimoKill();
@@ -278,19 +278,19 @@ function onUpdate(elapsed)
 								var diffStr:String = i == 3 ? ' 2 ' : ' ';
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 200, dancers[i].y, 0.4, 0.4,
 									['hench leg spin' + diffStr + 'PINK'], false);
-								particle.shader = colorShader;
+								particle.shader = colorShader.shader;
 								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x + 160, dancers[i].y + 200, 0.4, 0.4,
 									['hench arm spin' + diffStr + 'PINK'], false);
-								particle.shader = colorShader;
+								particle.shader = colorShader.shader;
 								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
 								var particle:BGSprite = new BGSprite('backgrounds/limo/gore/noooooo', dancers[i].x, dancers[i].y + 50, 0.4, 0.4,
 									['hench head spin' + diffStr + 'PINK'], false);
-								particle.shader = colorShader;
+								particle.shader = colorShader.shader;
 								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
@@ -299,7 +299,7 @@ function onUpdate(elapsed)
 									['blood'], false);
 								particle.flipX = true;
 								particle.angle = -57.5;
-								particle.shader = colorShader;
+								particle.shader = colorShader.shader;
 								particle.zIndex = 40;
 								add(particle);
 								grpLimoParticles.push(particle);
