@@ -1,4 +1,5 @@
 import funkin.objects.stageobjects.ABotVis;
+import funkin.game.shaders.AdjustColorShader;
 import funkin.backend.Conductor;
 import funkin.utils.SortUtil;
 
@@ -13,13 +14,9 @@ var started = false;
 
 function makeAdjustShader(_brightness, _hue, _contrast, _saturation)
 {
-	var shader = newShader('adjustColor');
-	shader.setFloat('brightness', _brightness);
-	shader.setFloat('hue', _hue);
-	shader.setFloat('contrast', _contrast);
-	shader.setFloat('saturation', _saturation);
+	var shader:AdjustColorShader = new AdjustColorShader(_brightness, _hue, _contrast, _saturation);
 	
-	return shader;
+	return shader.shader;
 }
 
 function onCreatePost()

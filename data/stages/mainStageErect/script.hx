@@ -1,5 +1,5 @@
 import funkin.objects.Bopper;
-import funkin.game.shaders.AdjustColor;
+import funkin.game.shaders.AdjustColorShader;
 
 final path = 'backgrounds/week1/erect';
 
@@ -62,11 +62,7 @@ function onLoad()
 
 function makeCharShader(_brightness, _hue, _contrast, _saturation)
 {
-	var shader:AdjustColor = new AdjustColor();
-    shader.brightness = _brightness;
-    shader.hue = _hue;
-    shader.contrast = _contrast;
-    shader.saturation = _saturation;
+	var shader:AdjustColorShader = new AdjustColorShader(_brightness, _hue, _contrast, _saturation);
 	
 	return shader.shader;
 }

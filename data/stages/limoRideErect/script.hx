@@ -1,4 +1,4 @@
-import funkin.game.shaders.AdjustColor;
+import funkin.game.shaders.AdjustColorShader;
 
 import funkin.objects.stageobjects.BackgroundDancer;
 import funkin.objects.BGSprite;
@@ -16,7 +16,7 @@ var fastCar:BGSprite;
 var limoSpeed:Float = 0;
 var limoKillingState:Int = 0;
 
-var colorShader:AdjustColor;
+var colorShader:AdjustColorShader;
 var mist1:FlxBackdrop;
 var mist2:FlxBackdrop;
 var mist3:FlxBackdrop;
@@ -28,11 +28,7 @@ var shootingStarOffset:Int = 2;
 
 function onLoad()
 {   
-    colorShader = new AdjustColor();
-    colorShader.hue = -30;
-    colorShader.saturation = -20;
-    colorShader.contrast = 0;
-    colorShader.brightness = -30;
+    colorShader = new AdjustColorShader(-30, -30, 0, -20);
 
     addMist();
 
@@ -99,7 +95,7 @@ function onLoad()
 	fastCar = new BGSprite('backgrounds/limo/fastCarLol', -300, 160);
 	fastCar.active = true;
 	fastCar.zIndex = 500;
-    fastCar.shader = colorShader;
+    fastCar.shader = colorShader.shader;
 
 	add(limo);
 	add(fastCar);

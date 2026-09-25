@@ -1,6 +1,7 @@
 import funkin.objects.stageobjects.ABotVis;
 import funkin.backend.Conductor;
 import funkin.game.shaders.DropShadowShader;
+import funkin.game.shaders.AdjustColorShader;
 
 var aBotPixelBody:FlxSprite;
 var abotHead:FlxSprite;
@@ -85,16 +86,12 @@ function addSunsetShaders()
 	abotSpeakerShader.maskThreshold = 0;
 	abotSpeakerShader.useAltMask = true;
 
-	var noRimShader = newShader('adjustColor');
-	noRimShader.setFloat('hue', -10);
-	noRimShader.setFloat('saturation', -23);
-	noRimShader.setFloat('brightness', -66);
-	noRimShader.setFloat('contrast', 24);
+	var noRimShader = new AdjustColorShader(-66, -10, 24, -23);
 
-	aBotPixelBody.shader = noRimShader;
-	stereoBG.shader = noRimShader;
-	abotHead.shader = noRimShader;
-	abotVis.shader = noRimShader;
+	aBotPixelBody.shader = noRimShader.shader;
+	stereoBG.shader = noRimShader.shader;
+	abotHead.shader = noRimShader.shader;
+	abotVis.shader = noRimShader.shader;
 	aBotPixelSpeaker.shader = abotSpeakerShader;
 }
 

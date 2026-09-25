@@ -1,7 +1,7 @@
 import openfl.filters.ShaderFilter;
 
 import funkin.game.shaders.RainShader;
-import funkin.game.shaders.AdjustColor;
+import funkin.game.shaders.AdjustColorShader;
 
 import animate.FlxAnimateFrames;
 import animate.FlxAnimate;
@@ -254,11 +254,7 @@ function onCreatePost()
 		if(!noteTypes.contains(note.noteType)) noteTypes.push(note.noteType);
 	}
 	
-	colorShader = new AdjustColor();
-    colorShader.hue = -5;
-    colorShader.saturation = -40;
-    colorShader.contrast = -25;
-    colorShader.brightness = -20;
+	colorShader = new AdjustColorShader(-20, -5, -25, -40);
 
 	dad.shader = gf.shader = boyfriend.shader = colorShader.shader;
 

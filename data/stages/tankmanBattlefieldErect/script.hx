@@ -22,6 +22,12 @@ var hasPlayedInGameCutscene = true;
 var cutsceneSkipped:Bool = false;
 var canSkipCutscene:Bool = false;
 
+var cutsceneMusic:FunkinSound;
+var can = true;
+var skipText:FlxText;
+var cutsceneAnim:Bopper;
+var cutsceneTimerManager:FlxTimerManager;
+
 typedef CrowdAnim =
 {
 	var time:Float;
@@ -248,12 +254,6 @@ function onUpdate(elapsed)
 	}
 }
 
-var cutsceneMusic:FunkinSound;
-var can = true;
-var skipText:FlxText;
-var cutsceneAnim:Bopper;
-var cutsceneTimerManager:FlxTimerManager;
-
 function onStartCountdown()
 {
 	if (can && songName.toLowerCase().replace(' ', '-') == "stress-(pico-mix)")
@@ -264,7 +264,7 @@ function onStartCountdown()
 
 		cutsceneTimerManager = new FlxTimerManager();
 
-		skipText = new FlxText(821, 618, 0, 'Skip [ Z ]', 20);
+		skipText = new FlxText(936, 618, 0, 'Skip [ Z ]', 20);
 
 		skipText.setFormat(Paths.font('vcr.ttf'), 40, 0xFFFFFFFF, "right", FlxTextBorderStyle.OUTLINE, 0xFF000000);
 		skipText.scrollFactor.set();

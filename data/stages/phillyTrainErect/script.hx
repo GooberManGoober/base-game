@@ -1,7 +1,7 @@
 import funkin.objects.FunkinSprite;
 import flixel.util.FlxTimerManager;
 
-import funkin.game.shaders.AdjustColor;
+import funkin.game.shaders.AdjustColorShader;
 
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowGradient;
 import funkin.objects.stageobjects.PhillyGlow.PhillyGlowParticle;
@@ -16,7 +16,7 @@ var phillyTrain:FlxSprite;
 var blammedLightsBlack:FlxSprite;
 var phillyWindowEvent:FlxSprite;
 var trainSound:FlxSound;
-var colorShader:AdjustColor;
+var colorShader:AdjustColorShader;
 
 var trainEnabled:Bool = true;
 
@@ -37,11 +37,7 @@ var controls = Controls.instance;
 */
 function onLoad()
 {
-	colorShader = new AdjustColor();
-    colorShader.hue = -26;
-    colorShader.saturation = -16;
-    colorShader.contrast = 0;
-    colorShader.brightness = -5;
+	colorShader = new AdjustColorShader(-5, -26, 0, -16);
 
 	var sky:FlxSprite = new FlxSprite(-100, 0).loadGraphic(Paths.image("backgrounds/philly/erect/sky"));
 	sky.zIndex = 10;
@@ -116,7 +112,7 @@ function onStartCountdown()
 		canDoPicoShit = true;
 		camHUD.alpha = 0;
 
-		skipText = new FlxText(821, 618, 0, 'Skip [ ACCEPT ]', 20);
+		skipText = new FlxText(936, 618, 0, 'Skip [ Z ]', 20);
 
 		skipText.setFormat(Paths.font('vcr.ttf'), 40, 0xFFFFFFFF, "right", FlxTextBorderStyle.OUTLINE, 0xFF000000);
 		skipText.scrollFactor.set();

@@ -1,4 +1,4 @@
-import funkin.game.shaders.AdjustColor;
+import funkin.game.shaders.AdjustColorShader;
 
 using StringTools;
 
@@ -70,18 +70,14 @@ function onLoad()
 function onCreatePost()
 {
 	// Create a single color shader and reuse it.
-    var colorShader:AdjustColor = new AdjustColor();
-    colorShader.hue = 5;
-    colorShader.saturation = 20;
+    var colorShader:AdjustColorShader = new AdjustColorShader(0, 5, 0, 20);
 
     santa.shader = colorShader.shader;
 	dad.shader = colorShader.shader;
 	gf.shader = colorShader.shader;
 	boyfriend.shader = colorShader.shader;
 
-    var colorShaderBoppers = new AdjustColor();
-    colorShaderBoppers.hue = 15;
-    colorShaderBoppers.brightness = 20;
+    var colorShaderBoppers = new AdjustColorShader(20, 15, 0, 0);
     bottomBoppers.shader = colorShaderBoppers.shader;
 
 }
@@ -109,7 +105,7 @@ function startCutscene()
 	if (camFollowTween != null) camFollowTween.cancel();
 	if (camZoomTween != null) camZoomTween.cancel();
 	
-	skipText = new FlxText(821, 618, 0, 'Skip [ ACCEPT ]', 20);
+	skipText = new FlxText(936, 618, 0, 'Skip [ Z ]', 20);
 
 	skipText.setFormat(Paths.font('vcr.ttf'), 40, 0xFFFFFFFF, "right", FlxTextBorderStyle.OUTLINE, 0xFF000000);
 	skipText.scrollFactor.set();
@@ -197,7 +193,7 @@ function onUpdate(elapsed)
 {
 	if (skipText != null)
 	{
-		if (controls.ACCEPT && !cutsceneSkipped)
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && !cutsceneSkipped)
 		{
 			if (!canSkipCutscene)
 			{
@@ -209,7 +205,7 @@ function onUpdate(elapsed)
 			}
 		}
 	
-		if (controls.ACCEPT && canSkipCutscene && !cutsceneSkipped)
+		if ((controls.ACCEPT || FlxG.keys.justPressed.Z) && canSkipCutscene && !cutsceneSkipped)
 		{
 			camOther.fade(0xFF000000, 0.5, false, null, true);
 			FlxTween.tween(skipText, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});

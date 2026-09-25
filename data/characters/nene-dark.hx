@@ -1,4 +1,5 @@
 import funkin.objects.stageobjects.ABotVis;
+import funkin.game.shaders.AdjustColorShader;
 import funkin.backend.Conductor;
 
 import animate.FlxAnimateFrames;
@@ -55,16 +56,11 @@ function onCreatePost()
 	
 	aBot.add(abotSpeaker);
 
-	vizAdjustColor = newShader('adjustColor');
-
-    vizAdjustColor.setFloat('brightness', -12);
-    vizAdjustColor.setFloat('hue', -26);
-    vizAdjustColor.setFloat('contrast', 0);
-    vizAdjustColor.setFloat('saturation', -45);
+	vizAdjustColor = new AdjustColorShader(-12, -26, 0, -45);
 
     for (spr in aBot.members)
     {
-      spr.shader = vizAdjustColor;
+      spr.shader = vizAdjustColor.shader;
     }
 
 	tempAnalyzer();
