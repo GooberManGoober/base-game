@@ -2,6 +2,7 @@ final pixelZoom:Float = 6.0;
 final yAdjust = -50;
 
 function onCreatePost() {
+    introSoundsSuffix = "-pixel";
 	for (i in [boyfriendGroup, dadGroup]) {
 		for (j in i.members)
 			j.camDisplacement = 10;
