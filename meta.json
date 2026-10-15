@@ -5,5 +5,7 @@
 
     "windowTitle": "Friday Night Funkin",
     "iconFile": "UI/icon64",
-    "defaultTransition": "swipe"
+    "defaultTransition": "swipe",
+
+    "defaultHUDClass": "BaseGameHUD"
 }
