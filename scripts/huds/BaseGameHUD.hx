@@ -140,8 +140,6 @@ function onUpdate(elapsed)
     updateIconsAnimation();
     updateHealthBar();
 
-    trace(comboPrefix);
-
     if (FlxG.keys.justPressed.NINE && parent.canAccessEditors)
     {
         if (iconP1.characterName == parent.boyfriend.healthIcon) iconP1.changeIcon('bf-old');

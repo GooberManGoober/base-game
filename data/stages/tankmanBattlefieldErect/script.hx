@@ -424,6 +424,8 @@ function loadEndcutscene()
 	add(bgSprite);
 	bgSprite.alpha = 0;
 
+	canPause = false;
+
 	startEndCutscene();
 }
 
