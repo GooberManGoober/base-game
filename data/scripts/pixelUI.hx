@@ -25,7 +25,7 @@ function onPopUpScorePost(note, ratingData, rating, numGroup) {
 	rating.y += yAdjust * 1.2;
 
 	var daLoop = 0;
-	for (numScore in playHUD.ratingNumGroup.members) {
+	for (numScore in numGroup.members) {
 		numScore.antialiasing = false;
 		numScore.setScale(6, 6);
 		numScore.y += yAdjust;

@@ -502,7 +502,7 @@ function onStartCountdown()
 						cameraSpeed = 1;
 						
 						playHUD.visible = true;
-						for (i in [playHUD.healthBar, playHUD.iconP1, playHUD.iconP2, playHUD.scoreTxt])
+						for (i in [healthBar, iconP1, iconP2, scoreTxt])
 						{
 							var ogPos = i.y;
 							i.y += (ClientPrefs.downScroll ? -250 : 250);

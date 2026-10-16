@@ -12,12 +12,3 @@ function onCreatePost()
         opponentStrums.underlayAlphaMult = 0;
     }
 }
-
-function onUpdate()
-{
-    if (FlxG.keys.justPressed.NINE)
-    {
-        if (iconP1.characterName == boyfriend.healthIcon) iconP1.changeIcon('bf-old');
-        else iconP1.changeIcon(boyfriend.healthIcon, true);
-    }
-}

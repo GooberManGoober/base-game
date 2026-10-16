@@ -10,10 +10,10 @@ import funkin.objects.HealthIcon;
 import funkin.FunkinAssets;
 import funkin.utils.MathUtil;
 
-var healthBar:Bar;
-var iconP1:HealthIcon;
-var iconP2:HealthIcon;
-var scoreTxt:FlxText;
+public var healthBar:Bar;
+public var iconP1:HealthIcon;
+public var iconP2:HealthIcon;
+public var scoreTxt:FlxText;
 
 var healthLerp:Float = 1;
 
@@ -118,10 +118,7 @@ public function updateIconsAnimation()
     iconP2.updateIconAnim((100 - healthBar.percent) * 0.01);
 }
 
-function updateHealthBar()
-{
-    healthLerp = FlxMath.lerp(healthLerp, parent.health, .2 / (ClientPrefs.framerate / 60));
-}
+function updateHealthBar() healthLerp = FlxMath.lerp(healthLerp, parent.health, .2 / (ClientPrefs.framerate / 60));
 
 public function reloadHealthBarColors()
 {
@@ -142,6 +139,14 @@ function onUpdate(elapsed)
     updateIconsScale(elapsed);
     updateIconsAnimation();
     updateHealthBar();
+
+    trace(comboPrefix);
+
+    if (FlxG.keys.justPressed.NINE && parent.canAccessEditors)
+    {
+        if (iconP1.characterName == parent.boyfriend.healthIcon) iconP1.changeIcon('bf-old');
+        else iconP1.changeIcon(parent.boyfriend.healthIcon, true);
+    }
 
     if (!parent.startingSong && !parent.paused && parent.updateTime && !parent.endingSong)
     {
